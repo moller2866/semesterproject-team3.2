@@ -1,4 +1,4 @@
-package worldOfZuul;
+package worldOfZuul.src;
 
 public enum Commands
 {

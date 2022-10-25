@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package worldOfZuul.textUI;
+package worldOfZuul.src.textUI;
 
-import worldOfZuul.Command;
-import worldOfZuul.Commands;
-import worldOfZuul.Game;
+import worldOfZuul.src.Command;
+import worldOfZuul.src.Commands;
+import worldOfZuul.src.Game;
 
 /**
  *
