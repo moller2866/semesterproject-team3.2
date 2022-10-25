@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package worldOfZuul.src.textUI;
+package oceanCleanup.src.textUI;
 
 /**
  *
  * @author ancla
  */
-public class WorldOfZuulApplication {
+public class OceanCleanupApplication {
 
     /**
      * @param args the command line arguments

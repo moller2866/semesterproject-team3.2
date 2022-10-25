@@ -1,4 +1,4 @@
-package worldOfZuul.src;
+package oceanCleanup.src;
 
 public enum Commands
 {

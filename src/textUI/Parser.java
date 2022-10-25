@@ -1,8 +1,8 @@
-package worldOfZuul.src.textUI;
+package oceanCleanup.src.textUI;
 
 import java.util.Scanner;
-import worldOfZuul.src.Command;
-import worldOfZuul.src.Game;
+import oceanCleanup.src.Command;
+import oceanCleanup.src.Game;
 
 public class Parser 
 {

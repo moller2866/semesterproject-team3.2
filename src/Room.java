@@ -1,4 +1,4 @@
-package worldOfZuul.src;
+package oceanCleanup.src;
 
 import java.util.Set;
 import java.util.HashMap;

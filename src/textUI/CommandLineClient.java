@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package worldOfZuul.src.textUI;
+package oceanCleanup.src.textUI;
 
-import worldOfZuul.src.Command;
-import worldOfZuul.src.Commands;
-import worldOfZuul.src.Game;
+import oceanCleanup.src.Command;
+import oceanCleanup.src.Commands;
+import oceanCleanup.src.Game;
 
 /**
  *

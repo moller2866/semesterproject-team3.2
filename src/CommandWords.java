@@ -1,5 +1,5 @@
 
-package worldOfZuul.src;
+package oceanCleanup.src;
 
 import java.util.List;
 
