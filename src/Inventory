@@ -1,0 +1,66 @@
+package oceanCleanup.src;
+import java.util.ArrayList;
+
+public class Inventory {
+
+    String items;
+
+    static String type;
+
+
+
+    public Inventory(String type) {
+
+    }
+
+    public Inventory() {
+
+    }
+
+    static ArrayList<String> Inventory = new ArrayList<String>();
+
+
+    public int getInventory(){
+
+        return Inventory.size();
+
+
+
+    }
+
+
+
+
+
+    public void addItem(){
+
+        Inventory.add(items);
+        Inventory.add(items);
+
+        System.out.print("you have added an item");
+
+    }
+
+
+    public void removeItem(){
+        Inventory.remove(items);
+
+        System.out.print("you have dropped an item");
+
+
+    }
+
+
+
+
+    public static void main(String args[]) {
+        Inventory.add("bucket");
+        for (int i = 0; i < Inventory.size(); i++) {
+            System.out.println(Inventory.get(i));
+
+            System.out.print(Inventory.size());
+}
+
+
+
+        }
