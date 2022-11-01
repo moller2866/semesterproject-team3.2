@@ -1,0 +1,66 @@
+import java.io.*;
+import java.lang.reflect.Array;
+import java.util.*;
+
+public class bucket {
+
+    String items;
+
+    static String item;
+
+
+
+    public bucket(String item) {
+
+    }
+
+    public bucket() {
+
+    }
+
+
+    public String getInventory(){
+        return items;
+    }
+
+    static Set<String> bucket = new HashSet<String>();
+
+    public void addItem(){
+
+        bucket.add("Trash");
+        bucket.add("Fish");
+        bucket.add("Water");
+
+
+
+
+    }
+
+
+    public void removeItem(){
+        bucket.remove(item);
+
+    }
+
+    public Set<String> getInventoryList() {
+        return bucket;
+    }
+
+
+    public static void main(String args[]){
+
+        bucket inventory;
+        inventory = new bucket();
+        bucket i1 = new bucket("you have picked up a bom");
+        bucket i2 = new bucket("you have picked up some plastic");
+        bucket i3 = new bucket("a fish");
+        bucket i4 = new bucket("you gained some water");
+
+        System.out.println((i1));
+        System.out.println((i2));
+        System.out.println((i3));
+        System.out.println((i4));
+
+    }
+    }
+
