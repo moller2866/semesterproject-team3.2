@@ -31,13 +31,21 @@ public class CommandLineClient {
             Command command = parser.getCommand();
             finished = processCommand(command);
         }
-        System.out.println("Thank you for playing.  Good bye.");
+        System.out.println();
+        System.out.println("Thank you for your help. Good bye.");
     }
 
     private void printWelcome() {
         System.out.println();
-        System.out.println("Welcome to the World of Zuul!");
-        System.out.println("World of Zuul is a new, incredibly boring adventure game.");
+        System.out.println("> Welcome to The Ocean Cleanup adventure game <");
+        System.out.println();
+        System.out.println("This game is based on The Ocean Cleanup Project.");
+        System.out.println("It is a non-profit organization developing and "
+                            +"\n"+
+                            "scaling technologies to rid the oceans of plastic.");
+        System.out.println();
+        System.out.println("We need your help, so get ready!");
+        System.out.println();
         System.out.println("Type '" + Commands.HELP + "' if you need help.");
         System.out.println();
         System.out.println(game.getRoomDescription());
@@ -62,10 +70,12 @@ public class CommandLineClient {
         }
 
         if (commandWord == Commands.HELP) {
-            System.out.println("You are lost. You are alone. You wander");
-            System.out.println("around at the university.");
             System.out.println();
-            System.out.println("Your command words are:");
+            System.out.println("You are lost. You don't know what to do."
+                    + "\n" +
+                    "You wander around.");
+            System.out.println();
+            System.out.println("You have the following commands:");
             printHelp();
         } else if (commandWord == Commands.GO) {
             if (game.goRoom(command)) {
