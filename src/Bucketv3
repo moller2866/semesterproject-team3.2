@@ -1,0 +1,60 @@
+import java.util.ArrayList;
+
+public class bucket {
+
+    String items;
+
+    static String item;
+    
+
+
+    public bucket(String item) {
+
+    }
+
+    public bucket() {
+
+    }
+
+    static ArrayList<String> bucket = new ArrayList<String>();
+    public void getbucket(){
+
+        for (int print = 0; print<bucket.size();print++)
+            System.out.print(bucket.get(print) + "hi");
+
+    }
+
+
+
+
+
+    public void addItem(){
+
+        bucket.add("item");
+        bucket.add("item");
+        bucket.add("item");
+
+    }
+
+
+    public void removeItem(){
+        bucket.remove("item");
+
+
+    }
+
+
+
+
+    public static void main(String args[]){
+        for (int print = 0; print<bucket.size();print++)
+            System.out.print(bucket.get(print) + "this is your inventory");
+
+        System.out.print(bucket);
+
+
+        }
+
+    }
+
+
