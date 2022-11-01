@@ -19,10 +19,13 @@ public class Bucket extends Tools {
         return null;
     }
 
-    public void addToBucket (Item plastic) {
+    public boolean addToBucket (Item plastic) {
         if (content.size() < 10) {
             content.add(plastic);
-        } else {}
+            return true;
+        } else {
+            return false;
+        }
 
     }
 
