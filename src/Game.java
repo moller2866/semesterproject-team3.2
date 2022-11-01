@@ -13,13 +13,14 @@ public class Game {
     }
 
     private void createRooms() {
-        Room dock, recyclingCenter, ship, wheelhouse, ocean;
+        Room dock, recyclingCenter, ship, wheelhouse, ocean, container;
 
         dock = new Room("on the dock at the shipyard");
         recyclingCenter = new Room("in the recycling center");
         ship = new Room("onboard the ship 002");
         wheelhouse = new Room("in the ship's wheelhouse");
         ocean = new Room("on the Pacific Ocean");
+        container = new Room("in the container for plastic waste");
 
 
         dock.setExit("east", recyclingCenter);
@@ -27,6 +28,9 @@ public class Game {
 
 
         recyclingCenter.setExit("west", dock);
+        recyclingCenter.setExit("east", container);
+
+        container.setExit("west", recyclingCenter );
 
         ship.setExit("south", dock);
         ship.setExit("west", wheelhouse);
