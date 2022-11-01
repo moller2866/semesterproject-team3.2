@@ -1,0 +1,62 @@
+
+import java.util.*;
+
+public class bucket {
+
+    String items;
+
+    static String item;
+
+    String plastic;
+    String water;
+    String fish;
+
+
+
+    public bucket(String item) {
+
+    }
+
+    public bucket() {
+
+    }
+
+
+    public static void getbucket(){
+        String [] array = {"you have a , fish"  ,  "plastic",  "water"};
+        for (String bucket: array){
+            System.out.print(bucket);
+        }
+
+    }
+
+    static Set<String> bucket = new HashSet<String>();
+
+    public void addItem(){
+
+        bucket.add("plastic 2");
+        bucket.add("string");
+        bucket.add("bag");
+
+
+
+
+    }
+
+
+    public void removeItem(){
+        bucket.remove("plastic 2");
+
+
+    }
+
+
+
+
+    public static void main(String args[]){
+        getbucket();
+        }
+
+    }
+
+
