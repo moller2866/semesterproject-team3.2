@@ -13,32 +13,31 @@ public class Game {
     }
 
     private void createRooms() {
-        Room outside, theatre, pub, lab, office, home;
+        Room dock, recyclingCenter, ship, wheelhouse, ocean;
 
-        outside = new Room("outside the main entrance of the university");
-        theatre = new Room("in a lecture theatre");
-        pub = new Room("in the campus pub");
-        lab = new Room("in a computing lab");
-        office = new Room("in the computing admin office");
-        home = new Room("You went home");
+        dock = new Room("on the dock at the shipyard");
+        recyclingCenter = new Room("in the recycling center");
+        ship = new Room("onboard the ship 002");
+        wheelhouse = new Room("in the ship's wheelhouse");
+        ocean = new Room("on the Pacific Ocean");
 
-        outside.setExit("east", theatre);
-        outside.setExit("south", lab);
-        outside.setExit("west", pub);
-        outside.setExit("north", home);
 
-        theatre.setExit("west", outside);
+        dock.setExit("east", recyclingCenter);
+        dock.setExit("north", ship);
 
-        pub.setExit("east", outside);
 
-        lab.setExit("north", outside);
-        lab.setExit("east", office);
+        recyclingCenter.setExit("west", dock);
 
-        office.setExit("west", lab);
+        ship.setExit("south", dock);
+        ship.setExit("west", wheelhouse);
 
-        home.setExit("south", outside);
+        wheelhouse.setExit("east", ship);
+        wheelhouse.setExit("north", ocean);
 
-        currentRoom = outside;
+        ocean.setExit("south", wheelhouse);
+
+
+        currentRoom = dock;
     }
 
     public boolean goRoom(Command command) {
