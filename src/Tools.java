@@ -3,20 +3,18 @@ package oceanCleanup.src;
 /*
 *  Abstract class as a template for tools
 *  Every tool must have a getName and
-*  getToolInfo method
+*  getInfo method
 */
 
-public abstract class Tools {
-    private String name;
+public abstract class Tools extends Item {
 
     Tools (String name) {
-        this.name = name;
+        super(name);
     }
 
-    public String getName() {
-        return name;
+    public String getInfo() {
+        return null;
     }
 
-    public abstract String getToolInfo();
 
 }

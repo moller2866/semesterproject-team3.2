@@ -1,34 +1,14 @@
 package oceanCleanup.src;
 
-/**
- * Item class to create different types of items in game
- * e.g. plastic garbage to be picked up by player
- */
+public abstract class Item implements Interactable{
+    String name;
 
-public class Item {
-    String type;
-    static int count;
-
-    public Item(String type) {
-        this.type = type;
-        count += 1;
+    public Item(String name) {
+        this.name = name;
     }
 
-    public String getType() {
-        return type;
+    public String getName() {
+        return name;
     }
 
-    // Test main method
-    public static void main(String[] args) {
-        Bucket myBucket = new Bucket();
-        Item item1 = new Item("plastic");
-        Item item2 = new Item("microplastic");
-        System.out.println(Item.count);
-        myBucket.addToBucket(item1);
-        myBucket.addToBucket(item2);
-        System.out.println(myBucket.seeBucketContent());
-        System.out.println(myBucket.seeBucketSize());
-        myBucket.emptyBucket();
-
-    }
 }
