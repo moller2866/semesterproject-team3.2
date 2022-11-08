@@ -10,16 +10,16 @@ import java.util.ArrayList;
 
 public class Bucket extends Tools {
 
-    ArrayList<Item> content = new ArrayList<>();
+    ArrayList<Plastic> content = new ArrayList<>();
     Bucket() {
         super("Bucket");
     }
 
-    public String getToolInfo() {
+    public String getInfo() {
         return null;
     }
 
-    public boolean addToBucket (Item plastic) {
+    public boolean addPlastic (Plastic plastic) {
         if (content.size() < 10) {
             content.add(plastic);
             return true;
@@ -29,22 +29,36 @@ public class Bucket extends Tools {
 
     }
 
-    public String seeBucketContent () {
+    public String getContent () {
         String temp = "";
         for (Item p : content) {
-            String type = p.getType();
+            String type = p.getName();
             temp += type + ", ";
         }
         return temp;
     }
 
-    public int seeBucketSize () {
+    public int getSize () {
         return content.size();
     }
 
-    public void emptyBucket () {
+    public void empty () {
         content.clear();
     }
 
 
+    @Override
+    public boolean isInteractable() {
+        return true;
+    }
+
+    @Override
+    public Item pickUp() {
+        return null;
+    }
+
+    @Override
+    public Item drop() {
+        return null;
+    }
 }
