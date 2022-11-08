@@ -16,11 +16,11 @@ public class Game {
         Room dock, recyclingCenter, ship, wheelhouse, ocean, container;
 
         dock = new Room("on the dock at the shipyard");
-        recyclingCenter = new Room("in the recycling center");
-        ship = new Room("onboard the ship 002");
-        wheelhouse = new Room("in the ship's wheelhouse");
-        ocean = new Room("on the Pacific Ocean");
-        container = new Room("in the container for plastic waste");
+        recyclingCenter = new Room("in the recycling center.\nYou see a guy with a reflex vest. He might be working here?");
+        ship = new Room("onboard the ship 002\nYou see a lot of plastic.\nMaybe you can help the captain to unload the cargo?");
+        wheelhouse = new Room("in the ship's wheelhouse.\nThe captain is here.\nHe greets you with a 'g'day mate!'.");
+        ocean = new Room("on the Pacific Ocean.\nYou see the overview of two ships dragging a big net\nThey are gathering plastic from the ocean.");
+        container = new Room("in the container for plastic waste.\nPlastic should be dropped in this container.");
 
 
         dock.setExit("east", recyclingCenter);

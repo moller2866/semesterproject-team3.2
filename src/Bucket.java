@@ -20,7 +20,7 @@ public class Bucket extends Tools {
     }
 
     public boolean addPlastic (Plastic plastic) {
-        if (content.size() < 10) {
+        if (content.size() <= 10) {
             content.add(plastic);
             return true;
         } else {
