@@ -28,7 +28,7 @@ public class Room {
         return items.get(index);
     }
 
-    public String getRoomItems() {
+    public String getAllItemNames() {
         String output = "";
         for (int i = 0; i < items.size(); i++) {
             output += items.get(i).getName() + " ";
@@ -51,9 +51,9 @@ public class Room {
             returnString += " " + exit;
         }
         returnString += "\nItems: "
-                + getRoomItems();
+                + getAllItemNames();
         returnString += "\nPeople: "
-                + getRoomNPC();
+                + getAllNPCNames();
         return returnString;
     }
 
@@ -70,7 +70,7 @@ public class Room {
         return NPC.get(index);
     }
 
-    public String getRoomNPC() {
+    public String getAllNPCNames() {
         String output = "";
         for (int i = 0; i < NPC.size(); i++) {
             output += NPC.get(i).getName() + " ";

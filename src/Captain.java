@@ -2,24 +2,24 @@ package oceanCleanup.src;
 
 public class Captain extends NPC {
 
-    private String dialouge;
+    private String talk;
 
     Captain(String name) {
         super(name, "Captain");
     }
 
 
-    public void setDialouge(String dialouge) {
-        dialougeText.add(dialouge);
+    public void setTalk(String talk) {
+        talkText.add(talk);
     }
 
-    public String getDialouge() {
-        return dialouge;
+    public String getTalk() {
+        return talk;
     }
 
     @Override
-    public void startDialouge() {
-        System.out.println(getDialouge());
+    public void startTalk() {
+        System.out.println(getTalk());
     }
 
 

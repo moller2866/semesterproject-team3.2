@@ -6,7 +6,7 @@ public abstract class NPC {
 
     protected String name;
     protected String job;
-    protected ArrayList<String> dialougeText = new ArrayList<>();
+    protected ArrayList<String> talkText = new ArrayList<>();
 
     public NPC (String name, String job) {
         this.name = name;
@@ -22,6 +22,6 @@ public abstract class NPC {
         return job;
     }
 
-    public abstract void startDialouge();
+    public abstract void startTalk();
 
 }
