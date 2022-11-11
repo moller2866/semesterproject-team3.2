@@ -4,8 +4,12 @@ import java.util.ArrayList;
 
 public class Inventory {
 
-    ArrayList<Item> items = new ArrayList<>(2);
+    ArrayList<Item> items = new ArrayList<>();
+    int limit;
 
+    public Inventory(int limit) {
+        this.limit = limit;
+    }
 
     public ArrayList<Item> getInventory() {
         return items;
@@ -13,9 +17,13 @@ public class Inventory {
     }
 
 
-    public void addItem(Item item) {
-        items.add(item);
-
+    public boolean addItem(Item item) {
+        if (items.size() < this.limit) {
+            items.add(item);
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
@@ -38,12 +46,14 @@ public class Inventory {
 
     // test
     public static void main(String[] args) {
-        Inventory K = new Inventory();
-        Item item = new Tool("bucket");
+        Inventory K = new Inventory(2);
+        Item item = new Bucket();
         Item item2 = new Plastic("Micro");
+        Item item3 = new Plastic("Micro");
 
         K.addItem(item);
         K.addItem(item2);
+        K.addItem(item3);
 
         try {
             System.out.println(K.remove("bucket2").getName());
