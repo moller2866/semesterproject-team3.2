@@ -1,14 +1,14 @@
 package oceanCleanup.src;
 
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashMap;
-import java.util.Iterator;
-
 
 public class Room 
 {
     private String description;
     private HashMap<String, Room> exits;
+    private ArrayList<Item> items = new ArrayList<>();
 
     public Room(String description) 
     {
@@ -19,6 +19,22 @@ public class Room
     public void setExit(String direction, Room neighbor) 
     {
         exits.put(direction, neighbor);
+    }
+
+    public void setItem(Item newItem) {
+        items.add(newItem);
+    }
+
+    public Item getItem (int index) {
+        return items.get(index);
+    }
+
+    public String getRoomItems() {
+        String output = "";
+        for (int i = 0; i < items.size(); i++) {
+            output += items.get(i).getName() + " ";
+        }
+        return output;
     }
 
     public String getShortDescription()
@@ -38,6 +54,8 @@ public class Room
         for(String exit : keys) {
             returnString += " " + exit;
         }
+        returnString += "\nItems: "
+                +getRoomItems();
         return returnString;
     }
 
