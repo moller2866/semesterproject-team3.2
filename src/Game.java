@@ -22,13 +22,11 @@ public class Game {
         ocean = new Room("on the Pacific Ocean.\nYou see the overview of two ships dragging a big net\nThey are gathering plastic from the ocean.");
         container = new Room("in the container for plastic waste.\nPlastic should be dropped in this container.");
 
-
         dock.setExit("east", recyclingCenter);
         dock.setExit("north", ship);
         dock.setItem(new Plastic("plastic"));
         dock.setNPC(new Captain("John"));
         dock.setNPC(new Captain("Stones"));
-
 
         recyclingCenter.setExit("west", dock);
         recyclingCenter.setExit("east", container);

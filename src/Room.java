@@ -73,10 +73,9 @@ public class Room {
     public String getAllNPCNames() {
         String output = "";
         for (int i = 0; i < NPC.size(); i++) {
-            if (i<NPC.size()-1) {
-                output += NPC.get(i).getName() + " & ";
-            } else if (i == NPC.size()-1) {
-                output += NPC.get(i).getName();
+           output += NPC.get(i).getName();
+           if (i != NPC.size()-1) {
+               output += " & ";
             }
         }
         return output;
