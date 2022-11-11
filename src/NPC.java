@@ -22,6 +22,14 @@ public abstract class NPC {
         return job;
     }
 
-    public abstract void startTalk();
+    public abstract void setTalk(String talk);
+
+    public String startTalk() {
+        String output = "";
+        for (String s : talkText) {
+            output += s +"\n";
+        }
+        return output;
+    }
 
 }

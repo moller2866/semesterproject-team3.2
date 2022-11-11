@@ -89,7 +89,8 @@ public class CommandLineClient {
             } else {
                 System.out.println("Quit what?");
             }
-
+        } else if (commandWord == Commands.TALK) {
+            System.out.println(game.startTalk());
         }
         return wantToQuit;
     }

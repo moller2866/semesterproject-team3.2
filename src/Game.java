@@ -27,6 +27,7 @@ public class Game {
         dock.setExit("north", ship);
         dock.setItem(new Plastic("plastic"));
         dock.setNPC(new Captain("John"));
+        dock.setNPC(new Captain("Stones"));
 
 
         recyclingCenter.setExit("west", dock);
@@ -73,6 +74,18 @@ public class Game {
             return true;
         }
     }
+
+    public String startTalk () {
+        if (currentRoom.hasNPC()) {
+            String output = "";
+            for (int i = 0; i < currentRoom.getNPCAmount(); i++) {
+                output += currentRoom.getNPC(i).startTalk()+ "\n";
+            }
+            return output;
+        }
+        return "You are talking with yourself. Kinda weird...";
+    }
+
 
     public String getRoomDescription() {
         return currentRoom.getLongDescription();
