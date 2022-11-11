@@ -4,20 +4,19 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashMap;
 
-public class Room 
-{
+public class Room {
     private String description;
     private HashMap<String, Room> exits;
     private ArrayList<Item> items = new ArrayList<>();
+    private ArrayList<NPC> NPC = new ArrayList<>();
 
-    public Room(String description) 
-    {
+
+    public Room(String description) {
         this.description = description;
         exits = new HashMap<String, Room>();
     }
 
-    public void setExit(String direction, Room neighbor) 
-    {
+    public void setExit(String direction, Room neighbor) {
         exits.put(direction, neighbor);
     }
 
@@ -25,7 +24,7 @@ public class Room
         items.add(newItem);
     }
 
-    public Item getItem (int index) {
+    public Item getItem(int index) {
         return items.get(index);
     }
 
@@ -37,31 +36,46 @@ public class Room
         return output;
     }
 
-    public String getShortDescription()
-    {
+    public String getShortDescription() {
         return description;
     }
 
-    public String getLongDescription()
-    {
+    public String getLongDescription() {
         return "You are " + description + ".\n" + getExitString();
     }
 
-    private String getExitString()
-    {
+    private String getExitString() {
         String returnString = "\nExits:";
         Set<String> keys = exits.keySet();
-        for(String exit : keys) {
+        for (String exit : keys) {
             returnString += " " + exit;
         }
         returnString += "\nItems: "
-                +getRoomItems();
+                + getRoomItems();
+        returnString += "\nPeople: "
+                + getRoomNPC();
         return returnString;
     }
 
-    public Room getExit(String direction) 
-    {
+    public Room getExit(String direction) {
         return exits.get(direction);
     }
-}
 
+
+    public void setNPC(NPC newNPC) {
+        NPC.add(newNPC);
+    }
+
+    public NPC getNPC(int index) {
+        return NPC.get(index);
+    }
+
+    public String getRoomNPC() {
+        String output = "";
+        for (int i = 0; i < NPC.size(); i++) {
+            output += NPC.get(i).getName() + " ";
+        }
+        return output;
+
+    }
+}
