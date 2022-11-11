@@ -22,12 +22,11 @@ public class Game {
         ocean = new Room("on the Pacific Ocean.\nYou see the overview of two ships dragging a big net\nThey are gathering plastic from the ocean.");
         container = new Room("in the container for plastic waste.\nPlastic should be dropped in this container.");
 
-
         dock.setExit("east", recyclingCenter);
         dock.setExit("north", ship);
         dock.setItem(new Plastic("plastic"));
         dock.setNPC(new Captain("John"));
-
+        dock.setNPC(new Captain("Stones"));
 
         recyclingCenter.setExit("west", dock);
         recyclingCenter.setExit("east", container);
@@ -73,6 +72,18 @@ public class Game {
             return true;
         }
     }
+
+    public String startTalk () {
+        if (currentRoom.hasNPC()) {
+            String output = "";
+            for (int i = 0; i < currentRoom.getNPCAmount(); i++) {
+                output += currentRoom.getNPC(i).startTalk()+ "\n";
+            }
+            return output;
+        }
+        return "You are talking with yourself. Kinda weird...";
+    }
+
 
     public String getRoomDescription() {
         return currentRoom.getLongDescription();
