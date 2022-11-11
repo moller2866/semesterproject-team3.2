@@ -6,9 +6,9 @@ package oceanCleanup.src;
 *  getInfo method
 */
 
-public abstract class Tools extends Item {
+public class Tool extends Item {
 
-    Tools (String name) {
+    Tool (String name) {
         super(name);
     }
 

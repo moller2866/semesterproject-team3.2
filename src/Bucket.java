@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Which is an ArrayList
  */
 
-public class Bucket extends Tools {
+public class Bucket extends Tool {
 
     ArrayList<Plastic> content = new ArrayList<>();
     Bucket() {
