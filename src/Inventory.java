@@ -19,14 +19,14 @@ public class Inventory {
     }
 
 
-    public Item remove(String name) throws ItemNotExistingException {
+    public Item remove(String name) throws ItemNonExistingException {
         for (int i = 0; i < items.size(); i++) {
             Item item = items.get(i);
             if (item.getName().equals(name)) {
                 return items.remove(i);
             }
         }
-        throw new ItemNotExistingException();
+        throw new ItemNonExistingException();
     }
 
     @Override
@@ -47,7 +47,7 @@ public class Inventory {
 
         try {
             System.out.println(K.remove("bucket2").getName());
-        } catch (ItemNotExistingException e) {
+        } catch (ItemNonExistingException e) {
             System.out.println(e.getMessage());
         }
         System.out.println();
