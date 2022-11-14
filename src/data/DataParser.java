@@ -1,0 +1,69 @@
+package oceanCleanup.src.data;
+
+import com.fasterxml.jackson.core.exc.StreamReadException;
+import com.fasterxml.jackson.databind.*;
+
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Map;
+
+/**
+ * @author Kasper Møller
+ **/
+public class DataParser {
+    String filename;
+    Map<String, ?> jsonContent;
+
+    /**
+     * @param filename name of the json file
+     */
+    public DataParser(String filename) {
+        this.filename = filename;
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            Map<String, ?> map = mapper.readValue(Paths.get(filename).toFile(), Map.class);
+            this.jsonContent = map;
+            System.out.println(verifyJsonKeys());
+        } catch (StreamReadException e) {
+            throw new RuntimeException(e);
+        } catch (DatabindException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    private boolean verifyJsonKeys() {
+        ArrayList<String> listOfKeys = new ArrayList<>();
+
+        for (Map.Entry<String,?> entry: this.getJsonContent().entrySet()) {
+            listOfKeys.add(entry.getKey());
+        }
+
+        if (!listOfKeys.contains("description")) {
+            return false;
+        }
+        if (!listOfKeys.contains("NPCs")) {
+            return false;
+        }
+        if (!listOfKeys.contains("items")) {
+            return false;
+        }
+        return true;
+    }
+
+    public Map<String, ?> getJsonContent() {
+        return this.jsonContent;
+    }
+
+    public static void main(String[] args) {
+        DataParser parser = new DataParser("test.json");
+
+        System.out.println(parser.getJsonContent().get("NPCs"));
+        System.out.println();
+        System.out.println(parser.getJsonContent().get("items"));
+
+    }
+}
