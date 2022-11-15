@@ -14,8 +14,8 @@ public class Captain extends NPC {
     of plastic in the ocean today, and around 13.000 pieces of
     plastic per square kilometer. So we need help!
     If you want to help then you can start unloading the ship.
-    You can go to the recycling center and talk to the person
-    working there for help.""");
+    You can go to the recycling center east of the dock and talk 
+    to the person working there for help.""");
     }
 
 
