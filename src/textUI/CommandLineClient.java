@@ -8,6 +8,7 @@ package oceanCleanup.src.textUI;
 import oceanCleanup.src.Command;
 import oceanCleanup.src.Commands;
 import oceanCleanup.src.Game;
+import oceanCleanup.src.ItemNonExistingException;
 
 /**
  *
@@ -23,7 +24,7 @@ public class CommandLineClient {
         parser = new Parser(game);
     }
 
-    public void play() {
+    public void play()  {
         printWelcome();
 
         boolean finished = false;
@@ -65,7 +66,7 @@ public class CommandLineClient {
     }
 
     //Controller
-    public boolean processCommand(Command command) {
+    public boolean processCommand(Command command)  {
         boolean wantToQuit = false;
 
         Commands commandWord = command.getCommandName();
@@ -97,6 +98,20 @@ public class CommandLineClient {
             }
         } else if (commandWord == Commands.TALK) {
             System.out.println(game.startTalk());
+        } else if (commandWord == Commands.GET) {
+            if (game.getCommandChecker(command)) {
+                System.out.println("Item were added!");
+            } else {
+                System.out.println("Can't do that");
+            }
+        } else if (commandWord == Commands.DROP) {
+            if (game.dropCommandChecker(command)) {
+                System.out.println("Item were dropped!");
+            } else {
+                System.out.println("Can't do that");
+            }
+        } else if (commandWord == Commands.INVENTORY) {
+            System.out.println(game.seeInventory());
         }
         return wantToQuit;
     }

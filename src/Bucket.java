@@ -64,20 +64,20 @@ public class Bucket extends Tool {
 
     public static void main(String[] args) {
         Bucket buck = new Bucket();
-        Item[] items = {new Plastic("1"),
-                new Plastic("2"),
-                new Plastic("3"),
-                new Plastic("4"),
-                new Plastic("5"),
-                new Plastic("6"),
-                new Plastic("7"),
-                new Plastic("8"),
-                new Plastic("9"),
-                new Plastic("10")};
+        Item[] items = {new Plastic(),
+                new Plastic(),
+                new Plastic(),
+                new Plastic(),
+                new Plastic(),
+                new Plastic(),
+                new Plastic(),
+                new Plastic(),
+                new Plastic(),
+                new Plastic()};
         for (Item p : items) {
             buck.addPlastic((Plastic) p);
         }
-        buck.addPlastic(new Plastic("11")); // should not add this
+        buck.addPlastic(new Plastic()); // should not add this
         System.out.println(buck.getContent());
     }
 }

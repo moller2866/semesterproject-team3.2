@@ -3,8 +3,8 @@ package oceanCleanup.src;
 public class Plastic extends Item{
     static int count;
 
-    public Plastic(String name) {
-        super(name);
+    public Plastic() {
+        super("Plastic");
         count++;
     }
 
