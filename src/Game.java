@@ -25,8 +25,7 @@ public class Game {
         dock.setExit("east", recyclingCenter);
         dock.setExit("north", ship);
         dock.setItem(new Plastic("plastic"));
-        dock.setNPC(new Captain("John"));
-        dock.setNPC(new Captain("Stones"));
+        wheelhouse.setNPC(new Captain("Jack"));
 
         recyclingCenter.setExit("west", dock);
         recyclingCenter.setExit("east", container);

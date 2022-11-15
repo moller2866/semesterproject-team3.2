@@ -40,11 +40,17 @@ public class CommandLineClient {
         System.out.println("> Welcome to The Ocean Cleanup adventure game <");
         System.out.println();
         System.out.println("This game is based on The Ocean Cleanup Project.");
-        System.out.println("It is a non-profit organization developing and "
-                            +"\n"+
-                            "scaling technologies to rid the oceans of plastic.");
         System.out.println();
-        System.out.println("We need your help, so get ready!");
+        System.out.println("""
+                            It is a non-profit organization developing and
+                            scaling technologies to rid the oceans of plastic.""");
+        System.out.println();
+        System.out.println("""
+                We need your help!
+                If you want to help then you should go north and head
+                west to speak to the Captain in the wheelhouse,
+                he will tell you what to do.
+                If you don't care for the planet then type 'quit'""");
         System.out.println();
         System.out.println("Type '" + Commands.HELP + "' if you need help.");
         System.out.println();
