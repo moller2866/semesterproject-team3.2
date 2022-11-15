@@ -87,12 +87,14 @@ public class Game {
                         if (!currentRoom.getItem(i).getName().toLowerCase().equals(secondValue)) {
                             return false;
                         } else if (currentRoom.getItem(i).getName().toLowerCase().equals(secondValue)) {
-                            playerInventory.addItem(currentRoom.getItem(i));
-                            currentRoom.removeItem(currentRoom.getItem(i));
+                            if (playerInventory.addItem(currentRoom.getItem(i))) {
+                                currentRoom.removeItem(currentRoom.getItem(i));
+                                return true;
+                            }
                         }
                     }
                 }
-        return true;
+        return false;
     }
 
     public boolean dropCommandChecker(Command command)  {
@@ -108,7 +110,7 @@ public class Game {
         } else {
             if (secondValue.equals("all")) {
                 dropAllItems();
-                return true;
+                return !dropAllItems();
             } else {
                 for (int i = 0; i < playerInventory.getInventorySize(); i++) {
                     if (!playerInventory.getSingleItem(i).getName().toLowerCase().equals(secondValue)) {
@@ -163,8 +165,14 @@ public class Game {
     }
 
     // virker ikke
-    public String dropAllItems() {
-        return "lort";
+    public boolean dropAllItems() {
+        if (!playerInventory.isInventoryEmpty()) {
+            currentRoom.setItem(playerInventory.removeAllFromInventory());
+            return true;
+        }
+    return false;
     }
+
+
 
 }

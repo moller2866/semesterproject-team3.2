@@ -30,11 +30,11 @@ public class Inventory {
         }
     }
 
-    public ArrayList<Item> removeAllFromInventory (ArrayList<Item> input) {
-        ArrayList<Item> returnedArrayList = new ArrayList<>();
-        input.addAll(returnedArrayList);
-        input.clear();
-        return returnedArrayList;
+    public ArrayList<Item> removeAllFromInventory () {
+        ArrayList<Item> temp = new ArrayList<>();
+        temp.addAll(items);
+        items.clear();
+        return temp;
     }
 
     public boolean isInventoryEmpty() {
@@ -63,27 +63,29 @@ public class Inventory {
 
     @Override
     public String toString() {
-        return "Inventory " +
-                "items = " + items;
+        String temp = "";
+        for (Item item : items) {
+            temp += "- " + item.getName() + "\n";
+        }
+        return "Inventory: \n"
+                + temp;
     }
 
     // test
     public static void main(String[] args) {
         Inventory K = new Inventory(2);
-        Item item = new Bucket();
         Item item2 = new Plastic();
         Item item3 = new Plastic();
 
-        K.addItem(item);
         K.addItem(item2);
         K.addItem(item3);
 
 
 
-            System.out.println(K.remove("bucket2").getName());
-
+        System.out.println(K.removeAllFromInventory());
         System.out.println();
         System.out.println(K);
+
     }
 
 }

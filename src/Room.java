@@ -45,7 +45,9 @@ public class Room {
     }
 
     public int getItemAmount () {
-        return items.size();
+        ArrayList<Item> temp = new ArrayList<>();
+        temp.addAll(items);
+        return temp.size();
     }
 
     public String getAllItemNames() {
