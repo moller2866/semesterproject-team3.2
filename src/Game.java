@@ -27,12 +27,15 @@ public class Game {
 
         dock.setExit("east", recyclingCenter);
         dock.setExit("north", ship);
-        dock.setItem(new Plastic("plastic"));
-        wheelhouse.setNPC(new Captain("Jack"));
-        recyclingCenter.setNPC(new Worker("Brian"));
+        dock.setItem(new Plastic());
+        dock.setItem(new Plastic());
+        dock.setItem(new Plastic());
+
+
 
         recyclingCenter.setExit("west", dock);
         recyclingCenter.setExit("east", container);
+        recyclingCenter.setNPC(new Worker("Brian"));
 
         container.setExit("west", recyclingCenter );
 
@@ -41,6 +44,7 @@ public class Game {
 
         wheelhouse.setExit("east", ship);
         wheelhouse.setExit("north", ocean);
+        wheelhouse.setNPC(new Captain("Jack"));
 
         ocean.setExit("south", wheelhouse);
 
