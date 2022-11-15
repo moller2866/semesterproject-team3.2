@@ -1,11 +1,14 @@
 package oceanCleanup.src;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
 
     private Room currentRoom;
     private CommandWords commands;
+    Inventory playerInventory = new Inventory();
 
     public Game() {
         createRooms();
@@ -65,6 +68,64 @@ public class Game {
         }
     }
 
+    public boolean getCommandChecker(Command command) {
+        if (!command.hasCommandValue()) {
+            //No second command value
+            return false;
+        }
+
+        String secondValue = command.getCommandValue();
+
+        if (!currentRoom.hasItem()) {
+            return false;
+        } else {
+            if (secondValue.equals("all")) {
+                pickUpAllItems();
+                return true;
+            } else {
+                {
+                    for (int i = 0; i < currentRoom.getItemAmount(); i++) {
+                        if (!currentRoom.getItem(i).getName().toLowerCase().equals(secondValue)) {
+                            return false;
+                        } else if (currentRoom.getItem(i).getName().toLowerCase().equals(secondValue)) {
+                            playerInventory.addItem(currentRoom.getItem(i));
+                            currentRoom.removeItem(currentRoom.getItem(i));
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean dropCommandChecker(Command command)  {
+        if (!command.hasCommandValue()) {
+            //No second command value
+            return false;
+        }
+
+        String secondValue = command.getCommandValue();
+
+        if (playerInventory.isInventoryEmpty()) {
+            return false;
+        } else {
+            if (secondValue.equals("all")) {
+                dropAllItems();
+                return true;
+            } else {
+                for (int i = 0; i < playerInventory.getInventorySize(); i++) {
+                    if (!playerInventory.getSingleItem(i).getName().toLowerCase().equals(secondValue)) {
+                        return false;
+                    } else {
+                       currentRoom.setItem(playerInventory.getSingleItem(i));
+                        playerInventory.remove(playerInventory.getSingleItem(i).getName());
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
     public boolean quit(Command command) {
         if (command.hasCommandValue()) {
             return false;
@@ -72,18 +133,6 @@ public class Game {
             return true;
         }
     }
-
-    public String startTalk () {
-        if (currentRoom.hasNPC()) {
-            String output = "";
-            for (int i = 0; i < currentRoom.getNPCAmount(); i++) {
-                output += currentRoom.getNPC(i).startTalk()+ "\n";
-            }
-            return output;
-        }
-        return "You are talking with yourself. Kinda weird...";
-    }
-
 
     public String getRoomDescription() {
         return currentRoom.getLongDescription();
@@ -99,6 +148,42 @@ public class Game {
 
     public Command getCommand(String word1, String word2) {
         return new CommandImplementation(commands.getCommand(word1), word2);
+    }
+
+    public String startTalk () {
+        if (currentRoom.hasNPC()) {
+            String output = "";
+            for (int i = 0; i < currentRoom.getNPCAmount(); i++) {
+                output += currentRoom.getNPC(i).startTalk()+ "\n";
+            }
+            return output;
+        }
+        return "You are talking with yourself. Kinda weird...";
+    }
+
+    public String seeInventory () {
+        return playerInventory.toString();
+    }
+
+    public String pickUpAllItems() {
+        if (currentRoom.hasItem()) {
+            for (int i = 0; i < currentRoom.getItemAmount(); i++) {
+                playerInventory.addItem(currentRoom.getItem(i));
+                currentRoom.removeItem(currentRoom.getItem(i));
+            }
+            return "Added items to inventory!";
+        } else {
+            return "No items here mate!";
+        }
+    }
+
+    public String dropAllItems() {
+        if (playerInventory.isInventoryEmpty()) {
+            return "No items in inventory!";
+        } else {
+            
+        }
+        return "Items were dropped!";
     }
 
 }

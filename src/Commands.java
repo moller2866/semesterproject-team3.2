@@ -2,7 +2,15 @@ package oceanCleanup.src;
 
 public enum Commands
 {
-    GO("go"), QUIT("quit"), HELP("help"), UNKNOWN("?"), TALK("talk");
+    GO("go"),
+    QUIT("quit"),
+    HELP("help"),
+    UNKNOWN("?"),
+    TALK("talk"),
+    GET("get"),
+    DROP("drop"),
+    INVENTORY("inventory");
+
     
     private String commandName;
     

@@ -24,8 +24,28 @@ public class Room {
         items.add(newItem);
     }
 
+    public void setItem(ArrayList<Item> input) {
+        items.addAll(input);
+    }
+
+    public void removeItem(Item newItem) {
+        items.remove(newItem);
+    }
+
     public Item getItem(int index) {
         return items.get(index);
+    }
+
+    public boolean hasItem() {
+        if (items.isEmpty()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public int getItemAmount () {
+        return items.size();
     }
 
     public String getAllItemNames() {
