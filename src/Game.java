@@ -30,6 +30,7 @@ public class Game {
         dock.setItem(new Plastic());
         dock.setItem(new Plastic());
         dock.setItem(new Plastic());
+        dock.setItem(new Bucket());
 
 
 
