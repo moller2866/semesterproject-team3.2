@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.*;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -38,7 +39,7 @@ public class DataParser {
     private boolean verifyJsonKeys() {
         ArrayList<String> listOfKeys = new ArrayList<>();
 
-        for (Map.Entry<String,?> entry: this.getJsonContent().entrySet()) {
+        for (Map.Entry<String, ?> entry : this.getJsonContent().entrySet()) {
             listOfKeys.add(entry.getKey());
         }
 
@@ -58,12 +59,26 @@ public class DataParser {
         return this.jsonContent;
     }
 
+    public ArrayList<HashMap<String, String>> getNPCs() {
+        return (ArrayList<HashMap<String, String>>) getJsonContent().get("NPCs");
+    }
+
+    public ArrayList<HashMap<String, String>> getItems() {
+        return (ArrayList<HashMap<String, String>>) getJsonContent().get("items");
+    }
+
+    private String getDescription() {
+        return (String) getJsonContent().get("description");
+    }
+
     public static void main(String[] args) {
         DataParser parser = new DataParser("test.json");
 
-        System.out.println(parser.getJsonContent().get("NPCs"));
+        System.out.println(parser.getDescription());
         System.out.println();
-        System.out.println(parser.getJsonContent().get("items"));
+        System.out.println(parser.getNPCs());
+        System.out.println();
+        System.out.println(parser.getItems());
 
     }
 }
