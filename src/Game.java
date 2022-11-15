@@ -79,11 +79,6 @@ public class Game {
         if (!currentRoom.hasItem()) {
             return false;
         } else {
-            if (secondValue.equals("all")) {
-                pickUpAllItems();
-                return true;
-            } else {
-                {
                     for (int i = 0; i < currentRoom.getItemAmount(); i++) {
                         if (!currentRoom.getItem(i).getName().toLowerCase().equals(secondValue)) {
                             return false;
@@ -93,8 +88,6 @@ public class Game {
                         }
                     }
                 }
-            }
-        }
         return true;
     }
 
@@ -165,25 +158,9 @@ public class Game {
         return playerInventory.toString();
     }
 
-    public String pickUpAllItems() {
-        if (currentRoom.hasItem()) {
-            for (int i = 0; i < currentRoom.getItemAmount(); i++) {
-                playerInventory.addItem(currentRoom.getItem(i));
-                currentRoom.removeItem(currentRoom.getItem(i));
-            }
-            return "Added items to inventory!";
-        } else {
-            return "No items here mate!";
-        }
-    }
-
+    // virker ikke
     public String dropAllItems() {
-        if (playerInventory.isInventoryEmpty()) {
-            return "No items in inventory!";
-        } else {
-            
-        }
-        return "Items were dropped!";
+        return "lort";
     }
 
 }
