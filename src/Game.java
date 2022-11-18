@@ -78,7 +78,7 @@ public class Game {
         } else {
                     for (int i = 0; i < currentRoom.getItemAmount(); i++) {
                         if (!currentRoom.getItem(i).getName().toLowerCase().equals(secondValue)) {
-                            return false;
+                            continue;
                         } else if (currentRoom.getItem(i).getName().toLowerCase().equals(secondValue)) {
                             if (playerInventory.addItem(currentRoom.getItem(i))) {
                                 currentRoom.removeItem(currentRoom.getItem(i));
