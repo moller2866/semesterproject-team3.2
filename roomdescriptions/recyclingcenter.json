@@ -1,0 +1,14 @@
+{
+  "description": "in the recycling center.\nYou see a guy with a reflex vest. He might be working here?",
+  "NPCs": [
+    {
+      "type": "Worker",
+      "name": "Brian"
+    }
+  ],
+  "items": [
+    {
+      "type": "Bucket"
+    }
+  ]
+}

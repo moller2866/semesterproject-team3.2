@@ -12,14 +12,14 @@ import java.util.Map;
 /**
  * @author Kasper Møller
  **/
-public class DataParser {
+public class RoomDataParser {
     String filename;
     Map<String, ?> jsonContent;
 
     /**
      * @param filename name of the json file
      */
-    public DataParser(String filename) {
+    public RoomDataParser(String filename) {
         this.filename = filename;
         try {
             ObjectMapper mapper = new ObjectMapper();
@@ -67,12 +67,12 @@ public class DataParser {
         return (ArrayList<HashMap<String, String>>) getJsonContent().get("items");
     }
 
-    private String getDescription() {
+    public String getDescription() {
         return (String) getJsonContent().get("description");
     }
 
     public static void main(String[] args) {
-        DataParser parser = new DataParser("test.json");
+        RoomDataParser parser = new RoomDataParser("roomdescriptions/dock.json");
 
         System.out.println(parser.getDescription());
         System.out.println();

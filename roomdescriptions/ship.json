@@ -1,0 +1,36 @@
+{
+  "description": "onboard the ship 002\nYou see a lot of plastic.\nMaybe you can help the captain to unload the cargo?",
+  "NPCs": [],
+  "items": [
+    {
+      "type": "Plastic"
+    },
+    {
+      "type": "Plastic"
+    },
+    {
+      "type": "Plastic"
+    },
+    {
+      "type": "Plastic"
+    },
+    {
+      "type": "Plastic"
+    },
+    {
+      "type": "Plastic"
+    },
+    {
+      "type": "Plastic"
+    },
+    {
+      "type": "Plastic"
+    },
+    {
+      "type": "Plastic"
+    },
+    {
+      "type": "Plastic"
+    }
+  ]
+}
