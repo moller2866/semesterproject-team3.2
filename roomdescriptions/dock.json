@@ -1,0 +1,18 @@
+{
+  "description": "on the dock at the shipyard",
+  "NPCs": [],
+  "items": [
+    {
+      "type": "Plastic"
+    },
+    {
+      "type": "Plastic"
+    },
+    {
+      "type": "Plastic"
+    },
+    {
+      "type": "Bucket"
+    }
+  ]
+}

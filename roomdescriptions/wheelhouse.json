@@ -1,0 +1,10 @@
+{
+  "description": "in the ship's wheelhouse.\nThe captain is here.\nHe greets you with a 'g'day mate!'.",
+  "NPCs": [
+    {
+      "type": "Captain",
+      "name": "Jack"
+    }
+  ],
+  "items": []
+}

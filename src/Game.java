@@ -18,25 +18,18 @@ public class Game {
     private void createRooms() {
         Room dock, recyclingCenter, ship, wheelhouse, ocean, container;
 
-        dock = new Room("on the dock at the shipyard");
-        recyclingCenter = new Room("in the recycling center.\nYou see a guy with a reflex vest. He might be working here?");
-        ship = new Room("onboard the ship 002\nYou see a lot of plastic.\nMaybe you can help the captain to unload the cargo?");
-        wheelhouse = new Room("in the ship's wheelhouse.\nThe captain is here.\nHe greets you with a 'g'day mate!'.");
-        ocean = new Room("on the Pacific Ocean.\nYou see the overview of two ships dragging a big net\nThey are gathering plastic from the ocean.");
-        container = new Room("in the container for plastic waste.\nPlastic should be dropped in this container.");
+        dock = Room.fromJson("roomdescriptions/dock.json");
+        recyclingCenter = Room.fromJson("roomdescriptions/recyclingcenter.json");
+        ship = Room.fromJson("roomdescriptions/ship.json");
+        wheelhouse = Room.fromJson("roomdescriptions/wheelhouse.json");
+        ocean = Room.fromJson("roomdescriptions/ocean.json");
+        container = Room.fromJson("roomdescriptions/container.json");
 
         dock.setExit("east", recyclingCenter);
         dock.setExit("north", ship);
-        dock.setItem(new Plastic());
-        dock.setItem(new Plastic());
-        dock.setItem(new Plastic());
-        dock.setItem(new Bucket());
-
-
 
         recyclingCenter.setExit("west", dock);
         recyclingCenter.setExit("east", container);
-        recyclingCenter.setNPC(new Worker("Brian"));
 
         container.setExit("west", recyclingCenter );
 
@@ -45,7 +38,6 @@ public class Game {
 
         wheelhouse.setExit("east", ship);
         wheelhouse.setExit("north", ocean);
-        wheelhouse.setNPC(new Captain("Jack"));
 
         ocean.setExit("south", wheelhouse);
 

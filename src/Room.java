@@ -1,5 +1,7 @@
 package oceanCleanup.src;
 
+import oceanCleanup.src.data.RoomDataParser;
+
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashMap;
@@ -14,6 +16,23 @@ public class Room {
     public Room(String description) {
         this.description = description;
         exits = new HashMap<String, Room>();
+    }
+
+    public static Room fromJson(String jsonPath) {
+        RoomDataParser data = new RoomDataParser(jsonPath);
+        Room room = new Room(data.getDescription());
+
+        for (HashMap<String, String> m : data.getItems()) {
+            String type = m.get("type");
+            room.setItem(ItemFactory.create(type));
+        }
+
+        for (HashMap<String, String> m : data.getNPCs()) {
+            String type = m.get("type");
+            String name = m.get("name");
+            room.setNPC(NPCFactory.create(type, name));
+        }
+        return room;
     }
 
     public void setExit(String direction, Room neighbor) {
@@ -44,7 +63,7 @@ public class Room {
         }
     }
 
-    public int getItemAmount () {
+    public int getItemAmount() {
         ArrayList<Item> temp = new ArrayList<>();
         temp.addAll(items);
         return temp.size();
@@ -95,9 +114,9 @@ public class Room {
     public String getAllNPCNames() {
         String output = "";
         for (int i = 0; i < NPC.size(); i++) {
-           output += NPC.get(i).getName();
-           if (i != NPC.size()-1) {
-               output += " & ";
+            output += NPC.get(i).getName();
+            if (i != NPC.size() - 1) {
+                output += " & ";
             }
         }
         return output;
@@ -112,7 +131,7 @@ public class Room {
         }
     }
 
-    public int getNPCAmount () {
+    public int getNPCAmount() {
         return NPC.size();
     }
 }
