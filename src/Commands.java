@@ -9,7 +9,8 @@ public enum Commands
     TALK("talk"),
     GET("get"),
     DROP("drop"),
-    INVENTORY("inventory");
+    INVENTORY("inventory"),
+    EMPTY("empty");
 
     
     private String commandName;
