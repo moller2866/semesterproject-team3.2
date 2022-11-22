@@ -9,6 +9,7 @@ public class Game {
     private Room currentRoom;
     private CommandWords commands;
     Inventory playerInventory = new Inventory();
+    Bucket playerBucket = new Bucket();
 
     public Game() {
         createRooms();
@@ -31,7 +32,7 @@ public class Game {
         recyclingCenter.setExit("west", dock);
         recyclingCenter.setExit("east", container);
 
-        container.setExit("west", recyclingCenter );
+        container.setExit("west", recyclingCenter);
 
         ship.setExit("south", dock);
         ship.setExit("west", wheelhouse);
@@ -75,22 +76,29 @@ public class Game {
 
         if (!currentRoom.hasItem()) {
             return false;
-        } else {
-                    for (int i = 0; i < currentRoom.getItemAmount(); i++) {
-                        if (!currentRoom.getItem(i).getName().toLowerCase().equals(secondValue)) {
-                            continue;
-                        } else if (currentRoom.getItem(i).getName().toLowerCase().equals(secondValue)) {
-                            if (playerInventory.addItem(currentRoom.getItem(i))) {
-                                currentRoom.removeItem(currentRoom.getItem(i));
-                                return true;
-                            }
-                        }
+        } else if (playerInventory.hasBucket()) {
+            for (int i = 0; i < currentRoom.getItemAmount(); i++) {
+                if (currentRoom.getItem(i).getName().toLowerCase().equals(secondValue)) {
+                    if (playerBucket.addPlastic((Plastic) currentRoom.getItem(i))) {
+                        currentRoom.removeItem(currentRoom.getItem(i));
+                        return true;
                     }
                 }
+            }
+        } else {
+            for (int i = 0; i < currentRoom.getItemAmount(); i++) {
+                if (currentRoom.getItem(i).getName().toLowerCase().equals(secondValue)) {
+                    if (playerInventory.addItem(currentRoom.getItem(i))) {
+                        currentRoom.removeItem(currentRoom.getItem(i));
+                        return true;
+                    }
+                }
+            }
+        }
         return false;
     }
 
-    public boolean dropCommandChecker(Command command)  {
+    public boolean dropCommandChecker(Command command) {
         if (!command.hasCommandValue()) {
             //No second command value
             return false;
@@ -109,7 +117,7 @@ public class Game {
                     if (!playerInventory.getSingleItem(i).getName().toLowerCase().equals(secondValue)) {
                         return false;
                     } else {
-                       currentRoom.setItem(playerInventory.getSingleItem(i));
+                        currentRoom.setItem(playerInventory.getSingleItem(i));
                         playerInventory.remove(playerInventory.getSingleItem(i).getName());
                     }
                 }
@@ -142,30 +150,34 @@ public class Game {
         return new CommandImplementation(commands.getCommand(word1), word2);
     }
 
-    public String startTalk () {
+    public String startTalk() {
         if (currentRoom.hasNPC()) {
             String output = "";
             for (int i = 0; i < currentRoom.getNPCAmount(); i++) {
-                output += currentRoom.getNPC(i).startTalk()+ "\n";
+                output += currentRoom.getNPC(i).startTalk() + "\n";
             }
             return output;
         }
         return "You are talking with yourself. Kinda weird...";
     }
 
-    public String seeInventory () {
+    public String seeInventory() {
+        try {
+            if (playerInventory.hasBucket()) {
+                return playerInventory.toString() + playerBucket.getContent();
+            }
+        } catch (NullPointerException e) {
+        }
         return playerInventory.toString();
     }
 
-    // virker ikke
     public boolean dropAllItems() {
         if (!playerInventory.isInventoryEmpty()) {
             currentRoom.setItem(playerInventory.removeAllFromInventory());
             return true;
         }
-    return false;
+        return false;
     }
-
 
 
 }

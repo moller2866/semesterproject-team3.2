@@ -2,12 +2,6 @@ package oceanCleanup.src;
 
 import java.util.ArrayList;
 
-/*
- * Bucket class which extends the abstract Tools class
- * This also contains the buckets inventory
- * Which is an ArrayList
- */
-
 public class Bucket extends Tool {
 
     ArrayList<Plastic> content = new ArrayList<>();
@@ -26,16 +20,19 @@ public class Bucket extends Tool {
         } else {
             return false;
         }
-
     }
 
     public String getContent () {
-        String temp = "";
+        String temp = "Bucket:\n";
         for (Item p : content) {
             String type = p.getName();
-            temp += type + ", ";
+            temp += "- "+ type + "\n";
         }
         return temp;
+    }
+
+    public boolean isEmpty () {
+        return content.isEmpty();
     }
 
     public int getSize () {
