@@ -46,22 +46,6 @@ public class Bucket extends Tool {
         content.clear();
     }
 
-
-    @Override
-    public boolean isInteractable() {
-        return true;
-    }
-
-    @Override
-    public Item pickUp() {
-        return null;
-    }
-
-    @Override
-    public Item drop() {
-        return null;
-    }
-
     public static void main(String[] args) {
         Bucket buck = new Bucket();
         Item[] items = {new Plastic(),

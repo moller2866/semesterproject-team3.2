@@ -12,18 +12,4 @@ public class Plastic extends Item{
         return count;
     }
 
-    @Override
-    public boolean isInteractable() {
-        return false;
-    }
-
-    @Override
-    public Item pickUp() {
-        return null;
-    }
-
-    @Override
-    public Item drop() {
-        return null;
-    }
 }

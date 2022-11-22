@@ -1,6 +1,6 @@
 package oceanCleanup.src;
 
-public abstract class Item implements Interactable{
+public abstract class Item {
     String name;
 
     @Override
@@ -8,21 +8,6 @@ public abstract class Item implements Interactable{
         return "Item{" +
                 "name='" + name + '\'' +
                 '}';
-    }
-
-    @Override
-    public boolean isInteractable() {
-        return true;
-    }
-
-    @Override
-    public Item pickUp() {
-        return null;
-    }
-
-    @Override
-    public Item drop() {
-        return null;
     }
 
     public Item(String name) {
