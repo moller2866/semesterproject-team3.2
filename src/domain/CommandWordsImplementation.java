@@ -1,4 +1,4 @@
-package oceanCleanup.src;
+package oceanCleanup.src.domain;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

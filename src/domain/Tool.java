@@ -1,4 +1,4 @@
-package oceanCleanup.src;
+package oceanCleanup.src.domain;
 
 /*
 *  Abstract class as a template for tools

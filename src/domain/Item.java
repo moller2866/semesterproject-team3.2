@@ -1,4 +1,4 @@
-package oceanCleanup.src;
+package oceanCleanup.src.domain;
 
 public abstract class Item {
     String name;

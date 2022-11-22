@@ -1,8 +1,8 @@
 package oceanCleanup.src.textUI;
 
 import java.util.Scanner;
-import oceanCleanup.src.Command;
-import oceanCleanup.src.Game;
+import oceanCleanup.src.domain.Command;
+import oceanCleanup.src.domain.Game;
 
 public class Parser 
 {

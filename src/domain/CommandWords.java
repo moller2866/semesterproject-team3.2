@@ -1,5 +1,5 @@
 
-package oceanCleanup.src;
+package oceanCleanup.src.domain;
 
 import java.util.List;
 
