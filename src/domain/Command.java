@@ -1,5 +1,5 @@
 
-package oceanCleanup.src;
+package oceanCleanup.src.domain;
 
 public interface Command {
 

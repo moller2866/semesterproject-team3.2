@@ -5,10 +5,9 @@
  */
 package oceanCleanup.src.textUI;
 
-import oceanCleanup.src.Command;
-import oceanCleanup.src.Commands;
-import oceanCleanup.src.Game;
-import oceanCleanup.src.ItemNonExistingException;
+import oceanCleanup.src.domain.Command;
+import oceanCleanup.src.domain.Commands;
+import oceanCleanup.src.domain.Game;
 
 /**
  *

@@ -17,7 +17,7 @@
  * @version 2006.03.30
  */
 
-package oceanCleanup.src;
+package oceanCleanup.src.domain;
 
 public class CommandImplementation implements Command
 {

@@ -1,4 +1,4 @@
-package oceanCleanup.src;
+package oceanCleanup.src.domain;
 
 public class ItemFactory {
 

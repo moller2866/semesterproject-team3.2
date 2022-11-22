@@ -1,7 +1,5 @@
-package oceanCleanup.src;
+package oceanCleanup.src.domain;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
@@ -19,12 +17,12 @@ public class Game {
     private void createRooms() {
         Room dock, recyclingCenter, ship, wheelhouse, ocean, container;
 
-        dock = Room.fromJson("roomdescriptions/dock.json");
-        recyclingCenter = Room.fromJson("roomdescriptions/recyclingcenter.json");
-        ship = Room.fromJson("roomdescriptions/ship.json");
-        wheelhouse = Room.fromJson("roomdescriptions/wheelhouse.json");
-        ocean = Room.fromJson("roomdescriptions/ocean.json");
-        container = Room.fromJson("roomdescriptions/container.json");
+        dock = Room.fromJson("src/data/roomdescriptions/dock.json");
+        recyclingCenter = Room.fromJson("src/data/roomdescriptions/recyclingcenter.json");
+        ship = Room.fromJson("src/data/roomdescriptions/ship.json");
+        wheelhouse = Room.fromJson("src/data/roomdescriptions/wheelhouse.json");
+        ocean = Room.fromJson("src/data/roomdescriptions/ocean.json");
+        container = Room.fromJson("src/data/roomdescriptions/container.json");
 
         dock.setExit("east", recyclingCenter);
         dock.setExit("north", ship);
