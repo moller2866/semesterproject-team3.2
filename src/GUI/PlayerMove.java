@@ -60,19 +60,31 @@ public class PlayerMove {
     private EventHandler<KeyEvent> onKeyPressedMovement() {
         return e -> {
             if (e.getCode() == KeyCode.W) {
+                if (!wPressed.get()) {
+                    File file = new File(getClass().getResource("player/walk_left.gif").getPath());
+                    image.setImage(new Image(file.getAbsolutePath()));
+                }
                 wPressed.set(true);
             }
             if (e.getCode() == KeyCode.A) {
-                File file = new File(getClass().getResource("player/walk_left.gif").getPath());
-                image.setImage(new Image(file.getAbsolutePath()));
+                if (!aPressed.get()) {
+                    File file = new File(getClass().getResource("player/walk_left.gif").getPath());
+                    image.setImage(new Image(file.getAbsolutePath()));
+                }
                 aPressed.set(true);
             }
             if (e.getCode() == KeyCode.S) {
+                if (!sPressed.get()) {
+                    File file = new File(getClass().getResource("player/walk_right.gif").getPath());
+                    image.setImage(new Image(file.getAbsolutePath()));
+                }
                 sPressed.set(true);
             }
             if (e.getCode() == KeyCode.D) {
-                File file = new File(getClass().getResource("player/walk_right.gif").getPath());
-                image.setImage(new Image(file.getAbsolutePath()));
+                if (!dPressed.get()) {
+                    File file = new File(getClass().getResource("player/walk_right.gif").getPath());
+                    image.setImage(new Image(file.getAbsolutePath()));
+                }
                 dPressed.set(true);
             }
         };
@@ -80,23 +92,25 @@ public class PlayerMove {
     
     private EventHandler<KeyEvent> onKeyReleasedMovement() {
         return e -> {
+
             if (e.getCode() == KeyCode.W) {
                 wPressed.set(false);
             }
             if (e.getCode() == KeyCode.A) {
                 aPressed.set(false);
+            }
+            if (e.getCode() == KeyCode.S) {
+                sPressed.set(false);
+            }
+            if (e.getCode() == KeyCode.D) {
+                dPressed.set(false);
+            }
+            if ((e.getCode() == KeyCode.W) || (e.getCode() == KeyCode.A)) {
                 if (!wPressed.get() && !aPressed.get() && !sPressed.get() && !dPressed.get()) {
                     File file = new File(getClass().getResource("player/stand_left.png").getPath());
                     image.setImage(new Image(file.getAbsolutePath()));
                 }
-            }
-
-            if (e.getCode() == KeyCode.S) {
-                sPressed.set(false);
-            }
-
-            if (e.getCode() == KeyCode.D) {
-                dPressed.set(false);
+            } else if ((e.getCode() == KeyCode.S) || (e.getCode() == KeyCode.D)) {
                 if (!wPressed.get() && !aPressed.get() && !sPressed.get() && !dPressed.get()) {
                     File file = new File(getClass().getResource("player/stand_right.png").getPath());
                     image.setImage(new Image(file.getAbsolutePath()));
