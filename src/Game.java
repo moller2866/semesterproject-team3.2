@@ -179,5 +179,13 @@ public class Game {
         return false;
     }
 
+    public boolean emptyBucketInRoom() {
+        if (!playerBucket.isEmpty()) {
+            currentRoom.setItem(playerBucket.emptyBucket());
+            return true;
+        }
+        return false;
+    }
+
 
 }

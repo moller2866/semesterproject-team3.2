@@ -39,8 +39,11 @@ public class Bucket extends Tool {
         return content.size();
     }
 
-    public void empty () {
+    public ArrayList<Item> emptyBucket () {
+        ArrayList<Item> temp = new ArrayList<>();
+        temp.addAll(content);
         content.clear();
+        return temp;
     }
 
     public static void main(String[] args) {

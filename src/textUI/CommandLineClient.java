@@ -112,6 +112,12 @@ public class CommandLineClient {
             }
         } else if (commandWord == Commands.INVENTORY) {
             System.out.println(game.seeInventory());
+        } else if (commandWord == Commands.EMPTY) {
+            if (game.emptyBucketInRoom()) {
+                System.out.println("Emptied bucket!");
+            } else {
+                System.out.println("Nothing to empty!");
+            }
         }
         return wantToQuit;
     }
