@@ -37,6 +37,15 @@ public class Inventory {
         return temp;
     }
 
+    public boolean hasBucket() {
+        for (Item item : items) {
+            if (item instanceof Bucket) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean isInventoryEmpty() {
         if (items.isEmpty()) return true;
         else return false;
