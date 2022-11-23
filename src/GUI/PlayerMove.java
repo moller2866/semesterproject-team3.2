@@ -62,34 +62,34 @@ public class PlayerMove {
             if (e.getCode() == KeyCode.W) {
                 if (!wPressed.get()) {
                     File file = new File(getClass().getResource("player/walk_left.gif").getPath());
-                    image.setImage(new Image(file.getAbsolutePath()));
+                    image.setImage(new Image("file:" + file.getAbsolutePath()));
                 }
                 wPressed.set(true);
             }
             if (e.getCode() == KeyCode.A) {
                 if (!aPressed.get()) {
                     File file = new File(getClass().getResource("player/walk_left.gif").getPath());
-                    image.setImage(new Image(file.getAbsolutePath()));
+                    image.setImage(new Image("file:" + file.getAbsolutePath()));
                 }
                 aPressed.set(true);
             }
             if (e.getCode() == KeyCode.S) {
                 if (!sPressed.get()) {
                     File file = new File(getClass().getResource("player/walk_right.gif").getPath());
-                    image.setImage(new Image(file.getAbsolutePath()));
+                    image.setImage(new Image("file:" + file.getAbsolutePath()));
                 }
                 sPressed.set(true);
             }
             if (e.getCode() == KeyCode.D) {
                 if (!dPressed.get()) {
                     File file = new File(getClass().getResource("player/walk_right.gif").getPath());
-                    image.setImage(new Image(file.getAbsolutePath()));
+                    image.setImage(new Image("file:" + file.getAbsolutePath()));
                 }
                 dPressed.set(true);
             }
         };
     }
-    
+
     private EventHandler<KeyEvent> onKeyReleasedMovement() {
         return e -> {
 
@@ -108,12 +108,12 @@ public class PlayerMove {
             if ((e.getCode() == KeyCode.W) || (e.getCode() == KeyCode.A)) {
                 if (!wPressed.get() && !aPressed.get() && !sPressed.get() && !dPressed.get()) {
                     File file = new File(getClass().getResource("player/stand_left.png").getPath());
-                    image.setImage(new Image(file.getAbsolutePath()));
+                    image.setImage(new Image("file:" + file.getAbsolutePath()));
                 }
             } else if ((e.getCode() == KeyCode.S) || (e.getCode() == KeyCode.D)) {
                 if (!wPressed.get() && !aPressed.get() && !sPressed.get() && !dPressed.get()) {
                     File file = new File(getClass().getResource("player/stand_right.png").getPath());
-                    image.setImage(new Image(file.getAbsolutePath()));
+                    image.setImage(new Image("file:" + file.getAbsolutePath()));
                 }
             }
         };
