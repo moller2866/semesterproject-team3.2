@@ -14,6 +14,7 @@ public class GameApplication extends Application {
         root.setFocusTraversable(true);
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 

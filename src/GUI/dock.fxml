@@ -36,21 +36,16 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Circle?>
 
-<AnchorPane fx:id="scene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oceanCleanup.src.GUI.GameController">
+<AnchorPane fx:id="scene" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oceanCleanup.src.GUI.GameController">
    <children>
       <Circle fx:id="character" fill="DODGERBLUE" layoutX="450.0" layoutY="239.0" radius="16.0" stroke="BLACK" strokeType="INSIDE" />
       <Button layoutX="157.0" layoutY="243.0" mnemonicParsing="false" text="Button" />
-      <Pane layoutX="266.0" layoutY="110.0" prefHeight="32.0" prefWidth="26.0">
-         <children>
-            <ImageView fx:id="image" layoutX="1.0" layoutY="-1.0">
-               <image>
-                  <Image url="@player/stand_right.png" />
-               </image>
-            </ImageView>
-         </children>
-      </Pane>
+      <ImageView fx:id="image" layoutX="268.0" layoutY="159.0">
+         <image>
+            <Image url="@player/stand_right.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
