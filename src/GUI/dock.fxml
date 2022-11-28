@@ -32,19 +32,25 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Circle?>
 
-<AnchorPane fx:id="scene" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oceanCleanup.src.GUI.GameController">
+<AnchorPane fx:id="scene" accessibleRole="IMAGE_VIEW" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oceanCleanup.src.GUI.GameController">
    <children>
-      <Circle fx:id="character" fill="DODGERBLUE" layoutX="450.0" layoutY="239.0" radius="16.0" stroke="BLACK" strokeType="INSIDE" />
-      <Button layoutX="157.0" layoutY="243.0" mnemonicParsing="false" text="Button" />
       <ImageView fx:id="image" layoutX="268.0" layoutY="159.0">
          <image>
             <Image url="@player/stand_right.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="bucket" layoutX="184.0" layoutY="200.0">
+         <image>
+            <Image url="@items/bucket.png" />
+         </image>
+      </ImageView>
+      <ImageView layoutX="382.0" layoutY="171.0">
+         <image>
+            <Image url="@items/plastic.png" />
          </image>
       </ImageView>
    </children>

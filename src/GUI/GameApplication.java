@@ -12,7 +12,12 @@ public class GameApplication extends Application {
         FXMLLoader fxml = new FXMLLoader(getClass().getResource("dock.fxml"));
         Parent root = fxml.load();
         root.setFocusTraversable(true);
+        GameController controller = fxml.getController();
         Scene scene = new Scene(root);
+
+        scene.setOnKeyPressed(controller::onKeyPressed);
+        scene.setOnKeyReleased(controller::onKeyReleased);
+        
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
