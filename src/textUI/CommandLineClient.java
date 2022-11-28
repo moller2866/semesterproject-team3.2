@@ -8,22 +8,24 @@ package oceanCleanup.src.textUI;
 import oceanCleanup.src.domain.Command;
 import oceanCleanup.src.domain.Commands;
 import oceanCleanup.src.domain.Game;
+import oceanCleanup.src.domain.Minigame;
 
 /**
- *
  * @author ancla
  */
 public class CommandLineClient {
 
     private Parser parser;
     private Game game;
+    private Minigame minigame;
 
     public CommandLineClient() {
         game = new Game();
         parser = new Parser(game);
+        minigame = new Minigame();
     }
 
-    public void play()  {
+    public void play() {
         printWelcome();
 
         boolean finished = false;
@@ -42,8 +44,8 @@ public class CommandLineClient {
         System.out.println("This game is based on The Ocean Cleanup Project.");
         System.out.println();
         System.out.println("""
-                            It is a non-profit organization developing and
-                            scaling technologies to rid the oceans of plastic.""");
+                It is a non-profit organization developing and
+                scaling technologies to rid the oceans of plastic.""");
         System.out.println();
         System.out.println("""
                 We need your help!
@@ -58,14 +60,13 @@ public class CommandLineClient {
     }
 
     private void printHelp() {
-        for(String str : game.getCommandDescriptions())
-        {
+        for (String str : game.getCommandDescriptions()) {
             System.out.println(str + " ");
         }
     }
 
     //Controller
-    public boolean processCommand(Command command)  {
+    public boolean processCommand(Command command) {
         boolean wantToQuit = false;
 
         Commands commandWord = command.getCommandName();
@@ -105,7 +106,16 @@ public class CommandLineClient {
             }
         } else if (commandWord == Commands.DROP) {
             if (game.dropCommandChecker(command)) {
-                System.out.println("Item were dropped!");
+                if (minigame.isStarted()) {
+                    if (game.isRoomFull()) {
+                        minigame.endTimer();
+                        System.out.println(minigame.endMinigame());
+                    } else {
+                        System.out.println("Keep going!");
+                    }
+                } else {
+                    System.out.println("Item were dropped!");
+                }
             } else {
                 System.out.println("Can't do that");
             }
@@ -116,6 +126,13 @@ public class CommandLineClient {
                 System.out.println("Emptied bucket!");
             } else {
                 System.out.println("Nothing to empty!");
+            }
+        } else if (commandWord == Commands.MINIGAME) {
+            if (game.hasMinigame()) {
+                System.out.println("Minigame started, lets clean up the ocean!");
+                minigame.startTimer();
+            } else {
+                System.out.println("Can't do that");
             }
         }
         return wantToQuit;

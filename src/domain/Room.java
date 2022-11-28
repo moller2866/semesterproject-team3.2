@@ -134,4 +134,13 @@ public class Room {
     public int getNPCAmount() {
         return NPC.size();
     }
+
+    public boolean isRoomContainer() {
+        if (getShortDescription().contains("container")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
