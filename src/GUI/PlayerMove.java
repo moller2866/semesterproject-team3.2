@@ -25,13 +25,14 @@ public class PlayerMove {
 
 
     private ImageView image;
+    final private double playerHeight = 65;
+    final private double playerWidth= 45;
 
     private AnchorPane scene;
 
     public void makeMovable(ImageView image, AnchorPane scene) {
         this.image = image;
         this.scene = scene;
-
         movementSetup();
 
         keyPressed.addListener(((observableValue, aBoolean, t1) -> {
@@ -40,7 +41,7 @@ public class PlayerMove {
         }));
     }
 
-    private int movementVariable = 2;
+    private int movementVariable = 10;
     AnimationTimer timer = new AnimationTimer() {
         @Override
         public void handle(long timestamp) {
@@ -48,6 +49,7 @@ public class PlayerMove {
             if (sPressed.get()) image.setLayoutY(image.getLayoutY() + movementVariable);
             if (aPressed.get()) image.setLayoutX(image.getLayoutX() - movementVariable);
             if (dPressed.get()) image.setLayoutX(image.getLayoutX() + movementVariable);
+            playerAtBorder();
         }
     };
 
@@ -117,6 +119,30 @@ public class PlayerMove {
                 }
             }
         };
+    }
+
+
+    public void playerAtBorder() {
+        double leftBorder = -20;
+        double rightBorder = scene.getWidth()-playerWidth;
+        double bottomBorder = scene.getHeight()-playerHeight;
+        double topBorder = -20;
+
+        if (image.getLayoutX() <= leftBorder) {
+            image.setLayoutX(leftBorder);
+        }
+
+        if (image.getLayoutX() >= rightBorder) {
+            image.setLayoutX(rightBorder);
+        }
+
+        if (image.getLayoutY() <= topBorder) {
+            image.setLayoutY(topBorder);
+        }
+
+        if (image.getLayoutY() >= bottomBorder) {
+            image.setLayoutY(bottomBorder);
+        }
     }
 
 }
