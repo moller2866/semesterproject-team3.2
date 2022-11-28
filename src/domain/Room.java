@@ -135,4 +135,12 @@ public class Room {
         return NPC.size();
     }
 
+    public boolean isRoomContainer() {
+        if (getShortDescription().contains("container")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

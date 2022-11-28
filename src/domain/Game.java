@@ -193,17 +193,9 @@ public class Game {
         }
     }
 
-    public boolean isContainer() {
-        if (currentRoom.getShortDescription().contains("container")) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public boolean isContainerFull () {
-        if (currentRoom.getShortDescription().contains("container")) {
-            if (currentRoom.getItemAmount() == 10) {
+    public boolean isRoomFull () {
+        if (currentRoom.isRoomContainer()) {
+            if (currentRoom.getItemAmount() >= 10) {
                 return true;
             }
         }

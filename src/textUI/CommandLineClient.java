@@ -107,13 +107,11 @@ public class CommandLineClient {
         } else if (commandWord == Commands.DROP) {
             if (game.dropCommandChecker(command)) {
                 if (minigame.isStarted()) {
-                    if (game.isContainer()) {
-                        if (game.isContainerFull()) {
-                            minigame.endTimer();
-                            System.out.println(minigame.endMinigame());
-                        } else {
-                            System.out.println("Keep going!");
-                        }
+                    if (game.isRoomFull()) {
+                        minigame.endTimer();
+                        System.out.println(minigame.endMinigame());
+                    } else {
+                        System.out.println("Keep going!");
                     }
                 } else {
                     System.out.println("Item were dropped!");
