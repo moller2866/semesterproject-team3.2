@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Game {
 
-    private Room currentRoom;
+    protected Room currentRoom;
     private CommandWords commands;
     Inventory playerInventory = new Inventory();
     Bucket playerBucket = new Bucket();
@@ -181,6 +181,31 @@ public class Game {
         if (!playerBucket.isEmpty()) {
             currentRoom.setItem(playerBucket.emptyBucket());
             return true;
+        }
+        return false;
+    }
+
+    public boolean hasMinigame() {
+        if (currentRoom.getShortDescription().contains("ship 002")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean isContainer() {
+        if (currentRoom.getShortDescription().contains("container")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean isContainerFull () {
+        if (currentRoom.getShortDescription().contains("container")) {
+            if (currentRoom.getItemAmount() == 10) {
+                return true;
+            }
         }
         return false;
     }

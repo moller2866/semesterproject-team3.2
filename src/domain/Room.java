@@ -134,4 +134,5 @@ public class Room {
     public int getNPCAmount() {
         return NPC.size();
     }
+
 }
