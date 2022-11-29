@@ -47,8 +47,6 @@ public class GameController implements Initializable {
         textBox.setEditable(false);
         textBox.setMouseTransparent(true);
         textBox.setFont(Font.font("Verdana", FontWeight.BOLD, 9));
-        items.add(bucket);
-        items.add(plastic);
     }
 
 
@@ -61,31 +59,34 @@ public class GameController implements Initializable {
             player.onKeyPressedMovement(event.getCode());
         } else if (event.getCode() == KeyCode.SPACE) {
             System.out.println("Space pressed");
-            // add item that intersects with player
-            for (ImageView item : items) {
-                if (item.getBoundsInParent().intersects(image.getBoundsInParent())) {
-                    String fileName = item.getImage().getUrl();
-                    String itemName = fileName.substring(fileName.lastIndexOf("/") + 1, fileName.lastIndexOf("."));
-                    System.out.println(itemName);
+            picupItem();
+        } else if (event.getCode() == KeyCode.X) {
+            if (game.dropItem("bucket")) items.addAll(player.dropItems());
+        } else if (event.getCode() == KeyCode.I) {
+            System.out.println(game.seeInventory());
+        }
+    }
+
+    private void picupItem() {
+        for (ImageView item : items) {
+            if (item.getBoundsInParent().intersects(image.getBoundsInParent())) {
+                String fileName = item.getImage().getUrl();
+                String itemName = fileName.substring(fileName.lastIndexOf("/") + 1, fileName.lastIndexOf("."));
+                if (player.hasBucket() || itemName.equals("bucket") || itemName.equals("bucket_filled")) {
                     game.getItem(itemName);
-                    if (!itemName.equals("bucket")) {
-                        item.setVisible(false);
+                    if (itemName.equals("bucket")|| itemName.equals("bucket_filled")) {
+                        player.addImage(item);
                     } else {
-                        player.addImage(bucket);
+                        if (!game.getPlayerBucket().isEmpty()) {
+                            File file = new File(getClass().getResource("items/bucket_filled.png").getPath());
+                            bucket.setImage(new Image("file:" + file.getAbsolutePath()));
+                        }
+                        item.setVisible(false);
                     }
                     items.remove(item);
                     break;
                 }
             }
-
-            if (image.getBoundsInParent().intersects(bucket.getBoundsInParent())) {
-                if (game.getItem("bucket")) player.addImage(bucket);
-                System.out.println("intersects");
-            }
-        } else if (event.getCode() == KeyCode.X) {
-            if (game.dropItem("bucket")) player.removeImage(bucket);
-        } else if (event.getCode() == KeyCode.I) {
-            System.out.println(game.seeInventory());
         }
     }
 
@@ -117,10 +118,14 @@ public class GameController implements Initializable {
         textBox.setText(game.getRoomDescription());
 
         for (Item item : game.getCurrentRoom().getItems()) {
-            File file = new File("src/GUI/images/" + item.getName() + ".png");
+            File file = new File(getClass().getResource("items/" + item.getName().toLowerCase() + ".png").getPath());
             ImageView temp = new ImageView(new Image("file:" + file.getAbsolutePath()));
             temp.setLayoutX(item.getX());
             temp.setLayoutY(item.getY());
+            if (temp.getImage().getUrl().contains("bucket")) {
+                this.bucket = temp;
+            }
+            scene.getChildren().add(temp);
             items.add(temp);
         }
     }

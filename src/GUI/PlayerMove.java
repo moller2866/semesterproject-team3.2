@@ -47,7 +47,7 @@ public class PlayerMove {
         }));
     }
 
-    private int movementVariable = 10;
+    private int movementVariable = 2;
     AnimationTimer timer = new AnimationTimer() {
         @Override
         public void handle(long timestamp) {
@@ -172,4 +172,16 @@ public class PlayerMove {
         }
     }
 
+    public ArrayList<ImageView> dropItems() {
+        ArrayList<ImageView> droppedItems = new ArrayList<>();
+        for (int i = 1; i < images.size(); i++) {
+            droppedItems.add(images.get(i));
+        }
+        images.removeAll(droppedItems);
+        return droppedItems;
+    }
+
+    public boolean hasBucket() {
+        return images.size() > 1;
+    }
 }

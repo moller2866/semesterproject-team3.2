@@ -9,6 +9,11 @@ public class Game {
     protected Room currentRoom;
     private CommandWords commands;
     Inventory playerInventory = new Inventory();
+
+    public Bucket getPlayerBucket() {
+        return playerBucket;
+    }
+
     Bucket playerBucket = new Bucket();
 
     public Game() {
