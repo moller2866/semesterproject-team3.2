@@ -25,7 +25,6 @@ public class RoomDataParser {
             ObjectMapper mapper = new ObjectMapper();
             Map<String, ?> map = mapper.readValue(Paths.get(filename).toFile(), Map.class);
             this.jsonContent = map;
-            System.out.println(verifyJsonKeys());
         } catch (StreamReadException e) {
             throw new RuntimeException(e);
         } catch (DatabindException e) {
