@@ -123,6 +123,14 @@ public class CommandLineClient {
             System.out.println(game.seeInventory());
         } else if (commandWord == Commands.EMPTY) {
             if (game.emptyBucketInRoom()) {
+                if (minigame.isStarted()) {
+                    if (game.isRoomFull()) {
+                        minigame.endTimer();
+                        System.out.println(minigame.endMinigame());
+                    } else {
+                        System.out.println("Keep going!");
+                    }
+                }
                 System.out.println("Emptied bucket!");
             } else {
                 System.out.println("Nothing to empty!");
