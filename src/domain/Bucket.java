@@ -9,6 +9,10 @@ public class Bucket extends Tool {
         super("Bucket");
     }
 
+    Bucket(double x, double y) {
+        super("Bucket", x, y);
+    }
+
     public String getInfo() {
         return null;
     }
