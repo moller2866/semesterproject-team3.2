@@ -48,7 +48,7 @@
             <Image url="@items/bucket.png" />
          </image>
       </ImageView>
-      <ImageView layoutX="382.0" layoutY="171.0">
+      <ImageView fx:id="plastic" layoutX="382.0" layoutY="171.0">
          <image>
             <Image url="@items/plastic.png" />
          </image>
