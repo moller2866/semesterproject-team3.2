@@ -33,6 +33,22 @@ public class GameController implements Initializable {
     private ImageView dialogbox;
     @FXML
     private TextArea textBox;
+    @FXML
+    private ImageView wKey;
+    @FXML
+    private ImageView aKey;
+    @FXML
+    private ImageView sKey;
+    @FXML
+    private ImageView dKey;
+    @FXML
+    private ImageView hKey;
+    @FXML
+    private ImageView iKey;
+    @FXML
+    private ImageView tKey;
+
+    private double keyOpacity = 0.6;
 
     @FXML
     @Override
@@ -51,16 +67,6 @@ public class GameController implements Initializable {
                 || (event.getCode() == KeyCode.D)) {
             player.onKeyPressedMovement(event.getCode());
         }
-    }
-
-    @FXML
-    public void onKeyReleased(KeyEvent event) {
-        if ((event.getCode() == KeyCode.W)
-                || (event.getCode() == KeyCode.A)
-                || (event.getCode() == KeyCode.S)
-                || (event.getCode() == KeyCode.D)) {
-            player.onKeyReleasedMovement(event.getCode());
-        }
 
         if ((event.getCode() == KeyCode.H)) {
             textBox.setText(game.getRoomDescription());
@@ -72,6 +78,73 @@ public class GameController implements Initializable {
 
         if ((event.getCode() == KeyCode.T)) {
             textBox.setText(game.startTalk());
+        }
+
+        if ((event.getCode() == KeyCode.W)) {
+            wKey.setOpacity(keyOpacity);
+        }
+
+        if ((event.getCode() == KeyCode.A)) {
+            aKey.setOpacity(keyOpacity);
+        }
+
+        if ((event.getCode() == KeyCode.S)) {
+            sKey.setOpacity(keyOpacity);
+        }
+
+        if ((event.getCode() == KeyCode.D)) {
+            dKey.setOpacity(keyOpacity);
+        }
+
+        if ((event.getCode() == KeyCode.H)) {
+            hKey.setOpacity(keyOpacity);
+        }
+
+        if ((event.getCode() == KeyCode.I)) {
+            iKey.setOpacity(keyOpacity);
+        }
+
+        if ((event.getCode() == KeyCode.T)) {
+            tKey.setOpacity(keyOpacity);
+        }
+
+    }
+
+    @FXML
+    public void onKeyReleased(KeyEvent event) {
+        if ((event.getCode() == KeyCode.W)
+                || (event.getCode() == KeyCode.A)
+                || (event.getCode() == KeyCode.S)
+                || (event.getCode() == KeyCode.D)) {
+            player.onKeyReleasedMovement(event.getCode());
+        }
+
+        if ((event.getCode() == KeyCode.W)) {
+            wKey.setOpacity(1);
+        }
+
+        if ((event.getCode() == KeyCode.A)) {
+            aKey.setOpacity(1);
+        }
+
+        if ((event.getCode() == KeyCode.S)) {
+            sKey.setOpacity(1);
+        }
+
+        if ((event.getCode() == KeyCode.D)) {
+            dKey.setOpacity(1);
+        }
+
+        if ((event.getCode() == KeyCode.H)) {
+            hKey.setOpacity(1);
+        }
+
+        if ((event.getCode() == KeyCode.I)) {
+            iKey.setOpacity(1);
+        }
+
+        if ((event.getCode() == KeyCode.T)) {
+            tKey.setOpacity(1);
         }
 
     }
