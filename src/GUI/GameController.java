@@ -19,16 +19,16 @@ import java.util.ResourceBundle;
 
 public class GameController implements Initializable {
 
-    Game game = new Game();
+    Game game;
 
     @FXML
-    PlayerMove player = new PlayerMove();
+    private PlayerMove player = new PlayerMove();
     @FXML
-    AnchorPane scene;
+    private AnchorPane scene;
     @FXML
-    ImageView image;
+    private ImageView image;
     @FXML
-    ImageView bucket;
+    private ImageView bucket;
     @FXML
     private ImageView dialogbox;
     @FXML
@@ -40,7 +40,6 @@ public class GameController implements Initializable {
         player.makeMovable(image, scene);
         textBox.setEditable(false);
         textBox.setMouseTransparent(true);
-        textBox.setText(game.getRoomDescription());
         textBox.setFont(Font.font("Verdana", FontWeight.BOLD, 9));
     }
 
@@ -75,6 +74,11 @@ public class GameController implements Initializable {
             textBox.setText(game.startTalk());
         }
 
+    }
+
+    public void addGame(Game game) {
+        this.game = game;
+        textBox.setText(game.getRoomDescription());
     }
 
 }
