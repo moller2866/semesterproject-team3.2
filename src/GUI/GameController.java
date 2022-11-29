@@ -34,19 +34,8 @@ public class GameController implements Initializable {
     @FXML
     private TextArea textBox;
     @FXML
-    private ImageView wKey;
-    @FXML
-    private ImageView aKey;
-    @FXML
-    private ImageView sKey;
-    @FXML
-    private ImageView dKey;
-    @FXML
-    private ImageView hKey;
-    @FXML
-    private ImageView iKey;
-    @FXML
-    private ImageView tKey;
+    private ImageView wKey, aKey, sKey, dKey,
+            hKey, iKey, tKey, qKey, eKey, spaceKey;
 
     private double keyOpacity = 0.6;
 
@@ -108,6 +97,18 @@ public class GameController implements Initializable {
             tKey.setOpacity(keyOpacity);
         }
 
+        if ((event.getCode() == KeyCode.Q)) {
+            qKey.setOpacity(keyOpacity);
+        }
+
+        if ((event.getCode() == KeyCode.E)) {
+            eKey.setOpacity(keyOpacity);
+        }
+
+        if ((event.getCode() == KeyCode.SPACE)) {
+            spaceKey.setOpacity(keyOpacity);
+        }
+
     }
 
     @FXML
@@ -147,6 +148,17 @@ public class GameController implements Initializable {
             tKey.setOpacity(1);
         }
 
+        if ((event.getCode() == KeyCode.Q)) {
+            qKey.setOpacity(1);
+        }
+
+        if ((event.getCode() == KeyCode.E)) {
+            eKey.setOpacity(1);
+        }
+
+        if ((event.getCode() == KeyCode.SPACE)) {
+            spaceKey.setOpacity(1);
+        }
     }
 
     public void addGame(Game game) {
