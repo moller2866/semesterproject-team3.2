@@ -22,11 +22,11 @@ public class Room {
         RoomDataParser data = new RoomDataParser(jsonPath);
         Room room = new Room(data.getDescription());
 
-        for (HashMap<String, String> m : data.getItems()) {
-            String type = m.get("type");
-            double x = Double.parseDouble(m.get("x"));
-            double y = Double.parseDouble(m.get("y"));
-            room.setItem(ItemFactory.create(type, x, y));
+        for (HashMap<String, ?> m : data.getItems()) {
+            Object type = m.get("type");
+            double x = (double) m.get("x");
+            double y = (double) m.get("y");
+            room.setItem(ItemFactory.create((String) type, x, y));
         }
 
         for (HashMap<String, String> m : data.getNPCs()) {
@@ -145,4 +145,7 @@ public class Room {
         }
     }
 
+    public ArrayList<Item> getItems() {
+        return items;
+    }
 }

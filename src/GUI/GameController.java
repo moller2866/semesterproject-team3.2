@@ -49,17 +49,8 @@ public class GameController implements Initializable {
         textBox.setFont(Font.font("Verdana", FontWeight.BOLD, 9));
         items.add(bucket);
         items.add(plastic);
-
-        for (Item item : game.currentRoom().getItems()) {
-            File file = new File("src\\GUI\\images\\" + item.getName() + ".png");
-            ImageView temp = new ImageView(new Image( "file:" + file.getAbsolutePath()));
-            temp.setLayoutX(item.getX());
-            temp.setLayoutY(item.getY());
-            items.add(temp);
-        }
-
-
     }
+
 
     @FXML
     public void onKeyPressed(KeyEvent event) {
@@ -76,7 +67,7 @@ public class GameController implements Initializable {
                     String fileName = item.getImage().getUrl();
                     String itemName = fileName.substring(fileName.lastIndexOf("/") + 1, fileName.lastIndexOf("."));
                     System.out.println(itemName);
-                    getItem(itemName);
+                    game.getItem(itemName);
                     if (!itemName.equals("bucket")) {
                         item.setVisible(false);
                     } else {
@@ -88,13 +79,13 @@ public class GameController implements Initializable {
             }
 
             if (image.getBoundsInParent().intersects(bucket.getBoundsInParent())) {
-                if (getItem("bucket")) player.addImage(bucket);
+                if (game.getItem("bucket")) player.addImage(bucket);
                 System.out.println("intersects");
             }
         } else if (event.getCode() == KeyCode.X) {
-            if (dropItem("bucket")) player.removeImage(bucket);
+            if (game.dropItem("bucket")) player.removeImage(bucket);
         } else if (event.getCode() == KeyCode.I) {
-            System.out.println(seeInventory());
+            System.out.println(game.seeInventory());
         }
     }
 
@@ -124,6 +115,14 @@ public class GameController implements Initializable {
     public void addGame(Game game) {
         this.game = game;
         textBox.setText(game.getRoomDescription());
+
+        for (Item item : game.getCurrentRoom().getItems()) {
+            File file = new File("src/GUI/images/" + item.getName() + ".png");
+            ImageView temp = new ImageView(new Image("file:" + file.getAbsolutePath()));
+            temp.setLayoutX(item.getX());
+            temp.setLayoutY(item.getY());
+            items.add(temp);
+        }
     }
 
 }
