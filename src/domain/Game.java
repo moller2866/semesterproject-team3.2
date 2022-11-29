@@ -132,8 +132,12 @@ public class Game {
         }
     }
 
-    public String getRoomDescription() {
-        return currentRoom.getLongDescription();
+    public String getRoomDescriptionCLI() {
+        return currentRoom.getLongDescriptionCLI();
+    }
+
+    public String getRoomDescriptionGUI() {
+        return currentRoom.getLongDescriptionGUI();
     }
 
     public CommandWords getCommands() {
@@ -156,7 +160,7 @@ public class Game {
             }
             return output;
         }
-        return "You are talking with yourself. Kinda weird...";
+        return "You are talking with yourself. \nKinda weird...";
     }
 
     public String seeInventory() {

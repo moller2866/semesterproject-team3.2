@@ -6,15 +6,12 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import oceanCleanup.src.domain.Game;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class GameController implements Initializable {
@@ -37,7 +34,8 @@ public class GameController implements Initializable {
     private ImageView wKey, aKey, sKey, dKey,
             hKey, iKey, tKey, qKey, eKey, spaceKey;
 
-    private double keyOpacity = 0.6;
+    final private double keyOpacityPressed = 0.7;
+    final private double keySizePressed = 0.9;
 
     @FXML
     @Override
@@ -46,6 +44,18 @@ public class GameController implements Initializable {
         textBox.setEditable(false);
         textBox.setMouseTransparent(true);
         textBox.setFont(Font.font("Verdana", FontWeight.BOLD, 9));
+    }
+
+    private void pressedAction(ImageView key) {
+        key.setOpacity(keyOpacityPressed);
+        key.setScaleY(keySizePressed);
+        key.setScaleX(keySizePressed);
+    }
+
+    private void nonPressed(ImageView key) {
+        key.setOpacity(1);
+        key.setScaleY(1);
+        key.setScaleX(1);
     }
 
     @FXML
@@ -58,58 +68,55 @@ public class GameController implements Initializable {
         }
 
         if ((event.getCode() == KeyCode.H)) {
-            textBox.setText(game.getRoomDescription());
+            textBox.setText(game.getRoomDescriptionGUI());
+            pressedAction(hKey);
         }
 
         if ((event.getCode() == KeyCode.I)) {
             textBox.setText(game.seeInventory());
+            pressedAction(iKey);
         }
 
         if ((event.getCode() == KeyCode.T)) {
             textBox.setText(game.startTalk());
+            pressedAction(tKey);
         }
 
         if ((event.getCode() == KeyCode.W)) {
-            wKey.setOpacity(keyOpacity);
+            wKey.setOpacity(keyOpacityPressed);
+            pressedAction(wKey);
         }
 
         if ((event.getCode() == KeyCode.A)) {
-            aKey.setOpacity(keyOpacity);
+            aKey.setOpacity(keyOpacityPressed);
+            pressedAction(aKey);
         }
 
         if ((event.getCode() == KeyCode.S)) {
-            sKey.setOpacity(keyOpacity);
+            sKey.setOpacity(keyOpacityPressed);
+            pressedAction(sKey);
         }
 
         if ((event.getCode() == KeyCode.D)) {
-            dKey.setOpacity(keyOpacity);
+            dKey.setOpacity(keyOpacityPressed);
+            pressedAction(dKey);
         }
 
-        if ((event.getCode() == KeyCode.H)) {
-            hKey.setOpacity(keyOpacity);
-        }
-
-        if ((event.getCode() == KeyCode.I)) {
-            iKey.setOpacity(keyOpacity);
-        }
-
-        if ((event.getCode() == KeyCode.T)) {
-            tKey.setOpacity(keyOpacity);
-        }
 
         if ((event.getCode() == KeyCode.Q)) {
-            qKey.setOpacity(keyOpacity);
+            pressedAction(qKey);
         }
 
         if ((event.getCode() == KeyCode.E)) {
-            eKey.setOpacity(keyOpacity);
+            pressedAction(eKey);
         }
 
         if ((event.getCode() == KeyCode.SPACE)) {
-            spaceKey.setOpacity(keyOpacity);
+            pressedAction(spaceKey);
         }
 
     }
+
 
     @FXML
     public void onKeyReleased(KeyEvent event) {
@@ -121,49 +128,49 @@ public class GameController implements Initializable {
         }
 
         if ((event.getCode() == KeyCode.W)) {
-            wKey.setOpacity(1);
+            nonPressed(wKey);
         }
 
         if ((event.getCode() == KeyCode.A)) {
-            aKey.setOpacity(1);
+            nonPressed(aKey);
         }
 
         if ((event.getCode() == KeyCode.S)) {
-            sKey.setOpacity(1);
+            nonPressed(sKey);
         }
 
         if ((event.getCode() == KeyCode.D)) {
-            dKey.setOpacity(1);
+            nonPressed(dKey);
         }
 
         if ((event.getCode() == KeyCode.H)) {
-            hKey.setOpacity(1);
+            nonPressed(hKey);
         }
 
         if ((event.getCode() == KeyCode.I)) {
-            iKey.setOpacity(1);
+            nonPressed(iKey);
         }
 
         if ((event.getCode() == KeyCode.T)) {
-            tKey.setOpacity(1);
+            nonPressed(tKey);
         }
 
         if ((event.getCode() == KeyCode.Q)) {
-            qKey.setOpacity(1);
+            nonPressed(qKey);
         }
 
         if ((event.getCode() == KeyCode.E)) {
-            eKey.setOpacity(1);
+            nonPressed(eKey);
         }
 
         if ((event.getCode() == KeyCode.SPACE)) {
-            spaceKey.setOpacity(1);
+            nonPressed(spaceKey);
         }
     }
 
     public void addGame(Game game) {
         this.game = game;
-        textBox.setText(game.getRoomDescription());
+        textBox.setText(game.getRoomDescriptionGUI());
     }
 
 }
