@@ -24,7 +24,9 @@ public class Room {
 
         for (HashMap<String, String> m : data.getItems()) {
             String type = m.get("type");
-            room.setItem(ItemFactory.create(type));
+            double x = Double.parseDouble(m.get("x"));
+            double y = Double.parseDouble(m.get("y"));
+            room.setItem(ItemFactory.create(type, x, y));
         }
 
         for (HashMap<String, String> m : data.getNPCs()) {

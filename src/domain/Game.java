@@ -72,6 +72,10 @@ public class Game {
 
         String secondValue = command.getCommandValue();
 
+        return getItem(secondValue);
+    }
+
+    protected boolean getItem(String secondValue) {
         if (!currentRoom.hasItem()) {
             return false;
         } else if (playerInventory.hasBucket()) {
@@ -104,6 +108,10 @@ public class Game {
 
         String secondValue = command.getCommandValue();
 
+        return dropItem(secondValue);
+    }
+
+    protected boolean dropItem(String secondValue) {
         if (playerInventory.isInventoryEmpty()) {
             return false;
         } else {

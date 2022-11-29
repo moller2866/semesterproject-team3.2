@@ -3,6 +3,7 @@ package oceanCleanup.src.GUI;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -12,6 +13,7 @@ import javafx.scene.text.FontWeight;
 import oceanCleanup.src.domain.Game;
 import oceanCleanup.src.domain.Item;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -47,6 +49,16 @@ public class GameController implements Initializable {
         textBox.setFont(Font.font("Verdana", FontWeight.BOLD, 9));
         items.add(bucket);
         items.add(plastic);
+
+        for (Item item : game.currentRoom().getItems()) {
+            File file = new File("src\\GUI\\images\\" + item.getName() + ".png");
+            ImageView temp = new ImageView(new Image( "file:" + file.getAbsolutePath()));
+            temp.setLayoutX(item.getX());
+            temp.setLayoutY(item.getY());
+            items.add(temp);
+        }
+
+
     }
 
     @FXML
