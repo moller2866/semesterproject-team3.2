@@ -127,9 +127,9 @@ public class CommandLineClient {
                     if (game.isRoomFull()) {
                         minigame.endTimer();
                         System.out.println(minigame.endMinigame());
+                    } else {
+                        System.out.println("Keep going!");
                     }
-                } else {
-                    System.out.println("Keep going!");
                 }
                 System.out.println("Emptied bucket!");
             } else {
