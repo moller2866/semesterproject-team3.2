@@ -23,11 +23,8 @@ public class Bucket extends Tool {
     }
 
     public String getContent () {
-        String temp = "Bucket:\n";
-        for (Item p : content) {
-            String type = p.getName();
-            temp += "- "+ type + "\n";
-        }
+        String temp = "Bucket:\n" +
+                "- Contains "+content.size()+"/10 pieces of plastic";
         return temp;
     }
 
