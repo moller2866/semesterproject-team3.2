@@ -5,10 +5,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import oceanCleanup.src.domain.Game;
+import oceanCleanup.src.domain.Item;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -27,9 +26,16 @@ public class GameController extends Game implements Initializable {
     ImageView bucket;
 
     @FXML
+    ImageView plastic;
+
+    ArrayList<ImageView> items = new ArrayList<>();
+
+    @FXML
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         player.makeMovable(image, scene);
+        items.add(bucket);
+        items.add(plastic);
     }
 
     @FXML
@@ -39,6 +45,33 @@ public class GameController extends Game implements Initializable {
                 || (event.getCode() == KeyCode.S)
                 || (event.getCode() == KeyCode.D)) {
             player.onKeyPressedMovement(event.getCode());
+        } else if (event.getCode() == KeyCode.SPACE) {
+            System.out.println("Space pressed");
+            // add item that intersects with player
+            for (ImageView item : items) {
+                if (item.getBoundsInParent().intersects(image.getBoundsInParent())) {
+                    String fileName = item.getImage().getUrl();
+                    String itemName = fileName.substring(fileName.lastIndexOf("/") + 1, fileName.lastIndexOf("."));
+                    System.out.println(itemName);
+                    getItem(itemName);
+                    if (!itemName.equals("bucket")) {
+                        item.setVisible(false);
+                    } else {
+                        player.addImage(bucket);
+                    }
+                    items.remove(item);
+                    break;
+                }
+            }
+
+            if (image.getBoundsInParent().intersects(bucket.getBoundsInParent())) {
+                if (getItem("bucket")) player.addImage(bucket);
+                System.out.println("intersects");
+            }
+        } else if (event.getCode() == KeyCode.X) {
+            if (dropItem("bucket")) player.removeImage(bucket);
+        } else if (event.getCode() == KeyCode.I) {
+            System.out.println(seeInventory());
         }
     }
 

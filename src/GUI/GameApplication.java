@@ -16,8 +16,9 @@ public class GameApplication extends Application {
         Scene scene = new Scene(root);
 
         scene.setOnKeyPressed(controller::onKeyPressed);
+
         scene.setOnKeyReleased(controller::onKeyReleased);
-        
+
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
