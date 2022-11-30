@@ -77,7 +77,7 @@ public class GameController implements Initializable {
         } else if (event.getCode() == KeyCode.SPACE) {
             System.out.println("Space pressed");
             picupItem();
-        } else if (event.getCode() == KeyCode.X) {
+        } else if (event.getCode() == KeyCode.Q) {
             if (game.dropItem("bucket")) items.addAll(player.dropItems());
         } else if (event.getCode() == KeyCode.I) {
             System.out.println(game.seeInventory());
@@ -118,7 +118,6 @@ public class GameController implements Initializable {
             dKey.setOpacity(keyOpacityPressed);
             pressedAction(dKey);
         }
-
 
         if ((event.getCode() == KeyCode.Q)) {
             pressedAction(qKey);
