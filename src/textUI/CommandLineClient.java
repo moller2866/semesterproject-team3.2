@@ -75,8 +75,6 @@ public class CommandLineClient {
             case UNKNOWN:
                 System.out.println("I don't know what you mean...");
                 break;
-
-
             case HELP: //fall through
                 System.out.println();
                 System.out.println("You are lost. You don't know what to do."
@@ -86,27 +84,23 @@ public class CommandLineClient {
                 System.out.println("You have the following commands:");
                 printHelp();
                 break;
-
-
-
             case GO: //fall through
-                System.out.println(game.getRoomDescriptionCLI());
-
-                System.out.println("Can't walk in that direction.");
+                if (game.goRoom(command)) {
+                    System.out.println(game.getRoomDescriptionCLI());
+                } else {
+                    System.out.println("You can't go there.");
+                }
                 break;
-
-
             case QUIT: //fall through
-                wantToQuit = true;
-                System.out.println("Quit what?");
+                if (game.quit(command)) {
+                    wantToQuit = true;
+                } else {
+                    System.out.println("Quit what?");
+                }
                 break;
-
-
             case TALK:
                 System.out.println(game.startTalk());
                 break;
-
-
             case GET:
                 if (game.getCommandChecker(command)) {
                     System.out.println("Item were added!");
@@ -115,38 +109,47 @@ public class CommandLineClient {
                 }
                 break;
             case DROP: //fall through
-                if(game.dropCommandChecker(command)) {
-                    System.out.println(minigame.endMinigame());
-                    System.out.println("Keep going!");
-                    break;
+                if (game.dropCommandChecker(command)) {
+                    if (minigame.isStarted()) {
+                        if (game.isRoomFull()) {
+                            minigame.endTimer();
+                            System.out.println(minigame.endMinigame());
+                        } else {
+                            System.out.println("Keep going!");
+                        }
+                    } else {
+                        System.out.println("Item were dropped!");
+                    }
                 } else {
-                    System.out.println("Item were dropped!");
                     System.out.println("Can't do that");
                 }
-
-
+                break;
             case INVENTORY:
                 System.out.println(game.seeInventory());
                 break;
-
             case EMPTY:
                 if (game.emptyBucketInRoom()) {
+                    if (minigame.isStarted()) {
+                        if (game.isRoomFull()) {
+                            minigame.endTimer();
+                            System.out.println(minigame.endMinigame());
+                        } else {
+                            System.out.println("Keep going!");
+                        }
+                    }
                     System.out.println("Emptied bucket!");
                 } else {
                     System.out.println("Nothing to empty!");
                 }
+                break;
             case MINIGAME:
                 if (game.hasMinigame()) {
                     System.out.println("Minigame started, lets clean up the ocean!");
                     minigame.startTimer();
-                    break;
                 } else {
-
                     System.out.println("Can't do that");
                 }
-
-
-
+                break;
         }
         return wantToQuit;
     }
