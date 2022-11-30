@@ -47,7 +47,7 @@ public class GameController implements Initializable {
         playerMove.makeMovable(playerImage, scene);
         textBox.setEditable(false);
         textBox.setMouseTransparent(true);
-        textBox.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
+        textBox.setFont(Font.font("Verdana", FontWeight.BOLD, 13));
     }
 
     private void pressedAction(ImageView key) {
