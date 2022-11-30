@@ -56,7 +56,7 @@ public class CommandLineClient {
         System.out.println();
         System.out.println("Type '" + Commands.HELP + "' if you need help.");
         System.out.println();
-        System.out.println(game.getRoomDescription());
+        System.out.println(game.getRoomDescriptionCLI());
     }
 
     private void printHelp() {
@@ -86,7 +86,7 @@ public class CommandLineClient {
             printHelp();
         } else if (commandWord == Commands.GO) {
             if (game.goRoom(command)) {
-                System.out.println(game.getRoomDescription());
+                System.out.println(game.getRoomDescriptionCLI());
             } else {
                 System.out.println("Can't walk in that direction.");
             }
