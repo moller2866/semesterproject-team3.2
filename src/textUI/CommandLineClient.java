@@ -56,7 +56,7 @@ public class CommandLineClient {
         System.out.println();
         System.out.println("Type '" + Commands.HELP + "' if you need help.");
         System.out.println();
-        System.out.println(game.getRoomDescription());
+        System.out.println(game.getRoomDescriptionCLI());
     }
 
     private void printHelp() {
@@ -88,8 +88,10 @@ public class CommandLineClient {
                 break;
 
 
+
             case GO: //fall through
-                System.out.println(game.getRoomDescription());
+                System.out.println(game.getRoomDescriptionCLI());
+
                 System.out.println("Can't walk in that direction.");
                 break;
 

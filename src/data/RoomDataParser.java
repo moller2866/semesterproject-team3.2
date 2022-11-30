@@ -62,8 +62,8 @@ public class RoomDataParser {
         return (ArrayList<HashMap<String, String>>) getJsonContent().get("NPCs");
     }
 
-    public ArrayList<HashMap<String, String>> getItems() {
-        return (ArrayList<HashMap<String, String>>) getJsonContent().get("items");
+    public ArrayList<HashMap<String, ?>> getItems() {
+        return (ArrayList<HashMap<String, ?>>) getJsonContent().get("items");
     }
 
     public String getDescription() {

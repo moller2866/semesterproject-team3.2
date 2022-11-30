@@ -9,7 +9,11 @@ package oceanCleanup.src.domain;
 public class Tool extends Item {
 
     Tool (String name) {
-        super(name);
+        super(name,0,0);
+    }
+
+    Tool (String name, double x, double y) {
+        super(name, x, y);
     }
 
     public String getInfo() {

@@ -22,9 +22,11 @@ public class Room {
         RoomDataParser data = new RoomDataParser(jsonPath);
         Room room = new Room(data.getDescription());
 
-        for (HashMap<String, String> m : data.getItems()) {
-            String type = m.get("type");
-            room.setItem(ItemFactory.create(type));
+        for (HashMap<String, ?> m : data.getItems()) {
+            Object type = m.get("type");
+            double x = (double) m.get("x");
+            double y = (double) m.get("y");
+            room.setItem(ItemFactory.create((String) type, x, y));
         }
 
         for (HashMap<String, String> m : data.getNPCs()) {
@@ -81,11 +83,15 @@ public class Room {
         return description;
     }
 
-    public String getLongDescription() {
-        return "You are " + description + ".\n" + getExitString();
+    public String getLongDescriptionCLI() {
+        return "You are " + description + ".\n" + getExitStringCLI();
     }
 
-    private String getExitString() {
+    public String getLongDescriptionGUI() {
+        return "You are " + description + ".\n" + getExitStringGUI();
+    }
+
+    private String getExitStringCLI() {
         String returnString = "\nExits:";
         Set<String> keys = exits.keySet();
         for (String exit : keys) {
@@ -95,6 +101,26 @@ public class Room {
                 + getAllItemNames();
         returnString += "\nPeople: "
                 + getAllNPCNames();
+        return returnString;
+    }
+
+    private String getExitStringGUI() {
+        String returnString = "";
+        if (hasItem()) {
+            returnString += "It looks like there are some items here.\n";
+        } else {
+            returnString += "There are no items here.\n";
+        }
+        if (hasNPC()) {
+            returnString += getAllNPCNames() + " is nearby.\n";
+        } else {
+            returnString += "There are no people nearby.\n";
+        }
+        returnString += "\nYou can go:";
+        Set<String> keys = exits.keySet();
+        for (String exit : keys) {
+            returnString += " " + exit;
+        }
         return returnString;
     }
 
@@ -143,4 +169,7 @@ public class Room {
         }
     }
 
+    public ArrayList<Item> getItems() {
+        return items;
+    }
 }

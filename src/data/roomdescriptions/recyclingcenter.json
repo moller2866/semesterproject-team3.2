@@ -8,7 +8,9 @@
   ],
   "items": [
     {
-      "type": "Bucket"
+      "type": "Bucket",
+      "x": 200.0,
+      "y": 200.0
     }
   ]
 }
