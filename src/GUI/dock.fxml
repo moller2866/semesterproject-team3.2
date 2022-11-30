@@ -33,6 +33,7 @@
 -->
 
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -138,10 +139,13 @@
             <Font name="Verdana Bold" size="9.0" />
          </font>
       </Text>
-      <ImageView fitHeight="261.0" fitWidth="261.0" layoutX="294.0" layoutY="242.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="ship" fitHeight="261.0" fitWidth="261.0" layoutX="294.0" layoutY="242.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@graphics/oceancleanupship.png" />
          </image>
+         <effect>
+            <ColorAdjust brightness="0.02" contrast="-0.28" />
+         </effect>
       </ImageView>
    </children>
 </AnchorPane>

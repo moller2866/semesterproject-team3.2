@@ -1,7 +1,11 @@
 package oceanCleanup.src.GUI;
 
+import javafx.animation.Interpolator;
+import javafx.animation.RotateTransition;
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -10,6 +14,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.transform.Rotate;
+import javafx.util.Duration;
 import oceanCleanup.src.domain.Game;
 import oceanCleanup.src.domain.Item;
 
@@ -51,6 +57,17 @@ public class GameController implements Initializable {
         textBox.setEditable(false);
         textBox.setMouseTransparent(true);
         textBox.setFont(Font.font("Verdana", FontWeight.BOLD, 13));
+        imageMovement(ship);
+    }
+
+    private void imageMovement(Node node) {
+        TranslateTransition translate = new TranslateTransition();
+        translate.setNode(node);
+        translate.setDuration(Duration.seconds(1.7));
+        translate.setCycleCount(TranslateTransition.INDEFINITE);
+        translate.setByY(-8);
+        translate.setAutoReverse(true);
+        translate.play();
     }
 
     private void pressedAction(ImageView key) {
@@ -180,8 +197,10 @@ public class GameController implements Initializable {
         if ((event.getCode() == KeyCode.L)) {
             if (game.getRoomDescriptionGUI().contains("dock")) {
                 game.goRoomDirection("north");
+                ship.setVisible(false);
             } else {
                 game.goRoomDirection("south");
+                ship.setVisible(true);
             }
             changeSceneImage();
         }
