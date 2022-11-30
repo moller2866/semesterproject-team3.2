@@ -20,6 +20,7 @@ public class GameApplication extends Application {
         controller.addGame(new Game());
         stage.setScene(scene);
         stage.setResizable(false);
+        stage.setTitle("The Ocean Cleanup");
         stage.show();
     }
 
