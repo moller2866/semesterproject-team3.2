@@ -72,9 +72,10 @@ public class GameController implements Initializable {
             if (item.getBoundsInParent().intersects(image.getBoundsInParent())) {
                 String fileName = item.getImage().getUrl();
                 String itemName = fileName.substring(fileName.lastIndexOf("/") + 1, fileName.lastIndexOf("."));
+                System.out.println(itemName);
                 if (player.hasBucket() || itemName.equals("bucket") || itemName.equals("bucket_filled")) {
-                    game.getItem(itemName);
-                    if (itemName.equals("bucket")|| itemName.equals("bucket_filled")) {
+                    game.getItem(itemName.split("_")[0]);
+                    if (itemName.equals("bucket") || itemName.equals("bucket_filled")) {
                         player.addImage(item);
                     } else {
                         if (!game.getPlayerBucket().isEmpty()) {
@@ -117,7 +118,11 @@ public class GameController implements Initializable {
         this.game = game;
         textBox.setText(game.getRoomDescription());
 
-        for (Item item : game.getCurrentRoom().getItems()) {
+        changeRoom();
+    }
+
+    private void changeRoom() {
+        for (Item item : this.game.getCurrentRoom().getItems()) {
             File file = new File(getClass().getResource("items/" + item.getName().toLowerCase() + ".png").getPath());
             ImageView temp = new ImageView(new Image("file:" + file.getAbsolutePath()));
             temp.setLayoutX(item.getX());
