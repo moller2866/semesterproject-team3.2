@@ -64,6 +64,26 @@ public class GameController implements Initializable {
             if (game.dropItem("bucket")) items.addAll(player.dropItems());
         } else if (event.getCode() == KeyCode.I) {
             System.out.println(game.seeInventory());
+        } else if (event.getCode() == KeyCode.E) {
+            emptyBucket();
+        }
+    }
+
+    private void emptyBucket() {
+        if (player.hasBucket()) {
+            if (game.getCurrentRoom().getShortDescription().contains("container")) {
+                if (game.emptyBucketInRoom()) {
+                    textBox.setText("You emptied the bucket");
+                    File file = new File(getClass().getResource("items/bucket.png").getPath());
+                    bucket.setImage(new Image("file:" + file.getAbsolutePath()));
+                } else {
+                    textBox.setText("There is nothing to empty");
+                }
+            } else {
+                textBox.setText("You can't empty the bucket here");
+            }
+        } else {
+            textBox.setText("You don't have a bucket");
         }
     }
 
