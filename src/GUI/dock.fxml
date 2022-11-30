@@ -47,12 +47,12 @@
             <Image url="@player/stand_right.png" />
          </image>
       </ImageView>
+      <TextArea fx:id="textBox" focusTraversable="false" layoutX="34.0" layoutY="641.0" prefHeight="131.0" prefWidth="489.0" />
       <ImageView fx:id="dialogbox" fitHeight="192.0" fitWidth="592.0" layoutX="-20.0" layoutY="612.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@graphics/dialog_box.png" />
          </image>
       </ImageView>
-      <TextArea fx:id="textBox" focusTraversable="false" layoutX="38.0" layoutY="646.0" prefHeight="124.0" prefWidth="481.0" />
       <ImageView fx:id="wKey" layoutX="1126.0" layoutY="693.0" scaleX="1.5" scaleY="1.5">
          <image>
             <Image url="@graphics/W.png" />

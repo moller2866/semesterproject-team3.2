@@ -189,8 +189,10 @@ public class GameController implements Initializable {
             this.background.setImage(new Image(getClass().getResource("graphics/dock.png").toExternalForm()));
             this.background.setFitHeight(820);
             this.background.setFitWidth(1250);
+            textBox.setText(game.getRoomDescriptionGUI());
         } else if (game.getCurrentRoom().getLongDescriptionGUI().contains("ship")) {
             this.background.setImage(new Image(getClass().getResource("graphics/W.png").toExternalForm()));
+            textBox.setText(game.getRoomDescriptionGUI());
         }
     }
 
