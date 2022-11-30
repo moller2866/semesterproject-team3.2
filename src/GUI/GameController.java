@@ -39,6 +39,9 @@ public class GameController implements Initializable {
     private ImageView wKey, aKey, sKey, dKey,
             hKey, iKey, tKey, qKey, eKey, spaceKey;
 
+    @FXML
+    private ImageView ship;
+
     ArrayList<ImageView> items = new ArrayList<>();
 
     @FXML
