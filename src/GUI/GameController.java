@@ -15,6 +15,7 @@ import oceanCleanup.src.domain.Item;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class GameController implements Initializable {
@@ -83,49 +84,6 @@ public class GameController implements Initializable {
         } else if (event.getCode() == KeyCode.E) {
             emptyBucket();
         }
-    }
-
-    private void emptyBucket() {
-        if (player.hasBucket()) {
-            if (game.getCurrentRoom().getShortDescription().contains("container")) {
-                if (game.emptyBucketInRoom()) {
-                    textBox.setText("You emptied the bucket");
-                    File file = new File(getClass().getResource("items/bucket.png").getPath());
-                    bucket.setImage(new Image("file:" + file.getAbsolutePath()));
-                } else {
-                    textBox.setText("There is nothing to empty");
-                }
-            } else {
-                textBox.setText("You can't empty the bucket here");
-            }
-        } else {
-            textBox.setText("You don't have a bucket");
-        }
-    }
-
-    private void picupItem() {
-        for (ImageView item : items) {
-            if (item.getBoundsInParent().intersects(image.getBoundsInParent())) {
-                String fileName = item.getImage().getUrl();
-                String itemName = fileName.substring(fileName.lastIndexOf("/") + 1, fileName.lastIndexOf("."));
-                System.out.println(itemName);
-                if (player.hasBucket() || itemName.equals("bucket") || itemName.equals("bucket_filled")) {
-                    game.getItem(itemName.split("_")[0]);
-                    if (itemName.equals("bucket") || itemName.equals("bucket_filled")) {
-                        player.addImage(item);
-                    } else {
-                        if (!game.getPlayerBucket().isEmpty()) {
-                            File file = new File(getClass().getResource("items/bucket_filled.png").getPath());
-                            bucket.setImage(new Image("file:" + file.getAbsolutePath()));
-                        }
-                        item.setVisible(false);
-                    }
-                    items.remove(item);
-                    break;
-                }
-            }
-        }
-
         if ((event.getCode() == KeyCode.H)) {
             textBox.setText(game.getRoomDescriptionGUI());
             pressedAction(hKey);
@@ -173,7 +131,6 @@ public class GameController implements Initializable {
         if ((event.getCode() == KeyCode.SPACE)) {
             pressedAction(spaceKey);
         }
-
     }
 
 
@@ -224,6 +181,47 @@ public class GameController implements Initializable {
 
         if ((event.getCode() == KeyCode.SPACE)) {
             nonPressed(spaceKey);
+        }
+    }
+    private void emptyBucket() {
+        if (player.hasBucket()) {
+            if (game.getCurrentRoom().getShortDescription().contains("container")) {
+                if (game.emptyBucketInRoom()) {
+                    textBox.setText("You emptied the bucket");
+                    File file = new File(getClass().getResource("items/bucket.png").getPath());
+                    bucket.setImage(new Image("file:" + file.getAbsolutePath()));
+                } else {
+                    textBox.setText("There is nothing to empty");
+                }
+            } else {
+                textBox.setText("You can't empty the bucket here");
+            }
+        } else {
+            textBox.setText("You don't have a bucket");
+        }
+    }
+
+    private void picupItem() {
+        for (ImageView item : items) {
+            if (item.getBoundsInParent().intersects(image.getBoundsInParent())) {
+                String fileName = item.getImage().getUrl();
+                String itemName = fileName.substring(fileName.lastIndexOf("/") + 1, fileName.lastIndexOf("."));
+                System.out.println(itemName);
+                if (player.hasBucket() || itemName.equals("bucket") || itemName.equals("bucket_filled")) {
+                    game.getItem(itemName.split("_")[0]);
+                    if (itemName.equals("bucket") || itemName.equals("bucket_filled")) {
+                        player.addImage(item);
+                    } else {
+                        if (!game.getPlayerBucket().isEmpty()) {
+                            File file = new File(getClass().getResource("items/bucket_filled.png").getPath());
+                            bucket.setImage(new Image("file:" + file.getAbsolutePath()));
+                        }
+                        item.setVisible(false);
+                    }
+                    items.remove(item);
+                    break;
+                }
+            }
         }
     }
 
