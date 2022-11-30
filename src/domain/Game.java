@@ -1,5 +1,7 @@
 package oceanCleanup.src.domain;
 
+import javafx.scene.control.ChoiceBox;
+
 import java.util.List;
 
 public class Game {
@@ -7,6 +9,11 @@ public class Game {
     protected Room currentRoom;
     private CommandWords commands;
     Inventory playerInventory = new Inventory();
+
+    public Bucket getPlayerBucket() {
+        return playerBucket;
+    }
+
     Bucket playerBucket = new Bucket();
 
     public Game() {
@@ -72,6 +79,10 @@ public class Game {
 
         String secondValue = command.getCommandValue();
 
+        return getItem(secondValue);
+    }
+
+    public boolean getItem(String secondValue) {
         if (!currentRoom.hasItem()) {
             return false;
         } else if (playerInventory.hasBucket()) {
@@ -104,6 +115,10 @@ public class Game {
 
         String secondValue = command.getCommandValue();
 
+        return dropItem(secondValue);
+    }
+
+    public boolean dropItem(String secondValue) {
         if (playerInventory.isInventoryEmpty()) {
             return false;
         } else {
@@ -207,4 +222,7 @@ public class Game {
     }
 
 
+    public Room getCurrentRoom() {
+        return currentRoom;
+    }
 }

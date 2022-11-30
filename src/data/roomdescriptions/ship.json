@@ -3,34 +3,54 @@
   "NPCs": [],
   "items": [
     {
-      "type": "Plastic"
+      "type": "Plastic",
+      "x": 375.0,
+      "y": 100.0
     },
     {
-      "type": "Plastic"
+      "type": "Plastic",
+      "x": 375.0,
+      "y": 100.0
     },
     {
-      "type": "Plastic"
+      "type": "Plastic",
+      "x": 402.0,
+      "y": 101.0
     },
     {
-      "type": "Plastic"
+      "type": "Plastic",
+      "x": 452.0,
+      "y": 101.0
     },
     {
-      "type": "Plastic"
+      "type": "Plastic",
+      "x": 402.0,
+      "y": 150.0
     },
     {
-      "type": "Plastic"
+      "type": "Plastic",
+      "x": 452.0,
+      "y": 150.0
     },
     {
-      "type": "Plastic"
+      "type": "Plastic",
+      "x": 472.0,
+      "y": 101.0
     },
     {
-      "type": "Plastic"
+      "type": "Plastic",
+      "x": 472.0,
+      "y": 151.0
     },
     {
-      "type": "Plastic"
+      "type": "Plastic",
+      "x": 480.0,
+      "y": 101.0
     },
     {
-      "type": "Plastic"
+      "type": "Plastic",
+      "x": 480.0,
+      "y": 150.0
     }
   ]
 }
