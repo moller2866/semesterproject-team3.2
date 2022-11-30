@@ -61,6 +61,10 @@ public class Game {
 
         String direction = command.getCommandValue();
 
+        return goRoomDirection(direction);
+    }
+
+    public boolean goRoomDirection(String direction) {
         Room nextRoom = currentRoom.getExit(direction);
 
         if (nextRoom == null) {

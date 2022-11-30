@@ -70,32 +70,29 @@ public class PlayerMove {
         }
     };
 
+
     public void onKeyPressedMovement(KeyCode code) {
         if (code == KeyCode.W) {
             if (!wPressed.get()) {
-                File file = new File(getClass().getResource("player/walk_left.gif").getPath());
-                images.get(0).setImage(new Image("file:" + file.getAbsolutePath()));
+                images.get(0).setImage(new Image(getClass().getResource("player/walk_left.gif").toExternalForm()));
             }
             wPressed.set(true);
         }
         if (code == KeyCode.A) {
             if (!aPressed.get()) {
-                File file = new File(getClass().getResource("player/walk_left.gif").getPath());
-                images.get(0).setImage(new Image("file:" + file.getAbsolutePath()));
+                images.get(0).setImage(new Image(getClass().getResource("player/walk_left.gif").toExternalForm()));
             }
             aPressed.set(true);
         }
         if (code == KeyCode.S) {
             if (!sPressed.get()) {
-                File file = new File(getClass().getResource("player/walk_right.gif").getPath());
-                images.get(0).setImage(new Image("file:" + file.getAbsolutePath()));
+                images.get(0).setImage(new Image(getClass().getResource("player/walk_right.gif").toExternalForm()));
             }
             sPressed.set(true);
         }
         if (code == KeyCode.D) {
             if (!dPressed.get()) {
-                File file = new File(getClass().getResource("player/walk_right.gif").getPath());
-                images.get(0).setImage(new Image("file:" + file.getAbsolutePath()));
+                images.get(0).setImage(new Image(getClass().getResource("player/walk_right.gif").toExternalForm()));
             }
             dPressed.set(true);
         }
@@ -116,13 +113,11 @@ public class PlayerMove {
         }
         if ((code == KeyCode.W) || (code == KeyCode.A)) {
             if (!wPressed.get() && !aPressed.get() && !sPressed.get() && !dPressed.get()) {
-                File file = new File(getClass().getResource("player/stand_left.png").getPath());
-                images.get(0).setImage(new Image("file:" + file.getAbsolutePath()));
+                images.get(0).setImage(new Image(getClass().getResource("player/stand_left.png").toExternalForm()));
             }
         } else if ((code == KeyCode.S) || (code == KeyCode.D)) {
             if (!wPressed.get() && !aPressed.get() && !sPressed.get() && !dPressed.get()) {
-                File file = new File(getClass().getResource("player/stand_right.png").getPath());
-                images.get(0).setImage(new Image("file:" + file.getAbsolutePath()));
+                images.get(0).setImage(new Image(getClass().getResource("player/stand_right.png").toExternalForm()));
             }
         }
     }

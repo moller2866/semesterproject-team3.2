@@ -13,7 +13,6 @@ import javafx.scene.text.FontWeight;
 import oceanCleanup.src.domain.Game;
 import oceanCleanup.src.domain.Item;
 
-import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -23,11 +22,13 @@ public class GameController implements Initializable {
     Game game;
 
     @FXML
-    private PlayerMove player = new PlayerMove();
+    private ImageView background;
+    @FXML
+    private PlayerMove playerMove = new PlayerMove();
     @FXML
     private AnchorPane scene;
     @FXML
-    private ImageView image;
+    private ImageView playerImage;
     @FXML
     private ImageView bucket;
     @FXML
@@ -41,18 +42,15 @@ public class GameController implements Initializable {
     final private double keyOpacityPressed = 0.7;
     final private double keySizePressed = 0.9;
 
-    @FXML
-    ImageView plastic;
-
     ArrayList<ImageView> items = new ArrayList<>();
 
     @FXML
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        player.makeMovable(image, scene);
+        playerMove.makeMovable(playerImage, scene);
         textBox.setEditable(false);
         textBox.setMouseTransparent(true);
-        textBox.setFont(Font.font("Verdana", FontWeight.BOLD, 9));
+        textBox.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
     }
 
     private void pressedAction(ImageView key) {
@@ -73,12 +71,12 @@ public class GameController implements Initializable {
                 || (event.getCode() == KeyCode.A)
                 || (event.getCode() == KeyCode.S)
                 || (event.getCode() == KeyCode.D)) {
-            player.onKeyPressedMovement(event.getCode());
+            playerMove.onKeyPressedMovement(event.getCode());
         } else if (event.getCode() == KeyCode.SPACE) {
             System.out.println("Space pressed");
             picupItem();
         } else if (event.getCode() == KeyCode.Q) {
-            if (game.dropItem("bucket")) items.addAll(player.dropItems());
+            if (game.dropItem("bucket")) items.addAll(playerMove.dropItems());
         } else if (event.getCode() == KeyCode.I) {
             System.out.println(game.seeInventory());
         } else if (event.getCode() == KeyCode.E) {
@@ -139,7 +137,8 @@ public class GameController implements Initializable {
                 || (event.getCode() == KeyCode.A)
                 || (event.getCode() == KeyCode.S)
                 || (event.getCode() == KeyCode.D)) {
-            player.onKeyReleasedMovement(event.getCode());
+            playerMove.onKeyReleasedMovement(event.getCode());
+            changeSceneImage();
         }
 
         if ((event.getCode() == KeyCode.W)) {
@@ -181,14 +180,31 @@ public class GameController implements Initializable {
         if ((event.getCode() == KeyCode.SPACE)) {
             nonPressed(spaceKey);
         }
+
+        if ((event.getCode() == KeyCode.L)) {
+            if (game.getRoomDescriptionGUI().contains("dock")) {
+                game.goRoomDirection("north");
+            } else {
+                game.goRoomDirection("south");
+            }
+            changeSceneImage();
+        }
     }
+
+    private void changeSceneImage() {
+        if (game.getCurrentRoom().getLongDescriptionGUI().contains("dock")) {
+            this.background.setImage(new Image(getClass().getResource("graphics/dock.png").toExternalForm()));
+        } else if (game.getCurrentRoom().getLongDescriptionGUI().contains("ship")) {
+            this.background.setImage(new Image(getClass().getResource("graphics/W.png").toExternalForm()));
+        }
+    }
+
     private void emptyBucket() {
-        if (player.hasBucket()) {
+        if (playerMove.hasBucket()) {
             if (game.getCurrentRoom().getShortDescription().contains("container")) {
                 if (game.emptyBucketInRoom()) {
                     textBox.setText("You emptied the bucket");
-                    File file = new File(getClass().getResource("items/bucket.png").getPath());
-                    bucket.setImage(new Image("file:" + file.getAbsolutePath()));
+                    bucket.setImage(new Image(getClass().getResource("items/bucket.png").toExternalForm()));
                 } else {
                     textBox.setText("There is nothing to empty");
                 }
@@ -202,18 +218,17 @@ public class GameController implements Initializable {
 
     private void picupItem() {
         for (ImageView item : items) {
-            if (item.getBoundsInParent().intersects(image.getBoundsInParent())) {
+            if (item.getBoundsInParent().intersects(playerImage.getBoundsInParent())) {
                 String fileName = item.getImage().getUrl();
                 String itemName = fileName.substring(fileName.lastIndexOf("/") + 1, fileName.lastIndexOf("."));
                 System.out.println(itemName);
-                if (player.hasBucket() || itemName.equals("bucket") || itemName.equals("bucket_filled")) {
+                if (playerMove.hasBucket() || itemName.equals("bucket") || itemName.equals("bucket_filled")) {
                     game.getItem(itemName.split("_")[0]);
                     if (itemName.equals("bucket") || itemName.equals("bucket_filled")) {
-                        player.addImage(item);
+                        playerMove.addImage(item);
                     } else {
                         if (!game.getPlayerBucket().isEmpty()) {
-                            File file = new File(getClass().getResource("items/bucket_filled.png").getPath());
-                            bucket.setImage(new Image("file:" + file.getAbsolutePath()));
+                            bucket.setImage(new Image(getClass().getResource("items/bucket_filled.png").toExternalForm()));
                         }
                         item.setVisible(false);
                     }
@@ -228,12 +243,12 @@ public class GameController implements Initializable {
         this.game = game;
         textBox.setText(game.getRoomDescriptionGUI());
         changeRoom();
+        changeSceneImage();
     }
 
     private void changeRoom() {
         for (Item item : this.game.getCurrentRoom().getItems()) {
-            File file = new File(getClass().getResource("items/" + item.getName().toLowerCase() + ".png").getPath());
-            ImageView temp = new ImageView(new Image("file:" + file.getAbsolutePath()));
+            ImageView temp = new ImageView(new Image(getClass().getResource("items/" + item.getName().toLowerCase() + ".png").toExternalForm()));
             temp.setLayoutX(item.getX());
             temp.setLayoutY(item.getY());
             if (temp.getImage().getUrl().contains("bucket")) {
