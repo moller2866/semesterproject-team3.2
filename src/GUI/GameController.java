@@ -39,9 +39,6 @@ public class GameController implements Initializable {
     private ImageView wKey, aKey, sKey, dKey,
             hKey, iKey, tKey, qKey, eKey, spaceKey;
 
-    final private double keyOpacityPressed = 0.7;
-    final private double keySizePressed = 0.9;
-
     ArrayList<ImageView> items = new ArrayList<>();
 
     @FXML
@@ -54,15 +51,15 @@ public class GameController implements Initializable {
     }
 
     private void pressedAction(ImageView key) {
-        key.setOpacity(keyOpacityPressed);
-        key.setScaleY(keySizePressed);
-        key.setScaleX(keySizePressed);
+        key.setOpacity(0.7);
+        key.setScaleY(1.4);
+        key.setScaleX(1.4);
     }
 
     private void nonPressed(ImageView key) {
         key.setOpacity(1);
-        key.setScaleY(1);
-        key.setScaleX(1);
+        key.setScaleY(1.5);
+        key.setScaleX(1.5);
     }
 
     @FXML
@@ -98,22 +95,18 @@ public class GameController implements Initializable {
         }
 
         if ((event.getCode() == KeyCode.W)) {
-            wKey.setOpacity(keyOpacityPressed);
             pressedAction(wKey);
         }
 
         if ((event.getCode() == KeyCode.A)) {
-            aKey.setOpacity(keyOpacityPressed);
             pressedAction(aKey);
         }
 
         if ((event.getCode() == KeyCode.S)) {
-            sKey.setOpacity(keyOpacityPressed);
             pressedAction(sKey);
         }
 
         if ((event.getCode() == KeyCode.D)) {
-            dKey.setOpacity(keyOpacityPressed);
             pressedAction(dKey);
         }
 
@@ -194,6 +187,8 @@ public class GameController implements Initializable {
     private void changeSceneImage() {
         if (game.getCurrentRoom().getLongDescriptionGUI().contains("dock")) {
             this.background.setImage(new Image(getClass().getResource("graphics/dock.png").toExternalForm()));
+            this.background.setFitHeight(820);
+            this.background.setFitWidth(1250);
         } else if (game.getCurrentRoom().getLongDescriptionGUI().contains("ship")) {
             this.background.setImage(new Image(getClass().getResource("graphics/W.png").toExternalForm()));
         }

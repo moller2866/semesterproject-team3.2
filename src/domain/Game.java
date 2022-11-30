@@ -1,6 +1,5 @@
 package oceanCleanup.src.domain;
 
-import javafx.scene.control.ChoiceBox;
 
 import java.util.List;
 
