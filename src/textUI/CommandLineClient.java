@@ -71,77 +71,80 @@ public class CommandLineClient {
 
         Commands commandWord = command.getCommandName();
 
-        if (commandWord == Commands.UNKNOWN) {
-            System.out.println("I don't know what you mean...");
-            return false;
-        }
+        switch (commandWord) {
+            case UNKNOWN:
+                System.out.println("I don't know what you mean...");
+                break;
 
-        if (commandWord == Commands.HELP) {
-            System.out.println();
-            System.out.println("You are lost. You don't know what to do."
-                    + "\n" +
-                    "You wander around.");
-            System.out.println();
-            System.out.println("You have the following commands:");
-            printHelp();
-        } else if (commandWord == Commands.GO) {
-            if (game.goRoom(command)) {
+
+            case HELP: //fall through
+                System.out.println();
+                System.out.println("You are lost. You don't know what to do."
+                        + "\n" +
+                        "You wander around.");
+                System.out.println();
+                System.out.println("You have the following commands:");
+                printHelp();
+                break;
+
+
+            case GO: //fall through
                 System.out.println(game.getRoomDescription());
-            } else {
                 System.out.println("Can't walk in that direction.");
-            }
-        } else if (commandWord == Commands.QUIT) {
-            if (game.quit(command)) {
+                break;
+
+
+            case QUIT: //fall through
                 wantToQuit = true;
-            } else {
                 System.out.println("Quit what?");
-            }
-        } else if (commandWord == Commands.TALK) {
-            System.out.println(game.startTalk());
-        } else if (commandWord == Commands.GET) {
-            if (game.getCommandChecker(command)) {
-                System.out.println("Item were added!");
-            } else {
-                System.out.println("Can't do that");
-            }
-        } else if (commandWord == Commands.DROP) {
-            if (game.dropCommandChecker(command)) {
-                if (minigame.isStarted()) {
-                    if (game.isRoomFull()) {
-                        minigame.endTimer();
-                        System.out.println(minigame.endMinigame());
-                    } else {
-                        System.out.println("Keep going!");
-                    }
+                break;
+
+
+            case TALK:
+                System.out.println(game.startTalk());
+                break;
+
+
+            case GET:
+                if (game.getCommandChecker(command)) {
+                    System.out.println("Item were added!");
+                } else {
+                    System.out.println("Can't do that");
+                }
+                break;
+            case DROP: //fall through
+                if(game.dropCommandChecker(command)) {
+                    System.out.println(minigame.endMinigame());
+                    System.out.println("Keep going!");
+                    break;
                 } else {
                     System.out.println("Item were dropped!");
+                    System.out.println("Can't do that");
                 }
-            } else {
-                System.out.println("Can't do that");
-            }
-        } else if (commandWord == Commands.INVENTORY) {
-            System.out.println(game.seeInventory());
-        } else if (commandWord == Commands.EMPTY) {
-            if (game.emptyBucketInRoom()) {
-                if (minigame.isStarted()) {
-                    if (game.isRoomFull()) {
-                        minigame.endTimer();
-                        System.out.println(minigame.endMinigame());
-                    } else {
-                        System.out.println("Keep going!");
-                    }
+
+
+            case INVENTORY:
+                System.out.println(game.seeInventory());
+                break;
+
+            case EMPTY:
+                if (game.emptyBucketInRoom()) {
+                    System.out.println("Emptied bucket!");
+                } else {
+                    System.out.println("Nothing to empty!");
                 }
-                System.out.println("Emptied bucket!");
-            } else {
-                System.out.println("Nothing to empty!");
-            }
-        } else if (commandWord == Commands.MINIGAME) {
-            if (game.hasMinigame()) {
-                System.out.println("Minigame started, lets clean up the ocean!");
-                minigame.startTimer();
-            } else {
-                System.out.println("Can't do that");
-            }
+            case MINIGAME:
+                if (game.hasMinigame()) {
+                    System.out.println("Minigame started, lets clean up the ocean!");
+                    minigame.startTimer();
+                    break;
+                } else {
+
+                    System.out.println("Can't do that");
+                }
+
+
+
         }
         return wantToQuit;
     }
