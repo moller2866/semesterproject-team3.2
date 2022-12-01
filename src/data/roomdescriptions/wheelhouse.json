@@ -3,7 +3,9 @@
   "NPCs": [
     {
       "type": "Captain",
-      "name": "Jack"
+      "name": "Jack",
+      "x":520.0,
+      "y":114.0
     }
   ],
   "items": []

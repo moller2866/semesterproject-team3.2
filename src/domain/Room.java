@@ -12,27 +12,32 @@ public class Room {
     private ArrayList<Item> items = new ArrayList<>();
     private ArrayList<NPC> NPC = new ArrayList<>();
 
+    private String name;
 
-    public Room(String description) {
+    public Room(String description, String name) {
+        this.name = name;
         this.description = description;
         exits = new HashMap<String, Room>();
     }
 
     public static Room fromJson(String jsonPath) {
+        String filename = jsonPath.substring(jsonPath.lastIndexOf("/") + 1, jsonPath.lastIndexOf("."));
         RoomDataParser data = new RoomDataParser(jsonPath);
-        Room room = new Room(data.getDescription());
+        Room room = new Room(data.getDescription(), filename);
 
         for (HashMap<String, ?> m : data.getItems()) {
-            Object type = m.get("type");
+            String type = (String) m.get("type");
             double x = (double) m.get("x");
             double y = (double) m.get("y");
-            room.setItem(ItemFactory.create((String) type, x, y));
+            room.setItem(ItemFactory.create(type, x, y));
         }
 
-        for (HashMap<String, String> m : data.getNPCs()) {
-            String type = m.get("type");
-            String name = m.get("name");
-            room.setNPC(NPCFactory.create(type, name));
+        for (HashMap<String, ?> m : data.getNPCs()) {
+            String type = (String) m.get("type");
+            String name = (String) m.get("name");
+            double x = (double) m.get("x");
+            double y = (double) m.get("y");
+            room.setNPC(NPCFactory.create(type, name, x, y));
         }
         return room;
     }
@@ -171,5 +176,13 @@ public class Room {
 
     public ArrayList<Item> getItems() {
         return items;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public ArrayList<NPC> getNPCs() {
+        return NPC;
     }
 }

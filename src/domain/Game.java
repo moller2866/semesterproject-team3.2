@@ -1,6 +1,5 @@
 package oceanCleanup.src.domain;
 
-import javafx.scene.control.ChoiceBox;
 
 import java.util.List;
 
@@ -14,7 +13,7 @@ public class Game {
         return playerBucket;
     }
 
-    Bucket playerBucket = new Bucket();
+    Bucket playerBucket;
 
     public Game() {
         createRooms();
@@ -61,6 +60,10 @@ public class Game {
 
         String direction = command.getCommandValue();
 
+        return goRoomDirection(direction);
+    }
+
+    public boolean goRoomDirection(String direction) {
         Room nextRoom = currentRoom.getExit(direction);
 
         if (nextRoom == null) {
@@ -98,8 +101,43 @@ public class Game {
             for (int i = 0; i < currentRoom.getItemAmount(); i++) {
                 if (currentRoom.getItem(i).getName().toLowerCase().equals(secondValue)) {
                     if (playerInventory.addItem(currentRoom.getItem(i))) {
+                        if (currentRoom.getItem(i) instanceof Bucket) {
+                            playerBucket = (Bucket) currentRoom.getItem(i);
+                        }
                         currentRoom.removeItem(currentRoom.getItem(i));
                         return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean getItem(String secondValue, double x, double y) {
+        if (!currentRoom.hasItem()) {
+            return false;
+        } else if (playerInventory.hasBucket()) {
+            for (int i = 0; i < currentRoom.getItemAmount(); i++) {
+                if (currentRoom.getItem(i).getName().toLowerCase().equals(secondValue)) {
+                    if (currentRoom.getItem(i).getX() == x && currentRoom.getItem(i).getY() == y) {
+                        if (playerBucket.addPlastic((Plastic) currentRoom.getItem(i))) {
+                            currentRoom.removeItem(currentRoom.getItem(i));
+                            return true;
+                        }
+                    }
+                }
+            }
+        } else {
+            for (int i = 0; i < currentRoom.getItemAmount(); i++) {
+                if (currentRoom.getItem(i).getName().toLowerCase().equals(secondValue)) {
+                    if (currentRoom.getItem(i).getX() == x && currentRoom.getItem(i).getY() == y) {
+                        if (playerInventory.addItem(currentRoom.getItem(i))) {
+                            if (currentRoom.getItem(i) instanceof Bucket) {
+                                playerBucket = (Bucket) currentRoom.getItem(i);
+                            }
+                            currentRoom.removeItem(currentRoom.getItem(i));
+                            return true;
+                        }
                     }
                 }
             }
@@ -124,12 +162,16 @@ public class Game {
         } else {
             if (secondValue.equals("all")) {
                 dropAllItems();
+                playerBucket = null;
                 return !dropAllItems();
             } else {
                 for (int i = 0; i < playerInventory.getInventorySize(); i++) {
                     if (!playerInventory.getSingleItem(i).getName().toLowerCase().equals(secondValue)) {
                         return false;
                     } else {
+                        if (playerInventory.getSingleItem(i) instanceof Bucket) {
+                            playerBucket = null;
+                        }
                         currentRoom.setItem(playerInventory.getSingleItem(i));
                         playerInventory.remove(playerInventory.getSingleItem(i).getName());
                     }
@@ -212,7 +254,7 @@ public class Game {
         }
     }
 
-    public boolean isRoomFull () {
+    public boolean isRoomFull() {
         if (currentRoom.isRoomContainer()) {
             if (currentRoom.getItemAmount() >= 10) {
                 return true;

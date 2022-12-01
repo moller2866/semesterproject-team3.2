@@ -1,26 +1,5 @@
 {
   "description": "on the dock at the shipyard",
   "NPCs": [],
-  "items": [
-    {
-      "type": "Plastic",
-      "x": 402.0,
-      "y": 101.0
-    },
-    {
-      "type": "Plastic",
-      "x": 452.0,
-      "y": 101.0
-    },
-    {
-      "type": "Plastic",
-      "x": 402.0,
-      "y": 150.0
-    },
-    {
-      "type": "Bucket",
-      "x": 452.0,
-      "y": 150.0
-    }
-  ]
+  "items": []
 }

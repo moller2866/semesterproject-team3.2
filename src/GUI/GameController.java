@@ -1,19 +1,22 @@
 package oceanCleanup.src.GUI;
 
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.util.Duration;
+import oceanCleanup.src.domain.Bucket;
 import oceanCleanup.src.domain.Game;
 import oceanCleanup.src.domain.Item;
+import oceanCleanup.src.domain.NPC;
 
-import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -23,11 +26,13 @@ public class GameController implements Initializable {
     Game game;
 
     @FXML
-    private PlayerMove player = new PlayerMove();
+    private ImageView background;
+    @FXML
+    private PlayerMove playerMove = new PlayerMove();
     @FXML
     private AnchorPane scene;
     @FXML
-    private ImageView image;
+    private ImageView playerImage;
     @FXML
     private ImageView bucket;
     @FXML
@@ -38,33 +43,43 @@ public class GameController implements Initializable {
     private ImageView wKey, aKey, sKey, dKey,
             hKey, iKey, tKey, qKey, eKey, spaceKey;
 
-    final private double keyOpacityPressed = 0.7;
-    final private double keySizePressed = 0.9;
-
     @FXML
-    ImageView plastic;
+    private ImageView ship;
 
     ArrayList<ImageView> items = new ArrayList<>();
+    private double gameScale = 1.5;
+    private int roomcounter = 0;
 
     @FXML
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        player.makeMovable(image, scene);
+        playerMove.makeMovable(playerImage, scene);
         textBox.setEditable(false);
         textBox.setMouseTransparent(true);
-        textBox.setFont(Font.font("Verdana", FontWeight.BOLD, 9));
+        textBox.setFont(Font.font("Verdana", FontWeight.BOLD, 13));
+        imageMovement(ship);
+    }
+
+    private void imageMovement(Node node) {
+        TranslateTransition translate = new TranslateTransition();
+        translate.setNode(node);
+        translate.setDuration(Duration.seconds(1.7));
+        translate.setCycleCount(TranslateTransition.INDEFINITE);
+        translate.setByY(-8);
+        translate.setAutoReverse(true);
+        translate.play();
     }
 
     private void pressedAction(ImageView key) {
-        key.setOpacity(keyOpacityPressed);
-        key.setScaleY(keySizePressed);
-        key.setScaleX(keySizePressed);
+        key.setOpacity(0.7);
+        key.setScaleY(1.4);
+        key.setScaleX(1.4);
     }
 
     private void nonPressed(ImageView key) {
         key.setOpacity(1);
-        key.setScaleY(1);
-        key.setScaleX(1);
+        key.setScaleY(1.5);
+        key.setScaleX(1.5);
     }
 
     @FXML
@@ -73,14 +88,11 @@ public class GameController implements Initializable {
                 || (event.getCode() == KeyCode.A)
                 || (event.getCode() == KeyCode.S)
                 || (event.getCode() == KeyCode.D)) {
-            player.onKeyPressedMovement(event.getCode());
+            playerMove.onKeyPressedMovement(event.getCode());
         } else if (event.getCode() == KeyCode.SPACE) {
-            System.out.println("Space pressed");
             picupItem();
         } else if (event.getCode() == KeyCode.Q) {
-            if (game.dropItem("bucket")) items.addAll(player.dropItems());
-        } else if (event.getCode() == KeyCode.I) {
-            System.out.println(game.seeInventory());
+            dropItem();
         } else if (event.getCode() == KeyCode.E) {
             emptyBucket();
         }
@@ -100,22 +112,18 @@ public class GameController implements Initializable {
         }
 
         if ((event.getCode() == KeyCode.W)) {
-            wKey.setOpacity(keyOpacityPressed);
             pressedAction(wKey);
         }
 
         if ((event.getCode() == KeyCode.A)) {
-            aKey.setOpacity(keyOpacityPressed);
             pressedAction(aKey);
         }
 
         if ((event.getCode() == KeyCode.S)) {
-            sKey.setOpacity(keyOpacityPressed);
             pressedAction(sKey);
         }
 
         if ((event.getCode() == KeyCode.D)) {
-            dKey.setOpacity(keyOpacityPressed);
             pressedAction(dKey);
         }
 
@@ -132,6 +140,16 @@ public class GameController implements Initializable {
         }
     }
 
+    private void dropItem() {
+        if (playerMove.hasBucket()) {
+            ArrayList<ImageView> droppedItems = playerMove.dropItems();
+            game.getPlayerBucket().setX(droppedItems.get(0).getLayoutX());
+            game.getPlayerBucket().setY(droppedItems.get(0).getLayoutY());
+            game.dropItem("bucket");
+            items.addAll(droppedItems);
+        }
+    }
+
 
     @FXML
     public void onKeyReleased(KeyEvent event) {
@@ -139,7 +157,7 @@ public class GameController implements Initializable {
                 || (event.getCode() == KeyCode.A)
                 || (event.getCode() == KeyCode.S)
                 || (event.getCode() == KeyCode.D)) {
-            player.onKeyReleasedMovement(event.getCode());
+            playerMove.onKeyReleasedMovement(event.getCode());
         }
 
         if ((event.getCode() == KeyCode.W)) {
@@ -181,14 +199,53 @@ public class GameController implements Initializable {
         if ((event.getCode() == KeyCode.SPACE)) {
             nonPressed(spaceKey);
         }
+
+        if ((event.getCode() == KeyCode.L)) {
+
+            switch (roomcounter) {
+                case 0:
+                    game.goRoomDirection("north");
+                    ship.setVisible(false);
+                    roomcounter++;
+                    break;
+                case 1:
+                    game.goRoomDirection("west");
+                    roomcounter++;
+                    break;
+                case 2:
+                    game.goRoomDirection("north");
+                    roomcounter++;
+                    break;
+                case 3:
+                    game.goRoomDirection("south");
+                    game.goRoomDirection("east");
+                    game.goRoomDirection("south");
+                    game.goRoomDirection("east");
+                    roomcounter++;
+                    break;
+                case 4:
+                    game.goRoomDirection("east");
+                    roomcounter++;
+                    break;
+                case 5:
+                    game.goRoomDirection("west");
+                    game.goRoomDirection("west");
+                    ship.setVisible(true);
+                    roomcounter = 0;
+                    break;
+            }
+            changeRoom();
+        }
     }
+
+
     private void emptyBucket() {
-        if (player.hasBucket()) {
-            if (game.getCurrentRoom().getShortDescription().contains("container")) {
+        if (playerMove.hasBucket()) {
+            if (game.getCurrentRoom().getName().equals("container")) {
                 if (game.emptyBucketInRoom()) {
                     textBox.setText("You emptied the bucket");
-                    File file = new File(getClass().getResource("items/bucket.png").getPath());
-                    bucket.setImage(new Image("file:" + file.getAbsolutePath()));
+                    bucket.setImage(new Image(getClass().getResource("items/bucket.png").toExternalForm()));
+                    addRoomContent();
                 } else {
                     textBox.setText("There is nothing to empty");
                 }
@@ -202,22 +259,21 @@ public class GameController implements Initializable {
 
     private void picupItem() {
         for (ImageView item : items) {
-            if (item.getBoundsInParent().intersects(image.getBoundsInParent())) {
+            if (item.getBoundsInParent().intersects(playerImage.getBoundsInParent())) {
                 String fileName = item.getImage().getUrl();
                 String itemName = fileName.substring(fileName.lastIndexOf("/") + 1, fileName.lastIndexOf("."));
-                System.out.println(itemName);
-                if (player.hasBucket() || itemName.equals("bucket") || itemName.equals("bucket_filled")) {
-                    game.getItem(itemName.split("_")[0]);
-                    if (itemName.equals("bucket") || itemName.equals("bucket_filled")) {
-                        player.addImage(item);
-                    } else {
-                        if (!game.getPlayerBucket().isEmpty()) {
-                            File file = new File(getClass().getResource("items/bucket_filled.png").getPath());
-                            bucket.setImage(new Image("file:" + file.getAbsolutePath()));
+                if (playerMove.hasBucket() || itemName.equals("bucket") || itemName.equals("bucket_filled")) {
+                    if (game.getItem(itemName.split("_")[0], item.getLayoutX(), item.getLayoutY())) {
+                        if (itemName.equals("bucket") || itemName.equals("bucket_filled")) {
+                            playerMove.addImage(item);
+                        } else {
+                            if (!game.getPlayerBucket().isEmpty()) {
+                                bucket.setImage(new Image(getClass().getResource("items/bucket_filled.png").toExternalForm()));
+                            }
+                            item.setVisible(false);
                         }
-                        item.setVisible(false);
+                        items.remove(item);
                     }
-                    items.remove(item);
                     break;
                 }
             }
@@ -231,17 +287,66 @@ public class GameController implements Initializable {
     }
 
     private void changeRoom() {
+        scene.getChildren().removeAll(items);
+        items.clear();
+        addRoomContent();
+        changeSceneImage();
+        setScale();
+    }
+
+    private void addRoomContent() {
         for (Item item : this.game.getCurrentRoom().getItems()) {
-            File file = new File(getClass().getResource("items/" + item.getName().toLowerCase() + ".png").getPath());
-            ImageView temp = new ImageView(new Image("file:" + file.getAbsolutePath()));
+            ImageView temp = new ImageView(new Image(getClass().getResource("items/" + item.getName().toLowerCase() + ".png").toExternalForm()));
             temp.setLayoutX(item.getX());
             temp.setLayoutY(item.getY());
+            temp.setScaleX(gameScale);
+            temp.setScaleY(gameScale);
             if (temp.getImage().getUrl().contains("bucket")) {
+                Bucket b = (Bucket) item;
+                if (b.getSize() == 0) {
+                    temp.setImage(new Image(getClass().getResource("items/bucket.png").toExternalForm()));
+                } else {
+                    temp.setImage(new Image(getClass().getResource("items/bucket_filled.png").toExternalForm()));
+                }
                 this.bucket = temp;
             }
             scene.getChildren().add(temp);
             items.add(temp);
         }
+
+        for (NPC npc : this.game.getCurrentRoom().getNPCs()) {
+            ImageView temp = new ImageView(new Image(getClass().getResource("npcs/" + npc.getJob().toLowerCase() + ".png").toExternalForm()));
+            temp.setLayoutX(npc.getX());
+            temp.setLayoutY(npc.getY());
+            scene.getChildren().add(temp);
+            items.add(temp);
+        }
     }
 
+    private void changeSceneImage() {
+        if (game.getCurrentRoom().getName().equals("dock")) {
+            this.background.setImage(new Image(getClass().getResource("graphics/dock.png").toExternalForm()));
+        } else if (game.getCurrentRoom().getName().equals("ship")) {
+            this.background.setImage(new Image(getClass().getResource("graphics/ship.png").toExternalForm()));
+        } else if (game.getCurrentRoom().getName().equals("wheelhouse")) {
+            this.background.setImage(new Image(getClass().getResource("graphics/wheelhouse.png").toExternalForm()));
+        } else if (game.getCurrentRoom().getName().equals("ocean")) {
+            this.background.setImage(new Image(getClass().getResource("graphics/ocean.png").toExternalForm()));
+        } else if (game.getCurrentRoom().getName().equals("recyclingcenter")) {
+            this.background.setImage(new Image(getClass().getResource("graphics/recyclingcenter.png").toExternalForm()));
+        } else if (game.getCurrentRoom().getName().equals("container")) {
+            this.background.setImage(new Image(getClass().getResource("graphics/container.png").toExternalForm()));
+        }
+        textBox.setText(game.getRoomDescriptionGUI());
+        this.background.setFitHeight(820);
+        this.background.setFitWidth(1250);
+    }
+
+    //set Scale for all images
+    public void setScale() {
+        for (ImageView item : items) {
+            item.setScaleX(gameScale);
+            item.setScaleY(gameScale);
+        }
+    }
 }

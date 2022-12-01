@@ -2,8 +2,8 @@ package oceanCleanup.src.domain;
 
 public class Worker extends NPC{
 
-    Worker(String name) {
-        super(name,"Worker");
+    Worker(String name,double x, double y) {
+        super(name,"Worker",x,y);
         setTalk(getName()+":");
         setTalk("I am "+getName()+", the recycling worker here.");
         setTalk("""
