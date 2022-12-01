@@ -7,10 +7,15 @@ public abstract class NPC {
     protected String name;
     protected String job;
     protected ArrayList<String> talkText = new ArrayList<>();
+    private double x;
 
-    public NPC (String name, String job) {
+    private double y;
+
+    public NPC (String name, String job,double x, double y) {
         this.name = name;
         this.job = job;
+        this.x = x;
+        this.y = y;
     }
 
 
@@ -30,6 +35,14 @@ public abstract class NPC {
             output += s +"\n";
         }
         return output;
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
     }
 
 }

@@ -3,7 +3,9 @@
   "NPCs": [
     {
       "type": "Worker",
-      "name": "Brian"
+      "name": "Brian",
+      "x":509.0,
+      "y":228.0
     }
   ],
   "items": [

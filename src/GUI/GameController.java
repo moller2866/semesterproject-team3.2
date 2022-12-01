@@ -21,6 +21,7 @@ import javafx.util.Duration;
 import oceanCleanup.src.domain.Bucket;
 import oceanCleanup.src.domain.Game;
 import oceanCleanup.src.domain.Item;
+import oceanCleanup.src.domain.NPC;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -315,6 +316,14 @@ public class GameController implements Initializable {
                 }
                 this.bucket = temp;
             }
+            scene.getChildren().add(temp);
+            items.add(temp);
+        }
+
+        for (NPC npc : this.game.getCurrentRoom().getNPCs()) {
+            ImageView temp = new ImageView(new Image(getClass().getResource("npcs/" + npc.getJob().toLowerCase() + ".png").toExternalForm()));
+            temp.setLayoutX(npc.getX());
+            temp.setLayoutY(npc.getY());
             scene.getChildren().add(temp);
             items.add(temp);
         }

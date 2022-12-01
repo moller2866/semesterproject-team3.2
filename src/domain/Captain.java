@@ -2,8 +2,8 @@ package oceanCleanup.src.domain;
 
 public class Captain extends NPC {
 
-    Captain(String name) {
-        super(name, "Captain");
+    Captain(String name,double x, double y) {
+        super(name, "Captain",x,y);
         setTalk(getName()+":");
         setTalk("I am "+getName()+", the Captain of the Ship.");
         setTalk("""

@@ -58,8 +58,8 @@ public class RoomDataParser {
         return this.jsonContent;
     }
 
-    public ArrayList<HashMap<String, String>> getNPCs() {
-        return (ArrayList<HashMap<String, String>>) getJsonContent().get("NPCs");
+    public ArrayList<HashMap<String, ?>> getNPCs() {
+        return (ArrayList<HashMap<String, ?>>) getJsonContent().get("NPCs");
     }
 
     public ArrayList<HashMap<String, ?>> getItems() {
