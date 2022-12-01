@@ -185,5 +185,10 @@
             </Text>
          </children>
       </GridPane>
+      <Text fx:id="timerLabel" fill="WHITE" layoutX="1000.0" layoutY="62.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="OUTSIDE" strokeWidth="0.8" text="EMPTY" textAlignment="CENTER">
+         <font>
+            <Font name="Verdana Bold Italic" size="48.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>
