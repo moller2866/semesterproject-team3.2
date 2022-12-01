@@ -72,14 +72,14 @@ public class GameController implements Initializable {
 
     private void pressedAction(ImageView key) {
         key.setOpacity(0.7);
-        key.setScaleY(1.4);
-        key.setScaleX(1.4);
+        key.setScaleY(0.9);
+        key.setScaleX(0.9);
     }
 
     private void nonPressed(ImageView key) {
         key.setOpacity(1);
-        key.setScaleY(1.5);
-        key.setScaleX(1.5);
+        key.setScaleY(1);
+        key.setScaleX(1);
     }
 
     @FXML
