@@ -1,9 +1,6 @@
 package oceanCleanup.src.GUI;
 
-import javafx.animation.Interpolator;
-import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -12,11 +9,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 import oceanCleanup.src.domain.Bucket;
 import oceanCleanup.src.domain.Game;
