@@ -10,7 +10,7 @@ import oceanCleanup.src.domain.Game;
 public class GameApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader fxml = new FXMLLoader(getClass().getResource("dock.fxml"));
+        FXMLLoader fxml = new FXMLLoader(getClass().getResource("game.fxml"));
         Parent root = fxml.load();
         root.setFocusTraversable(true);
         GameController controller = fxml.getController();
