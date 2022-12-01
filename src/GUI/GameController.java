@@ -1,9 +1,15 @@
 package oceanCleanup.src.GUI;
 
+import javafx.animation.AnimationTimer;
 import javafx.animation.TranslateTransition;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -11,6 +17,7 @@ import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 import oceanCleanup.src.domain.Bucket;
 import oceanCleanup.src.domain.Game;
@@ -51,6 +58,10 @@ public class GameController implements Initializable {
     private int roomcounter = 0;
 
     @FXML
+    private Text timerLabel;
+    DoubleProperty time = new SimpleDoubleProperty();
+
+    @FXML
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         playerMove.makeMovable(playerImage, scene);
@@ -58,6 +69,8 @@ public class GameController implements Initializable {
         textBox.setMouseTransparent(true);
         textBox.setFont(Font.font("Verdana", FontWeight.BOLD, 13));
         imageMovement(ship);
+        timerLabel.textProperty().bind(time.asString("%.1f s"));
+        timerLabel.setVisible(false);
     }
 
     private void imageMovement(Node node) {
@@ -138,6 +151,13 @@ public class GameController implements Initializable {
         if ((event.getCode() == KeyCode.SPACE)) {
             pressedAction(spaceKey);
         }
+
+        if (event.getCode() == KeyCode.B) {
+            timer.start();
+        }
+        if (event.getCode() == KeyCode.N) {
+            timer.stop();
+        }
     }
 
     private void dropItem() {
@@ -185,6 +205,7 @@ public class GameController implements Initializable {
         }
 
         if ((event.getCode() == KeyCode.T)) {
+            startMiniGame();
             nonPressed(tKey);
         }
 
@@ -235,6 +256,35 @@ public class GameController implements Initializable {
                     break;
             }
             changeRoom();
+        }
+    }
+    BooleanProperty running = new SimpleBooleanProperty();
+
+    AnimationTimer timer = new AnimationTimer() {
+
+        private long startTime ;
+
+        @Override
+        public void start() {
+            startTime = System.currentTimeMillis();
+            running.set(true);
+            super.start();
+        }
+        @Override
+        public void stop() {
+            running.set(false);
+            super.stop();
+        }
+        @Override
+        public void handle(long timestamp) {
+            long now = System.currentTimeMillis();
+            time.set((now - startTime) / 1000.0);
+        }
+    };
+
+    private void startMiniGame() {
+        if (game.startTalk().contains("Jack")) {
+            timerLabel.setVisible(true);
         }
     }
 
