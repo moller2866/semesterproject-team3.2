@@ -16,6 +16,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
+import oceanCleanup.src.domain.Bucket;
 import oceanCleanup.src.domain.Game;
 import oceanCleanup.src.domain.Item;
 
@@ -49,6 +50,7 @@ public class GameController implements Initializable {
     private ImageView ship;
 
     ArrayList<ImageView> items = new ArrayList<>();
+    private double gameScale = 1.5;
 
     @FXML
     @Override
@@ -93,7 +95,7 @@ public class GameController implements Initializable {
             System.out.println("Space pressed");
             picupItem();
         } else if (event.getCode() == KeyCode.Q) {
-            if (game.dropItem("bucket")) items.addAll(playerMove.dropItems());
+            dropItem();
         } else if (event.getCode() == KeyCode.I) {
             System.out.println(game.seeInventory());
         } else if (event.getCode() == KeyCode.E) {
@@ -143,6 +145,16 @@ public class GameController implements Initializable {
         }
     }
 
+    private void dropItem() {
+        if (playerMove.hasBucket()) {
+            ArrayList<ImageView> droppedItems = playerMove.dropItems();
+            game.getPlayerBucket().setX(droppedItems.get(0).getLayoutX());
+            game.getPlayerBucket().setY(droppedItems.get(0).getLayoutY());
+            game.dropItem("bucket");
+            items.addAll(droppedItems);
+        }
+    }
+
 
     @FXML
     public void onKeyReleased(KeyEvent event) {
@@ -151,7 +163,6 @@ public class GameController implements Initializable {
                 || (event.getCode() == KeyCode.S)
                 || (event.getCode() == KeyCode.D)) {
             playerMove.onKeyReleasedMovement(event.getCode());
-            changeSceneImage();
         }
 
         if ((event.getCode() == KeyCode.W)) {
@@ -202,18 +213,13 @@ public class GameController implements Initializable {
                 game.goRoomDirection("south");
                 ship.setVisible(true);
             }
-            changeSceneImage();
+            changeRoom();
+        }
+        if ((event.getCode() == KeyCode.K)) {
+            System.out.println(game.getRoomDescriptionCLI());
         }
     }
 
-    private void changeSceneImage() {
-        if (game.getCurrentRoom().getLongDescriptionGUI().contains("dock")) {
-            this.background.setImage(new Image(getClass().getResource("graphics/dock.png").toExternalForm()));
-        } else if (game.getCurrentRoom().getLongDescriptionGUI().contains("ship")) {
-            this.background.setImage(new Image(getClass().getResource("graphics/W.png").toExternalForm()));
-        }
-        this.background.setFitWidth(1250);
-    }
 
     private void emptyBucket() {
         if (playerMove.hasBucket()) {
@@ -239,16 +245,17 @@ public class GameController implements Initializable {
                 String itemName = fileName.substring(fileName.lastIndexOf("/") + 1, fileName.lastIndexOf("."));
                 System.out.println(itemName);
                 if (playerMove.hasBucket() || itemName.equals("bucket") || itemName.equals("bucket_filled")) {
-                    game.getItem(itemName.split("_")[0]);
-                    if (itemName.equals("bucket") || itemName.equals("bucket_filled")) {
-                        playerMove.addImage(item);
-                    } else {
-                        if (!game.getPlayerBucket().isEmpty()) {
-                            bucket.setImage(new Image(getClass().getResource("items/bucket_filled.png").toExternalForm()));
+                    if (game.getItem(itemName.split("_")[0],item.getLayoutX(), item.getLayoutY())) {
+                        if (itemName.equals("bucket") || itemName.equals("bucket_filled")) {
+                            playerMove.addImage(item);
+                        } else {
+                            if (!game.getPlayerBucket().isEmpty()) {
+                                bucket.setImage(new Image(getClass().getResource("items/bucket_filled.png").toExternalForm()));
+                            }
+                            item.setVisible(false);
                         }
-                        item.setVisible(false);
+                        items.remove(item);
                     }
-                    items.remove(item);
                     break;
                 }
             }
@@ -259,20 +266,51 @@ public class GameController implements Initializable {
         this.game = game;
         textBox.setText(game.getRoomDescriptionGUI());
         changeRoom();
-        changeSceneImage();
     }
 
     private void changeRoom() {
+        scene.getChildren().removeAll(items);
+        items.clear();
+
         for (Item item : this.game.getCurrentRoom().getItems()) {
             ImageView temp = new ImageView(new Image(getClass().getResource("items/" + item.getName().toLowerCase() + ".png").toExternalForm()));
             temp.setLayoutX(item.getX());
             temp.setLayoutY(item.getY());
+            temp.setScaleX(gameScale);
+            temp.setScaleY(gameScale);
             if (temp.getImage().getUrl().contains("bucket")) {
+                Bucket b = (Bucket) item;
+                if (b.getSize() == 0) {
+                    temp.setImage(new Image(getClass().getResource("items/bucket.png").toExternalForm()));
+                } else {
+                    temp.setImage(new Image(getClass().getResource("items/bucket_filled.png").toExternalForm()));
+                }
                 this.bucket = temp;
             }
             scene.getChildren().add(temp);
             items.add(temp);
         }
+        changeSceneImage();
+        setScale();
     }
 
+    private void changeSceneImage() {
+        if (game.getCurrentRoom().getLongDescriptionGUI().contains("dock")) {
+            this.background.setImage(new Image(getClass().getResource("graphics/dock.png").toExternalForm()));
+            textBox.setText(game.getRoomDescriptionGUI());
+        } else if (game.getCurrentRoom().getLongDescriptionGUI().contains("ship")) {
+            this.background.setImage(new Image(getClass().getResource("graphics/W.png").toExternalForm()));
+            textBox.setText(game.getRoomDescriptionGUI());
+        }
+        this.background.setFitHeight(820);
+        this.background.setFitWidth(1250);
+    }
+
+    //set Scale for all images
+    public void setScale() {
+        for (ImageView item : items) {
+            item.setScaleX(gameScale);
+            item.setScaleY(gameScale);
+        }
+    }
 }

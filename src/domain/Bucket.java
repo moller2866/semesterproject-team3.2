@@ -65,4 +65,8 @@ public class Bucket extends Tool {
         buck.addPlastic(new Plastic()); // should not add this
         System.out.println(buck.getContent());
     }
+
+    public boolean isFull() {
+        return content.size() == 10;
+    }
 }
