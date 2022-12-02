@@ -151,13 +151,6 @@ public class GameController implements Initializable {
         if ((event.getCode() == KeyCode.SPACE)) {
             pressedAction(spaceKey);
         }
-
-        if (event.getCode() == KeyCode.B) {
-            timer.start();
-        }
-        if (event.getCode() == KeyCode.N) {
-            timer.stop();
-        }
     }
 
     private void dropItem() {
@@ -258,11 +251,12 @@ public class GameController implements Initializable {
             changeRoom();
         }
     }
+
     BooleanProperty running = new SimpleBooleanProperty();
 
     AnimationTimer timer = new AnimationTimer() {
 
-        private long startTime ;
+        private long startTime;
 
         @Override
         public void start() {
@@ -270,11 +264,13 @@ public class GameController implements Initializable {
             running.set(true);
             super.start();
         }
+
         @Override
         public void stop() {
             running.set(false);
             super.stop();
         }
+
         @Override
         public void handle(long timestamp) {
             long now = System.currentTimeMillis();
@@ -285,6 +281,7 @@ public class GameController implements Initializable {
     private void startMiniGame() {
         if (game.startTalk().contains("Jack")) {
             timerLabel.setVisible(true);
+            timer.start();
         }
     }
 
@@ -296,6 +293,7 @@ public class GameController implements Initializable {
                     textBox.setText("You emptied the bucket");
                     bucket.setImage(new Image(getClass().getResource("items/bucket.png").toExternalForm()));
                     addRoomContent();
+                    if (game.isRoomFull()) timer.stop();
                 } else {
                     textBox.setText("There is nothing to empty");
                 }
