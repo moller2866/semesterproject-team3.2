@@ -1,5 +1,5 @@
 {
-  "description": "in the recycling center.\nYou see a guy with a reflex vest. He might be working here?",
+  "description": "at the recycling-center.\n\nThere is a guy with a reflex vest.\n\nHe might be working here?",
   "NPCs": [
     {
       "type": "Worker",

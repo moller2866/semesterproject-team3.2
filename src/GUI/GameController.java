@@ -52,9 +52,20 @@ public class GameController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         playerMove.makeMovable(playerImage, scene);
-        textBox.setEditable(false);
         textBox.setMouseTransparent(true);
-        textBox.setFont(Font.font("Verdana", FontWeight.BOLD, 13));
+        setTextBoxNormal();
+    }
+
+    private void setTextBoxNormal() {
+        textBox.setPrefSize(449,135);
+        textBox.setLayoutX(18);
+        textBox.setLayoutY(655);
+    }
+
+    private void setTextboxTalk() {
+        textBox.setPrefSize(449, 225);
+        textBox.setLayoutX(18);
+        textBox.setLayoutY(565);
     }
 
     private void imageMovement(Node node) {
@@ -94,18 +105,28 @@ public class GameController implements Initializable {
             emptyBucket();
         }
         if ((event.getCode() == KeyCode.H)) {
+            setTextBoxNormal();
             textBox.setText(game.getRoomDescriptionGUI());
             pressedAction(hKey);
         }
 
         if ((event.getCode() == KeyCode.I)) {
+            setTextBoxNormal();
             textBox.setText(game.seeInventory());
             pressedAction(iKey);
         }
 
         if ((event.getCode() == KeyCode.T)) {
-            textBox.setText(game.startTalk());
-            pressedAction(tKey);
+            if (game.currentRoomHasNPC()) {
+                setTextboxTalk();
+                textBox.setText(game.startTalk());
+                pressedAction(tKey);
+            } else {
+                setTextBoxNormal();
+                textBox.setText(game.startTalk());
+                pressedAction(tKey);
+            }
+
         }
 
         if ((event.getCode() == KeyCode.W)) {
@@ -235,6 +256,7 @@ public class GameController implements Initializable {
 
 
     private void emptyBucket() {
+        setTextBoxNormal();
         if (playerMove.hasBucket()) {
             if (game.getCurrentRoom().getName().equals("container")) {
                 if (game.emptyBucketInRoom()) {
@@ -357,6 +379,7 @@ public class GameController implements Initializable {
         } else if (game.getCurrentRoom().getName().equals("container")) {
             this.background.setImage(new Image(getClass().getResource("graphics/container.png").toExternalForm()));
         }
+        setTextBoxNormal();
         textBox.setText(game.getRoomDescriptionGUI());
         this.background.setFitHeight(820);
         this.background.setFitWidth(1250);

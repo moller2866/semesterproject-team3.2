@@ -50,12 +50,10 @@
             <Image url="@player/stand_right.png" />
          </image>
       </ImageView>
-      <TextArea fx:id="textBox" focusTraversable="false" layoutX="34.0" layoutY="641.0" prefHeight="131.0" prefWidth="489.0" />
-      <ImageView fx:id="dialogbox" fitHeight="192.0" fitWidth="592.0" layoutX="-20.0" layoutY="612.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@graphics/dialog_box.png" />
-         </image>
-      </ImageView>
+      <TextArea fx:id="textBox" editable="false" focusTraversable="false" layoutX="18.0" layoutY="565.0" opacity="0.9" prefHeight="225.0" prefWidth="449.0" style="-fx-background-color: black; -fx-background-size: 20;" wrapText="true">
+         <font>
+            <Font name="Verdana Bold" size="12.0" />
+         </font></TextArea>
       <GridPane alignment="CENTER_RIGHT" layoutX="1035.0" layoutY="477.0">
         <columnConstraints>
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="169.107177734375" minWidth="10.0" prefWidth="101.88818359375" />
