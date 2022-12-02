@@ -43,10 +43,8 @@ public class GameController implements Initializable {
     private ImageView wKey, aKey, sKey, dKey,
             hKey, iKey, tKey, qKey, eKey, spaceKey;
 
-    @FXML
-    private ImageView ship;
-
     ArrayList<ImageView> items = new ArrayList<>();
+    ArrayList<ImageView> nonInteractableItems = new ArrayList<>();
     private double gameScale = 1.5;
     private int roomcounter = 0;
 
@@ -57,7 +55,6 @@ public class GameController implements Initializable {
         textBox.setEditable(false);
         textBox.setMouseTransparent(true);
         textBox.setFont(Font.font("Verdana", FontWeight.BOLD, 13));
-        imageMovement(ship);
     }
 
     private void imageMovement(Node node) {
@@ -205,7 +202,6 @@ public class GameController implements Initializable {
             switch (roomcounter) {
                 case 0:
                     game.goRoomDirection("north");
-                    ship.setVisible(false);
                     roomcounter++;
                     break;
                 case 1:
@@ -230,7 +226,6 @@ public class GameController implements Initializable {
                 case 5:
                     game.goRoomDirection("west");
                     game.goRoomDirection("west");
-                    ship.setVisible(true);
                     roomcounter = 0;
                     break;
             }
@@ -288,7 +283,9 @@ public class GameController implements Initializable {
 
     private void changeRoom() {
         scene.getChildren().removeAll(items);
+        scene.getChildren().removeAll(nonInteractableItems);
         items.clear();
+        nonInteractableItems.clear();
         addRoomContent();
         changeSceneImage();
         setScale();
@@ -320,6 +317,29 @@ public class GameController implements Initializable {
             temp.setLayoutY(npc.getY());
             scene.getChildren().add(temp);
             items.add(temp);
+        }
+
+        // adds non-interactive items to the scene
+        switch (this.game.getCurrentRoom().getName()) {
+            case "dock":
+                ImageView temp = new ImageView(new Image(getClass().getResource("graphics/oceancleanupship.png").toExternalForm()));
+                temp.setLayoutX(294);
+                temp.setLayoutY(250);
+                temp.setFitHeight(261);
+                temp.setFitWidth(261);
+                imageMovement(temp);
+                scene.getChildren().add(temp);
+                nonInteractableItems.add(temp);
+                break;
+            case "wheelhouse":
+                temp = new ImageView(new Image(getClass().getResource("graphics/radar.gif").toExternalForm()));
+                temp.setLayoutX(572.5);
+                temp.setLayoutY(160);
+                temp.setFitHeight(67);
+                temp.setFitWidth(69);
+                scene.getChildren().add(temp);
+                nonInteractableItems.add(temp);
+                break;
         }
     }
 
