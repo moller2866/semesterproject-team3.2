@@ -217,9 +217,13 @@ public class Game {
             }
             return output;
         } else if (currentRoom.getName().equals("ocean"))
-            return "Unfortunately, fish cannot speak.\n\nAlthough it would be cool!";
+            return "Unfortunately, fish cannot speak." +
+                    "\n\nThey actually communicate by gesture and motion!" +
+                    "\n\nAlthough it would be cool if they could talk, right?";
         else
-            return "You are talking with yourself.\n\nMaybe you can find someone to talk to.";
+            return "You are talking with yourself." +
+                    "\n\nWe all do that sometimes, don't we?" +
+                    "\n\nMaybe you can find someone to talk to.";
     }
 
     public boolean currentRoomHasNPC() {
