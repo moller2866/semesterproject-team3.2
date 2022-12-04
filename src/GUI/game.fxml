@@ -54,7 +54,7 @@
          <font>
             <Font name="Verdana Bold" size="12.0" />
          </font></TextArea>
-      <GridPane alignment="CENTER_RIGHT" layoutX="1035.0" layoutY="498.0">
+      <GridPane alignment="CENTER_RIGHT" layoutX="907.0" layoutY="496.0" prefHeight="302.0" prefWidth="331.0">
         <columnConstraints>
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="169.107177734375" minWidth="10.0" prefWidth="101.88818359375" />
           <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="121.8780517578125" minWidth="10.0" prefWidth="100.11181640625" />
@@ -72,52 +72,52 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ImageView fx:id="spaceKey" fitHeight="21.0" fitWidth="44.0" nodeOrientation="INHERIT" GridPane.columnIndex="1" GridPane.rowIndex="9">
+            <ImageView id="Space" fx:id="spaceKey" fitHeight="21.0" fitWidth="44.0" nodeOrientation="INHERIT" GridPane.columnIndex="1" GridPane.rowIndex="9">
                <image>
                   <Image url="@graphics/SPACE.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="qKey" GridPane.columnIndex="1" GridPane.rowIndex="8">
+            <ImageView id="Q" fx:id="qKey" GridPane.columnIndex="1" GridPane.rowIndex="8">
                <image>
                   <Image url="@graphics/Q.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="eKey" GridPane.columnIndex="1" GridPane.rowIndex="7">
+            <ImageView id="E" fx:id="eKey" GridPane.columnIndex="1" GridPane.rowIndex="7">
                <image>
                   <Image url="@graphics/E.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="tKey" GridPane.columnIndex="1" GridPane.rowIndex="6">
+            <ImageView id="T" fx:id="tKey" GridPane.columnIndex="1" GridPane.rowIndex="6">
                <image>
                   <Image url="@graphics/T.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="hKey" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <ImageView id="H" fx:id="hKey" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <image>
                   <Image url="@graphics/H.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="iKey" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <ImageView id="I" fx:id="iKey" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <image>
                   <Image url="@graphics/I.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="dKey" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <ImageView id="D" fx:id="dKey" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <image>
                   <Image url="@graphics/D.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="aKey" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <ImageView id="A" fx:id="aKey" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <image>
                   <Image url="@graphics/A.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="sKey" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <ImageView id="S" fx:id="sKey" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <image>
                   <Image url="@graphics/S.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="wKey" GridPane.columnIndex="1">
+            <ImageView id="W" fx:id="wKey" GridPane.columnIndex="1">
                <image>
                   <Image url="@graphics/W.png" />
                </image>
@@ -167,12 +167,17 @@
                   <Font name="Verdana Bold Italic" size="13.0" />
                </font>
             </Text>
-            <Text fill="WHITE" stroke="BLACK" strokeLineCap="ROUND" strokeType="OUTSIDE" strokeWidth="0.8" text="PICK UP" GridPane.rowIndex="9">
+            <Text fill="WHITE" stroke="BLACK" strokeLineCap="ROUND" strokeType="OUTSIDE" strokeWidth="0.8" text="PICK UP/ ENTER ROOM" wrappingWidth="191.82177734375" GridPane.rowIndex="9">
                <font>
                   <Font name="Verdana Bold Italic" size="13.0" />
                </font>
             </Text>
          </children>
       </GridPane>
+      <TextArea fx:id="welcomeText" editable="false" focusTraversable="false" layoutX="376.0" layoutY="259.0" opacity="0.95" prefHeight="225.0" prefWidth="449.0" style="-fx-background-color: black;" text="Welcome to The Ocean Cleanup Information Game&#10;&#10;In this game you can walk around and talk to some employees.&#10;&#10;You can also help out! &#10;Try to speak with the captain in the weelhouse. Maybe he got a task for you.&#10;&#10;... PRESS {ENTER} TO START ..." wrapText="true">
+         <font>
+            <Font name="Verdana Bold" size="15.0" />
+         </font>
+      </TextArea>
    </children>
 </AnchorPane>
