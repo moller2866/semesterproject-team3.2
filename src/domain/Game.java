@@ -194,7 +194,7 @@ public class Game {
     }
 
     public String getRoomDescriptionGUI() {
-        return currentRoom.getLongDescriptionGUI();
+        return currentRoom.getShortDescription();
     }
 
     public CommandWords getCommands() {
@@ -213,11 +213,21 @@ public class Game {
         if (currentRoom.hasNPC()) {
             String output = "";
             for (int i = 0; i < currentRoom.getNPCAmount(); i++) {
-                output += currentRoom.getNPC(i).startTalk() + "\n";
+                output += currentRoom.getNPC(i).startTalk();
             }
             return output;
-        }
-        return "You are talking with yourself. \nKinda weird...";
+        } else if (currentRoom.getName().equals("ocean"))
+            return "Unfortunately, fish cannot speak." +
+                    "\n\nThey actually communicate by gesture and motion!" +
+                    "\n\nAlthough it would be cool if they could talk, right?";
+        else
+            return "You are talking with yourself." +
+                    "\n\nWe all do that sometimes, don't we?" +
+                    "\n\nMaybe you can find someone to talk to.";
+    }
+
+    public boolean currentRoomHasNPC() {
+        return currentRoom.hasNPC();
     }
 
     public String seeInventory() {

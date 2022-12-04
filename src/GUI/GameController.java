@@ -9,7 +9,6 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -54,6 +53,7 @@ public class GameController implements Initializable {
     private ImageView ship;
 
     ArrayList<ImageView> items = new ArrayList<>();
+    ArrayList<ImageView> nonInteractableItems = new ArrayList<>();
     private double gameScale = 1.5;
     private int roomcounter = 0;
 
@@ -71,6 +71,19 @@ public class GameController implements Initializable {
         imageMovement(ship);
         timerLabel.textProperty().bind(time.asString("%.1f s"));
         timerLabel.setVisible(false);
+        setTextBoxNormal();
+    }
+
+    private void setTextBoxNormal() {
+        textBox.setPrefSize(449,135);
+        textBox.setLayoutX(18);
+        textBox.setLayoutY(655);
+    }
+
+    private void setTextboxTalk() {
+        textBox.setPrefSize(449, 225);
+        textBox.setLayoutX(18);
+        textBox.setLayoutY(565);
     }
 
     private void imageMovement(Node node) {
@@ -110,18 +123,28 @@ public class GameController implements Initializable {
             emptyBucket();
         }
         if ((event.getCode() == KeyCode.H)) {
+            setTextBoxNormal();
             textBox.setText(game.getRoomDescriptionGUI());
             pressedAction(hKey);
         }
 
         if ((event.getCode() == KeyCode.I)) {
+            setTextBoxNormal();
             textBox.setText(game.seeInventory());
             pressedAction(iKey);
         }
 
         if ((event.getCode() == KeyCode.T)) {
-            textBox.setText(game.startTalk());
-            pressedAction(tKey);
+            if (game.currentRoomHasNPC()) {
+                setTextboxTalk();
+                textBox.setText(game.startTalk());
+                pressedAction(tKey);
+            } else {
+                setTextBoxNormal();
+                textBox.setText(game.startTalk());
+                pressedAction(tKey);
+            }
+
         }
 
         if ((event.getCode() == KeyCode.W)) {
@@ -150,13 +173,6 @@ public class GameController implements Initializable {
 
         if ((event.getCode() == KeyCode.SPACE)) {
             pressedAction(spaceKey);
-        }
-
-        if (event.getCode() == KeyCode.B) {
-            timer.start();
-        }
-        if (event.getCode() == KeyCode.N) {
-            timer.stop();
         }
     }
 
@@ -226,7 +242,6 @@ public class GameController implements Initializable {
             switch (roomcounter) {
                 case 0:
                     game.goRoomDirection("north");
-                    ship.setVisible(false);
                     roomcounter++;
                     break;
                 case 1:
@@ -251,7 +266,6 @@ public class GameController implements Initializable {
                 case 5:
                     game.goRoomDirection("west");
                     game.goRoomDirection("west");
-                    ship.setVisible(true);
                     roomcounter = 0;
                     break;
             }
@@ -290,6 +304,7 @@ public class GameController implements Initializable {
 
 
     private void emptyBucket() {
+        setTextBoxNormal();
         if (playerMove.hasBucket()) {
             if (game.getCurrentRoom().getName().equals("container")) {
                 if (game.emptyBucketInRoom()) {
@@ -338,7 +353,9 @@ public class GameController implements Initializable {
 
     private void changeRoom() {
         scene.getChildren().removeAll(items);
+        scene.getChildren().removeAll(nonInteractableItems);
         items.clear();
+        nonInteractableItems.clear();
         addRoomContent();
         changeSceneImage();
         setScale();
@@ -371,6 +388,29 @@ public class GameController implements Initializable {
             scene.getChildren().add(temp);
             items.add(temp);
         }
+
+        // adds non-interactive items to the scene
+        switch (this.game.getCurrentRoom().getName()) {
+            case "dock":
+                ImageView temp = new ImageView(new Image(getClass().getResource("graphics/oceancleanupship.png").toExternalForm()));
+                temp.setLayoutX(294);
+                temp.setLayoutY(250);
+                temp.setFitHeight(261);
+                temp.setFitWidth(261);
+                imageMovement(temp);
+                scene.getChildren().add(temp);
+                nonInteractableItems.add(temp);
+                break;
+            case "wheelhouse":
+                temp = new ImageView(new Image(getClass().getResource("graphics/radar.gif").toExternalForm()));
+                temp.setLayoutX(572.5);
+                temp.setLayoutY(160);
+                temp.setFitHeight(67);
+                temp.setFitWidth(69);
+                scene.getChildren().add(temp);
+                nonInteractableItems.add(temp);
+                break;
+        }
     }
 
     private void changeSceneImage() {
@@ -387,6 +427,7 @@ public class GameController implements Initializable {
         } else if (game.getCurrentRoom().getName().equals("container")) {
             this.background.setImage(new Image(getClass().getResource("graphics/container.png").toExternalForm()));
         }
+        setTextBoxNormal();
         textBox.setText(game.getRoomDescriptionGUI());
         this.background.setFitHeight(820);
         this.background.setFitWidth(1250);
