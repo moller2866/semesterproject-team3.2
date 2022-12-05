@@ -12,6 +12,8 @@ public class Room {
     private ArrayList<Item> items = new ArrayList<>();
     private ArrayList<NPC> NPC = new ArrayList<>();
 
+    private ArrayList<ArrayList<Double>> borders;
+
     private final String name;
 
     public Room(String description, String name) {
@@ -39,7 +41,17 @@ public class Room {
             double y = (double) m.get("y");
             room.setNPC(NPCFactory.create(type, name, x, y));
         }
+        // if data has key "borders" then set boundaries
+        if (data.getJsonContent().containsKey("borders")) {
+            room.setBorders((data.getBorders()));
+        }
+
+
         return room;
+    }
+
+    private void setBorders(ArrayList<ArrayList<Double>> borders) {
+        this.borders = borders;
     }
 
     public void setExit(String direction, Room neighbor) {
@@ -145,5 +157,9 @@ public class Room {
 
     public ArrayList<NPC> getNPCs() {
         return NPC;
+    }
+
+    public ArrayList<ArrayList<Double>> getBorders() {
+        return borders;
     }
 }

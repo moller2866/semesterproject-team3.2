@@ -54,6 +54,7 @@ public class GameController implements Initializable {
 
     @FXML
     private Pane playerPane;
+    private ArrayList<Pane> borders = new ArrayList<>();
 
     @FXML
     @Override
@@ -367,6 +368,7 @@ public class GameController implements Initializable {
         nonInteractableItems.clear();
         addRoomContent();
         changeSceneImage();
+        addRoomBorders();
         setScale();
     }
 
@@ -408,6 +410,23 @@ public class GameController implements Initializable {
                 scene.getChildren().add(radar);
                 nonInteractableItems.add(radar);
             }
+        }
+    }
+
+    private void addRoomBorders() {
+        scene.getChildren().removeAll(borders);
+        borders.clear();
+        for (ArrayList<Double> boundary : game.getCurrentRoom().getBorders()) {
+            Pane temp = new Pane();
+            temp.setPrefSize(boundary.get(2), boundary.get(3));
+            temp.setLayoutX(boundary.get(0));
+            temp.setLayoutY(boundary.get(1));
+            temp.setId("border");
+            temp.setStyle("-fx-background-color: Blue;");
+            playerPane.setStyle("-fx-background-color: Red;");
+            temp.setVisible(true);
+            scene.getChildren().add(temp);
+            borders.add(temp);
         }
     }
 

@@ -30,7 +30,7 @@ public class PlayerMove {
 
     private boolean collision;
 
-    private Pane playerStack;
+    private Pane playerPane;
 
     private ArrayList<Pane> colliders;
     private String collisionId;
@@ -38,8 +38,10 @@ public class PlayerMove {
     private ImageView bucketImage;
     private ImageView collisionImage;
 
+    private boolean borderTop, borderRight, borderBottom, borderLeft;
+
     public void makeMovable(Pane playerPane, AnchorPane scene) {
-        this.playerStack = playerPane;
+        this.playerPane = playerPane;
         this.playerHeight = playerPane.getBoundsInParent().getHeight();
         this.playerWidth = playerPane.getBoundsInParent().getWidth();
         this.colliders = new ArrayList<>();
@@ -64,10 +66,10 @@ public class PlayerMove {
         @Override
         public void handle(long timestamp) {
             final int movementVariable = 2;
-            if (wPressed.get()) playerStack.setLayoutY(playerStack.getLayoutY() - movementVariable);
-            if (aPressed.get()) playerStack.setLayoutX(playerStack.getLayoutX() - movementVariable);
-            if (sPressed.get()) playerStack.setLayoutY(playerStack.getLayoutY() + movementVariable);
-            if (dPressed.get()) playerStack.setLayoutX(playerStack.getLayoutX() + movementVariable);
+            if (aPressed.get() && !borderLeft) playerPane.setLayoutX(playerPane.getLayoutX() - movementVariable);
+            if (wPressed.get() && !borderTop) playerPane.setLayoutY(playerPane.getLayoutY() - movementVariable);
+            if (sPressed.get() && !borderBottom) playerPane.setLayoutY(playerPane.getLayoutY() + movementVariable);
+            if (dPressed.get() && !borderRight) playerPane.setLayoutX(playerPane.getLayoutX() + movementVariable);
             playerAtBorder();
             playerAtCollision();
         }
@@ -75,10 +77,8 @@ public class PlayerMove {
 
     private void playerAtCollision() {
         for (Pane collider : colliders) {
-            if (playerStack.getBoundsInParent().intersects(collider.getBoundsInParent())) {
+            if (playerPane.getBoundsInParent().intersects(collider.getBoundsInParent())) {
                 collisionId = collider.getId();
-                collisionImage.setLayoutX(playerStack.getLayoutX());
-                collisionImage.setLayoutY(playerStack.getLayoutY());
                 collisionImage.setVisible(true);
                 collision = true;
                 break;
@@ -150,7 +150,7 @@ public class PlayerMove {
 
     public void addBucket(ImageView image) {
         this.bucketImage = image;
-        playerStack.getChildren().add(image);
+        playerPane.getChildren().add(image);
         image.setTranslateX(-5);
         image.setTranslateY(27);
     }
@@ -171,19 +171,49 @@ public class PlayerMove {
         double bottomBorder = scene.getHeight() - playerHeight;
         double topBorder = 0;
 
-        if (playerStack.getLayoutX() < leftBorder) playerStack.setLayoutX(leftBorder);
-        if (playerStack.getLayoutX() > rightBorder) playerStack.setLayoutX(rightBorder);
-        if (playerStack.getLayoutY() < topBorder) playerStack.setLayoutY(topBorder);
-        if (playerStack.getLayoutY() > bottomBorder) playerStack.setLayoutY(bottomBorder);
+        borderLeft = false;
+        borderRight = false;
+        borderTop = false;
+        borderBottom = false;
+
+        for (Node node : scene.getChildren()) {
+            if (node.getId() != null && node.getId().equalsIgnoreCase("border")) {
+                if (node.getBoundsInParent().intersects(playerPane.getBoundsInParent())) {
+
+                    if ((playerPane.getLayoutX() > node.getLayoutX())
+                            && (playerPane.getLayoutX() >= node.getLayoutX() + node.getBoundsInParent().getWidth() - 5)) {
+                        borderLeft = true;
+                    }
+                    if ((playerPane.getLayoutX() + playerWidth <= node.getLayoutX())
+                            && (playerPane.getLayoutX() + playerWidth < node.getLayoutX() + node.getBoundsInParent().getWidth())) {
+                        borderRight = true;
+                    }
+                    if ((playerPane.getLayoutY() > node.getLayoutY())
+                            && (playerPane.getLayoutY() >= node.getLayoutY() + node.getBoundsInParent().getHeight() - 5)) {
+                        borderTop = true;
+                    }
+                    if ((playerPane.getLayoutY() + playerHeight <= node.getLayoutY())
+                            && (playerPane.getLayoutY() + playerHeight < node.getLayoutY() + node.getBoundsInParent().getHeight())) {
+                        borderBottom = true;
+                    }
+                }
+            }
+        }
+        if (playerPane.getLayoutX() < leftBorder) playerPane.setLayoutX(leftBorder);
+        if (playerPane.getLayoutX() > rightBorder) playerPane.setLayoutX(rightBorder);
+        if (playerPane.getLayoutY() < topBorder) playerPane.setLayoutY(topBorder);
+        if (playerPane.getLayoutY() > bottomBorder) playerPane.setLayoutY(bottomBorder);
+
+
     }
 
     public ImageView dropBucket() {
-        playerStack.getChildren().remove(bucketImage);
+        playerPane.getChildren().remove(bucketImage);
         return bucketImage;
     }
 
     public boolean hasBucket() {
-        for (Node image : playerStack.getChildren()) {
+        for (Node image : playerPane.getChildren()) {
             if (image.getId().equalsIgnoreCase("bucket")) {
                 return true;
             }
@@ -200,8 +230,8 @@ public class PlayerMove {
     }
 
     public void setPlayerPosition(double x, double y) {
-        playerStack.setLayoutX(x);
-        playerStack.setLayoutY(y);
+        playerPane.setLayoutX(x);
+        playerPane.setLayoutY(y);
         collisionImage.setVisible(false);
         collision = false;
     }
