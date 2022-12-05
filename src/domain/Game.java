@@ -7,6 +7,7 @@ public class Game {
 
     protected Room currentRoom;
     private CommandWords commands;
+    private boolean talkedToCaptain = false;
     Inventory playerInventory = new Inventory();
 
     public Bucket getPlayerBucket() {
@@ -213,6 +214,14 @@ public class Game {
         if (currentRoom.hasNPC()) {
             String output = "";
             for (int i = 0; i < currentRoom.getNPCAmount(); i++) {
+                if (currentRoom.getNPC(i).getJob().equals("Captain")) {
+                    setTalkedToCaptain(true);
+                }
+                if (!hasTalkedToCaptain()) {
+                    return currentRoom.getNPC(i).getJob()+":"
+                            + "\n\nHello stranger!\n\n" +
+                            "Have you talked to the Captain yet?\n\n";
+                }
                 output += currentRoom.getNPC(i).startTalk();
             }
             return output;
@@ -271,6 +280,14 @@ public class Game {
             }
         }
         return false;
+    }
+
+    public boolean hasTalkedToCaptain() {
+        return talkedToCaptain;
+    }
+
+    public void setTalkedToCaptain(boolean talkedToCaptain) {
+        this.talkedToCaptain = talkedToCaptain;
     }
 
 
