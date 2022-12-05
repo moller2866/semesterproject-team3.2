@@ -9,9 +9,7 @@ public enum Commands {
     GET("get"),
     DROP("drop"),
     INVENTORY("inventory"),
-    EMPTY("empty"),
-    MINIGAME("minigame");
-
+    EMPTY("empty");
 
     private String commandName;
 

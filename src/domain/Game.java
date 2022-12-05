@@ -269,10 +269,6 @@ public class Game {
         return false;
     }
 
-    public boolean hasMinigame() {
-        return currentRoom.getShortDescription().contains("ship 002");
-    }
-
     public boolean isRoomFull() {
         if (currentRoom.isRoomContainer()) {
             return currentRoom.getItemAmount() >= 10;

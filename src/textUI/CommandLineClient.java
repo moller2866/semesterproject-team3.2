@@ -17,12 +17,10 @@ public class CommandLineClient {
 
     private Parser parser;
     private Game game;
-    private Minigame minigame;
 
     public CommandLineClient() {
         game = new Game();
         parser = new Parser(game);
-        minigame = new Minigame();
     }
 
     public void play() {
@@ -110,16 +108,7 @@ public class CommandLineClient {
                 break;
             case DROP: //fall through
                 if (game.dropCommandChecker(command)) {
-                    if (minigame.isStarted()) {
-                        if (game.isRoomFull()) {
-                            minigame.endTimer();
-                            System.out.println(minigame.endMinigame());
-                        } else {
-                            System.out.println("Keep going!");
-                        }
-                    } else {
-                        System.out.println("Item were dropped!");
-                    }
+                    System.out.println("Item were dropped!");
                 } else {
                     System.out.println("Can't do that");
                 }
@@ -129,27 +118,18 @@ public class CommandLineClient {
                 break;
             case EMPTY:
                 if (game.emptyBucketInRoom()) {
-                    if (minigame.isStarted()) {
-                        if (game.isRoomFull()) {
-                            minigame.endTimer();
-                            System.out.println(minigame.endMinigame());
-                        } else {
-                            System.out.println("Keep going!");
-                        }
+                    if (game.isRoomFull()) {
+                        System.out.println("You have filled the container with plastic!");
+                        System.out.println("You have completed the task!");
+                        wantToQuit = true;
+                    } else {
+                        System.out.println("You have emptied the bucket!");
                     }
-                    System.out.println("Emptied bucket!");
                 } else {
                     System.out.println("Nothing to empty!");
                 }
                 break;
-            case MINIGAME:
-                if (game.hasMinigame()) {
-                    System.out.println("Minigame started, lets clean up the ocean!");
-                    minigame.startTimer();
-                } else {
-                    System.out.println("Can't do that");
-                }
-                break;
+
         }
         return wantToQuit;
     }

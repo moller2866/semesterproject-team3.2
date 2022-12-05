@@ -290,9 +290,7 @@ public class GameController implements Initializable {
 
     @FXML
     public void onKeyReleased(KeyEvent event) {
-        switch (event.getCode()) {
-            case W, D, A, S -> playerMove.onKeyReleasedMovement(event.getCode());
-        }
+        playerMove.onKeyReleasedMovement(event.getCode());
         nonPressed(event.getCode().getName());
     }
 
