@@ -42,7 +42,7 @@ public class Game {
         recyclingCenter.setExit("tocontainer", container);
 
         container.setExit("west", recyclingCenter);
-        container.setExit("recyclingcenter", recyclingCenter);
+        container.setExit("torecyclingcenter", recyclingCenter);
 
         ship.setExit("south", dock);
         ship.setExit("west", wheelhouse);
@@ -55,6 +55,7 @@ public class Game {
         wheelhouse.setExit("toocean", ocean);
 
         ocean.setExit("south", wheelhouse);
+        ocean.setExit("towheelhouse", wheelhouse);
 
 
         currentRoom = dock;
