@@ -3,13 +3,13 @@
     <properties maven-id="org.openjfx:javafx-fxml:18.0.1" />
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/lib/javafx-fxml-18.0.1.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/javafx-fxml-18.0.1-win.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javafx-fxml-18.0.1-mac-aarch64.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/javafx-controls-18.0.1.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/javafx-controls-18.0.1-win.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javafx-controls-18.0.1-mac-aarch64.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/javafx-graphics-18.0.1.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/javafx-graphics-18.0.1-win.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javafx-graphics-18.0.1-mac-aarch64.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/javafx-base-18.0.1.jar!/" />
-      <root url="jar://$PROJECT_DIR$/lib/javafx-base-18.0.1-win.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javafx-base-18.0.1-mac-aarch64.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

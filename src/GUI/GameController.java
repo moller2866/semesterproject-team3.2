@@ -1,11 +1,6 @@
 package oceanCleanup.src.GUI;
 
-import javafx.animation.AnimationTimer;
 import javafx.animation.TranslateTransition;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -17,7 +12,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 import javafx.util.Duration;
 import oceanCleanup.src.domain.Bucket;
 import oceanCleanup.src.domain.Game;
@@ -49,7 +43,7 @@ public class GameController implements Initializable {
     private TextArea textBox;
 
     @FXML
-    private TextArea welcomeText;
+    private TextArea popUpBox;
     @FXML
     private ImageView wKey, aKey, sKey, dKey, hKey, iKey, tKey, qKey, eKey, spaceKey;
 
@@ -69,7 +63,6 @@ public class GameController implements Initializable {
         createShip();
         createRadar();
         createColliders();
-        setTextBoxNormal();
         keyCaps = new ArrayList<>() {{
             add(wKey);
             add(aKey);
@@ -159,18 +152,6 @@ public class GameController implements Initializable {
         radar.setFitWidth(69);
     }
 
-    private void setTextBoxNormal() {
-        textBox.setPrefSize(449, 135);
-        textBox.setLayoutX(18);
-        textBox.setLayoutY(655);
-    }
-
-    private void setTextboxTalk() {
-        textBox.setPrefSize(449, 225);
-        textBox.setLayoutX(18);
-        textBox.setLayoutY(565);
-    }
-
     private void imageMovement(Node node) {
         TranslateTransition translate = new TranslateTransition();
         translate.setNode(node);
@@ -203,9 +184,9 @@ public class GameController implements Initializable {
 
     @FXML
     public void onKeyPressed(KeyEvent event) {
-        if (welcomeText.isVisible()) {
+        if (popUpBox.isVisible()) {
             if (event.getCode() == KeyCode.ENTER) {
-                welcomeText.setVisible(false);
+                popUpBox.setVisible(false);
             } else {
                 return;
             }
@@ -219,19 +200,15 @@ public class GameController implements Initializable {
             case Q -> dropItem();
             case E -> emptyBucket();
             case H -> {
-                setTextBoxNormal();
                 textBox.setText(game.getRoomDescriptionGUI());
             }
             case I -> {
-                setTextBoxNormal();
                 textBox.setText(game.seeInventory());
             }
             case T -> {
                 if (game.currentRoomHasNPC()) {
-                    setTextboxTalk();
                     startMiniGame();
                 } else {
-                    setTextBoxNormal();
                 }
                 textBox.setText(game.startTalk());
             }
@@ -308,7 +285,7 @@ public class GameController implements Initializable {
 
     @FXML
     public void onKeyReleased(KeyEvent event) {
-        if (welcomeText.isVisible()) {
+        if (popUpBox.isVisible()) {
             return;
         }
         switch (event.getCode()) {
@@ -325,7 +302,6 @@ public class GameController implements Initializable {
     }
 
     private void emptyBucket() {
-        setTextBoxNormal();
         if (playerMove.hasBucket()) {
             if (game.getCurrentRoom().getName().equals("container")) {
                 if (game.emptyBucketInRoom()) {
@@ -333,12 +309,12 @@ public class GameController implements Initializable {
                     bucket.setImage(new Image(getClass().getResource("items/bucket.png").toExternalForm()));
                     addRoomContent();
                     if (game.isRoomFull()) {
-                        welcomeText.setText("You filled the container and helped the project Ocean Cleanup!\n" +
+                        popUpBox.setText("You filled the container and helped the project Ocean Cleanup!\n" +
                                 "Thank you for helping us!\n\n" +
                                 "The game is now over, but you can still walk and talk to the Employees\n\n" +
                                 "... PRESS {ENTER} TO CONTINUE ...");
-                        welcomeText.setVisible(true);
-                        welcomeText.toFront();
+                        popUpBox.setVisible(true);
+                        popUpBox.toFront();
                     }
                 } else {
                     textBox.setText("There is nothing to empty");
@@ -378,7 +354,7 @@ public class GameController implements Initializable {
         this.game = game;
         textBox.setText(game.getRoomDescriptionGUI());
         changeRoom();
-        welcomeText.toFront();
+        popUpBox.toFront();
     }
 
     private void changeRoom() {
@@ -455,7 +431,6 @@ public class GameController implements Initializable {
             this.background.setImage(new Image(getClass().getResource("graphics/container.png").toExternalForm()));
             playerMove.addCollider(containerToRecyclingCenter);
         }
-        setTextBoxNormal();
         textBox.setText(game.getRoomDescriptionGUI());
         this.background.setFitHeight(820);
         this.background.setFitWidth(1250);
