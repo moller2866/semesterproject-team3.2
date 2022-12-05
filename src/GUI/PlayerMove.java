@@ -209,6 +209,7 @@ public class PlayerMove {
 
     public ImageView dropBucket() {
         playerPane.getChildren().remove(bucketImage);
+        startPlayerAnimation();
         return bucketImage;
     }
 
@@ -234,5 +235,13 @@ public class PlayerMove {
         playerPane.setLayoutY(y);
         collisionImage.setVisible(false);
         collision = false;
+    }
+
+    public void startPlayerAnimation() {
+        playerImage.setFitHeight(40);
+    }
+
+    public void stopPlayerAnimation() {
+        playerImage.setFitHeight(0);
     }
 }

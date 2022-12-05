@@ -292,6 +292,7 @@ public class GameController implements Initializable {
     @FXML
     public void onKeyReleased(KeyEvent event) {
         playerMove.onKeyReleasedMovement(event.getCode());
+        playerMove.stopPlayerAnimation();
         nonPressed(event.getCode().getName());
     }
 
