@@ -50,7 +50,7 @@
             <Image url="@player/stand_right.png" />
          </image>
       </ImageView>
-      <TextArea fx:id="textBox" editable="false" focusTraversable="false" layoutX="18.0" layoutY="565.0" opacity="0.9" prefHeight="225.0" prefWidth="449.0" style="-fx-background-color: black;" wrapText="true">
+      <TextArea fx:id="textBox" editable="false" focusTraversable="false" layoutX="18.0" layoutY="669.0" opacity="0.95" prefHeight="121.0" prefWidth="360.0" style="-fx-background-color: black;" wrapText="true">
          <font>
             <Font name="Verdana Bold" size="12.0" />
          </font></TextArea>
@@ -174,7 +174,7 @@
             </Text>
          </children>
       </GridPane>
-      <TextArea fx:id="welcomeText" editable="false" focusTraversable="false" layoutX="376.0" layoutY="259.0" opacity="0.95" prefHeight="225.0" prefWidth="449.0" style="-fx-background-color: black;" text="Welcome to The Ocean Cleanup Information Game&#10;&#10;In this game you can walk around and talk to some employees.&#10;&#10;You can also help out! &#10;Try to speak with the captain in the weelhouse. Maybe he got a task for you.&#10;&#10;... PRESS {ENTER} TO START ..." wrapText="true">
+      <TextArea fx:id="popUpBox" editable="false" focusTraversable="false" layoutX="283.0" layoutY="213.0" opacity="0.95" prefHeight="317.0" prefWidth="643.0" style="-fx-background-color: black;" text="               &#10;&#10;&#10;             &gt;&gt; Welcome to The Ocean Cleanup Information Game &lt;&lt;&#10;&#10;             The goal of the game is to explore, and gather information.&#10;               &#10;              There is also a task waiting for you, if you want to help!&#10;                      &#10;                   Try to find the captain, he will help you get started.&#10;&#10;                                     ... PRESS {ENTER} TO START ..." wrapText="true" AnchorPane.bottomAnchor="240.0" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="270.0" AnchorPane.topAnchor="240.0">
          <font>
             <Font name="Verdana Bold" size="15.0" />
          </font>
