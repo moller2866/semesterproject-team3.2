@@ -20,7 +20,9 @@ import oceanCleanup.src.domain.NPC;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 public class GameController implements Initializable {
 
@@ -65,7 +67,7 @@ public class GameController implements Initializable {
         textBox.setFont(Font.font("Verdana", FontWeight.BOLD, 13));
         createShip();
         createRadar();
-        createColliders();
+        //createCollidersOld();
         keyCaps = new ArrayList<>() {{
             add(wKey);
             add(aKey);
@@ -80,7 +82,7 @@ public class GameController implements Initializable {
         }};
     }
 
-    private void createColliders() {
+    private void createCollidersOld() {
         dockToShip = new Pane();
         dockToShip.setPrefSize(34, 162);
         dockToShip.setLayoutX(538);
@@ -220,56 +222,11 @@ public class GameController implements Initializable {
 
     private void goNextRoom() {
         if (playerMove.isColliding()) {
-            switch (playerMove.getCollision()) {
-                case "dockToShip" -> {
-                    game.goRoomDirection("north");
-                    double x = shipToDock.getLayoutX();
-                    double y = shipToDock.getLayoutY();
-                    playerMove.setPlayerPosition(x + 60, y - 60);
-                }
-                case "dockToRecyclingCenter" -> {
-                    game.goRoomDirection("east");
-                    double x = recyclingCenterToDock.getLayoutX();
-                    double y = recyclingCenterToDock.getLayoutY();
-                    playerMove.setPlayerPosition(x + 60, y + 60);
-                }
-                case "recyclingCenterToDock" -> {
-                    game.goRoomDirection("west");
-                    double x = dockToRecyclingCenter.getLayoutX();
-                    double y = dockToRecyclingCenter.getLayoutY();
-                    playerMove.setPlayerPosition(x - 60, y + 60);
-                }
-                case "recyclingCenterToContainer" -> {
-                    game.goRoomDirection("east");
-                    double x = containerToRecyclingCenter.getLayoutX();
-                    double y = containerToRecyclingCenter.getLayoutY();
-                    playerMove.setPlayerPosition(x + 60, y + 60);
-                }
-                case "containerToRecyclingCenter" -> {
-                    game.goRoomDirection("west");
-                    double x = recyclingCenterToContainer.getLayoutX();
-                    double y = recyclingCenterToContainer.getLayoutY();
-                    playerMove.setPlayerPosition(x + 60, y + 50);
-                }
-                case "shipToWheelhouse" -> {
-                    game.goRoomDirection("west");
-                    double x = wheelhouseToShip.getLayoutX();
-                    double y = wheelhouseToShip.getLayoutY();
-                    playerMove.setPlayerPosition(x + 60, y - 60);
-                }
-                case "wheelhouseToShip" -> {
-                    game.goRoomDirection("east");
-                    double x = shipToWheelhouse.getLayoutX();
-                    double y = shipToWheelhouse.getLayoutY();
-                    playerMove.setPlayerPosition(x + 60, y + 60);
-                }
-                case "shipToDock" -> {
-                    game.goRoomDirection("south");
-                    double x = dockToShip.getLayoutX();
-                    double y = dockToShip.getLayoutY();
-                    playerMove.setPlayerPosition(x + 60, y + 60);
-                }
-            }
+            String prevRoom = game.getCurrentRoom().getName();
+            game.goRoomDirection(playerMove.getCollision());
+            double x = game.getCurrentRoom().getColliders().get("to" + prevRoom.toLowerCase()).get(0);
+            double y = game.getCurrentRoom().getColliders().get("to" + prevRoom.toLowerCase()).get(1);
+            playerMove.setPlayerPosition(x, y);
             changeRoom();
         }
     }
@@ -370,6 +327,7 @@ public class GameController implements Initializable {
         addRoomContent();
         changeSceneImage();
         addRoomBorders();
+        createColliders();
         setScale();
     }
 
@@ -423,46 +381,36 @@ public class GameController implements Initializable {
             temp.setLayoutX(boundary.get(0));
             temp.setLayoutY(boundary.get(1));
             temp.setId("border");
-            temp.setStyle("-fx-background-color: Blue;");
-            playerPane.setStyle("-fx-background-color: Red;");
-            temp.setVisible(true);
+            //temp.setStyle("-fx-background-color: Blue;");
+            //playerPane.setStyle("-fx-background-color: Red;");
+            temp.setVisible(false);
             scene.getChildren().add(temp);
             borders.add(temp);
         }
     }
 
     private void changeSceneImage() {
-        playerMove.clearColliders();
-        switch (game.getCurrentRoom().getName()) {
-            case "dock" -> {
-                this.background.setImage(new Image(getClass().getResource("graphics/dock.png").toExternalForm()));
-                playerMove.addCollider(dockToShip);
-                playerMove.addCollider(dockToRecyclingCenter);
-            }
-            case "ship" -> {
-                this.background.setImage(new Image(getClass().getResource("graphics/ship.png").toExternalForm()));
-                playerMove.addCollider(shipToDock);
-                playerMove.addCollider(shipToWheelhouse);
-            }
-            case "wheelhouse" -> {
-                this.background.setImage(new Image(getClass().getResource("graphics/wheelhouse.png").toExternalForm()));
-                playerMove.addCollider(wheelhouseToShip);
-            }
-            case "ocean" ->
-                    this.background.setImage(new Image(getClass().getResource("graphics/ocean.png").toExternalForm()));
-            case "recyclingcenter" -> {
-                this.background.setImage(new Image(getClass().getResource("graphics/recyclingcenter.png").toExternalForm()));
-                playerMove.addCollider(recyclingCenterToDock);
-                playerMove.addCollider(recyclingCenterToContainer);
-            }
-            case "container" -> {
-                this.background.setImage(new Image(getClass().getResource("graphics/container.png").toExternalForm()));
-                playerMove.addCollider(containerToRecyclingCenter);
-            }
-        }
+        this.background.setImage(new Image(game.getCurrentRoom().getBackground()));
         textBox.setText(game.getRoomDescriptionGUI());
         this.background.setFitHeight(820);
         this.background.setFitWidth(1250);
+    }
+
+    private void createColliders() {
+        playerMove.clearColliders();
+        // for each key value pair
+        for (Map.Entry<String, ArrayList<Double>> entry : game.getCurrentRoom().getColliders().entrySet()) {
+            String key = entry.getKey();
+            ArrayList<Double> value = entry.getValue();
+            Pane temp = new Pane();
+            temp.setPrefSize(value.get(2), value.get(3));
+            temp.setLayoutX(value.get(0));
+            temp.setLayoutY(value.get(1));
+            temp.setId(key);
+            //temp.setStyle("-fx-background-color: Green;");
+            temp.setVisible(false);
+            playerMove.addCollider(temp);
+        }
     }
 
     //set Scale for all images

@@ -15,6 +15,9 @@ public class Room {
     private ArrayList<ArrayList<Double>> borders;
 
     private final String name;
+    private String background;
+
+    private HashMap<String, ArrayList<Double>> colliders;
 
     public Room(String description, String name) {
         this.name = name;
@@ -45,9 +48,28 @@ public class Room {
         if (data.getJsonContent().containsKey("borders")) {
             room.setBorders((data.getBorders()));
         }
+        if (data.getJsonContent().containsKey("exits")) {
+            room.setColliders((data.getExits()));
+        }
 
-
+        room.addBackground(data.getBackground());
         return room;
+    }
+
+    private void setColliders(HashMap<String, ArrayList<Double>> exits) {
+        this.colliders = exits;
+    }
+
+    public HashMap<String, ArrayList<Double>> getColliders() {
+        return colliders;
+    }
+
+    private void addBackground(String background) {
+        this.background = background;
+    }
+
+    public String getBackground() {
+        return background;
     }
 
     private void setBorders(ArrayList<ArrayList<Double>> borders) {

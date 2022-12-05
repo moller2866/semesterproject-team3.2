@@ -1,5 +1,6 @@
 {
   "description": "on the dock at the shipyard.\n\nThere is a boat by the dock.\n\nA recycling-center seems to be at the end of the road.",
+  "background": "dock.png",
   "NPCs": [],
   "items": [],
   "borders": [
@@ -9,5 +10,9 @@
     [555.0, 250.0, 27.0, 390.0],
     [584.0, 598.0, 273.0, 54.0],
     [836.0, 654.0, 33.0, 160.0]
-  ]
+  ],
+  "exits" : {
+    "toship": [548.0, 312.0,34.0, 162.0],
+    "torecyclingcenter": [1165.0, 319.0, 34.0, 162.0]
+  }
 }

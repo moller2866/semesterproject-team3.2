@@ -70,6 +70,14 @@ public class RoomDataParser {
         return (ArrayList<ArrayList<Double>>) getJsonContent().get("borders");
     }
 
+    public HashMap<String, ArrayList<Double>> getExits() {
+        return (HashMap<String, ArrayList<Double>>) getJsonContent().get("exits");
+    }
+
+    public String getBackground() {
+        return getClass().getResource("roombackgrounds/" + getJsonContent().get("background")).toExternalForm();
+    }
+
     public String getDescription() {
         return (String) getJsonContent().get("description");
     }

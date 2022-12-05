@@ -1,5 +1,6 @@
 {
   "description": "at the recycling-center.\n\nThere is a guy with a reflex vest.\n\nHe might be working here?",
+  "background": "recyclingcenter.png",
   "NPCs": [
     {
       "type": "Worker",
@@ -22,5 +23,9 @@
     [151.0, 0.0, 1100.0, 253.0],
     [1195.0, 245.0, 53.0, 576.0],
     [151.0, 768.0, 1047.0, 54.0]
-  ]
+  ],
+  "exits": {
+    "tocontainer" : [984.0, 565.0, 80.0, 16.0],
+    "todock": [104.0, 319.0,24.0,162.0]
+  }
 }

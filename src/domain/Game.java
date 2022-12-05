@@ -33,17 +33,26 @@ public class Game {
 
         dock.setExit("east", recyclingCenter);
         dock.setExit("north", ship);
+        dock.setExit("torecyclingcenter", recyclingCenter);
+        dock.setExit("toship", ship);
 
         recyclingCenter.setExit("west", dock);
         recyclingCenter.setExit("east", container);
+        recyclingCenter.setExit("todock", dock);
+        recyclingCenter.setExit("tocontainer", container);
 
         container.setExit("west", recyclingCenter);
+        container.setExit("recyclingcenter", recyclingCenter);
 
         ship.setExit("south", dock);
         ship.setExit("west", wheelhouse);
+        ship.setExit("todock", dock);
+        ship.setExit("towheelhouse", wheelhouse);
 
         wheelhouse.setExit("east", ship);
         wheelhouse.setExit("north", ocean);
+        wheelhouse.setExit("toship", ship);
+        wheelhouse.setExit("toocean", ocean);
 
         ocean.setExit("south", wheelhouse);
 
@@ -249,7 +258,8 @@ public class Game {
             if (playerInventory.hasBucket()) {
                 return playerInventory.toString() + playerBucket.getContent();
             }
-        } catch (NullPointerException ignored) {}
+        } catch (NullPointerException ignored) {
+        }
         return playerInventory.toString();
     }
 
