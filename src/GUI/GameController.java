@@ -52,11 +52,13 @@ public class GameController implements Initializable {
     private double gameScale = 1.5;
     private ArrayList<ImageView> keyCaps;
 
+    @FXML
+    private Pane playerPane;
 
     @FXML
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        playerMove.makeMovable(playerImage, scene);
+        playerMove.makeMovable(playerPane, scene);
         textBox.setEditable(false);
         textBox.setMouseTransparent(true);
         textBox.setFont(Font.font("Verdana", FontWeight.BOLD, 13));
@@ -197,7 +199,7 @@ public class GameController implements Initializable {
                 goNextRoom();
                 picupItem();
             }
-            case Q -> dropItem();
+            case Q -> dropBucket();
             case E -> emptyBucket();
             case H -> {
                 textBox.setText(game.getRoomDescriptionGUI());
@@ -276,13 +278,18 @@ public class GameController implements Initializable {
         }
     }
 
-    private void dropItem() {
+    private void dropBucket() {
         if (playerMove.hasBucket()) {
-            ArrayList<ImageView> droppedItems = playerMove.dropItems();
-            game.getPlayerBucket().setX(droppedItems.get(0).getLayoutX());
-            game.getPlayerBucket().setY(droppedItems.get(0).getLayoutY());
+            ImageView droppedBucket = playerMove.dropBucket();
+            double x = playerPane.getLayoutX() + droppedBucket.getTranslateX();
+            double y = playerPane.getLayoutY()+ droppedBucket.getTranslateY();
+            game.getPlayerBucket().setX(x);
+            game.getPlayerBucket().setY(y);
+            droppedBucket.setLayoutX(x);
+            droppedBucket.setLayoutY(y);
             game.dropItem("bucket");
-            items.addAll(droppedItems);
+            scene.getChildren().add(droppedBucket);
+            items.add(droppedBucket);
         }
     }
 
@@ -330,13 +337,14 @@ public class GameController implements Initializable {
 
     private void picupItem() {
         for (ImageView item : items) {
-            if (item.getBoundsInParent().intersects(playerImage.getBoundsInParent())) {
+            if (item.getBoundsInParent().intersects(playerPane.getBoundsInParent())) {
                 String fileName = item.getImage().getUrl();
                 String itemName = fileName.substring(fileName.lastIndexOf("/") + 1, fileName.lastIndexOf("."));
                 if (playerMove.hasBucket() || itemName.equals("bucket") || itemName.equals("bucket_filled")) {
                     if (game.getItem(itemName.split("_")[0], item.getLayoutX(), item.getLayoutY())) {
                         if (itemName.equals("bucket") || itemName.equals("bucket_filled")) {
-                            playerMove.addImage(item);
+                            item.setId("bucket");
+                            playerMove.addBucket(item);
                         } else {
                             if (!game.getPlayerBucket().isEmpty()) {
                                 bucket.setImage(new Image(getClass().getResource("items/bucket_filled.png").toExternalForm()));
