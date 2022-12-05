@@ -15,23 +15,21 @@ public class Minigame extends Game {
 
 
     public void startTimer() {
-        startTime = (new Date().getTime())/1000;
+        startTime = (new Date().getTime()) / 1000;
         this.isStarted = true;
     }
 
     public void endTimer() {
-        endTime = (new Date().getTime())/1000;
+        endTime = (new Date().getTime()) / 1000;
     }
 
     public long getScore() {
-        return endTime- startTime;
+        return endTime - startTime;
     }
 
     public boolean isStarted() {
         return isStarted;
     }
-
-
 
 
 }

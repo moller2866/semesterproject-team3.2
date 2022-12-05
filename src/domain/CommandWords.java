@@ -11,5 +11,5 @@ public interface CommandWords {
     boolean isCommand(String aString);
 
     List<String> getCommandWords();
-    
+
 }

@@ -7,17 +7,17 @@ import java.util.Set;
 import java.util.HashMap;
 
 public class Room {
-    private String description;
-    private HashMap<String, Room> exits;
+    private final String description;
+    private final HashMap<String, Room> exits;
     private ArrayList<Item> items = new ArrayList<>();
     private ArrayList<NPC> NPC = new ArrayList<>();
 
-    private String name;
+    private final String name;
 
     public Room(String description, String name) {
         this.name = name;
         this.description = description;
-        exits = new HashMap<String, Room>();
+        exits = new HashMap<>();
     }
 
     public static Room fromJson(String jsonPath) {
@@ -63,25 +63,20 @@ public class Room {
     }
 
     public boolean hasItem() {
-        if (items.isEmpty()) {
-            return false;
-        } else {
-            return true;
-        }
+        return !items.isEmpty();
     }
 
     public int getItemAmount() {
-        ArrayList<Item> temp = new ArrayList<>();
-        temp.addAll(items);
+        ArrayList<Item> temp = new ArrayList<>(items);
         return temp.size();
     }
 
     public String getAllItemNames() {
-        String output = "";
-        for (int i = 0; i < items.size(); i++) {
-            output += items.get(i).getName() + " ";
+        StringBuilder output = new StringBuilder();
+        for (Item item : items) {
+            output.append(item.getName()).append(" ");
         }
-        return output;
+        return output.toString();
     }
 
     public String getShortDescription() {
@@ -93,16 +88,14 @@ public class Room {
     }
 
     private String getExitStringCLI() {
-        String returnString = "\nExits:";
+        StringBuilder returnString = new StringBuilder("\nExits:");
         Set<String> keys = exits.keySet();
         for (String exit : keys) {
-            returnString += " " + exit;
+            returnString.append(" ").append(exit);
         }
-        returnString += "\nItems: "
-                + getAllItemNames();
-        returnString += "\nPeople: "
-                + getAllNPCNames();
-        return returnString;
+        returnString.append("\nItems: ").append(getAllItemNames());
+        returnString.append("\nPeople: ").append(getAllNPCNames());
+        return returnString.toString();
     }
 
     public Room getExit(String direction) {
@@ -119,23 +112,19 @@ public class Room {
     }
 
     public String getAllNPCNames() {
-        String output = "";
+        StringBuilder output = new StringBuilder();
         for (int i = 0; i < NPC.size(); i++) {
-            output += NPC.get(i).getName();
+            output.append(NPC.get(i).getName());
             if (i != NPC.size() - 1) {
-                output += " & ";
+                output.append(" & ");
             }
         }
-        return output;
+        return output.toString();
 
     }
 
     public boolean hasNPC() {
-        if (NPC.isEmpty()) {
-            return false;
-        } else {
-            return true;
-        }
+        return !NPC.isEmpty();
     }
 
     public int getNPCAmount() {
@@ -143,11 +132,7 @@ public class Room {
     }
 
     public boolean isRoomContainer() {
-        if (getShortDescription().contains("container")) {
-            return true;
-        } else {
-            return false;
-        }
+        return getShortDescription().contains("container");
     }
 
     public ArrayList<Item> getItems() {

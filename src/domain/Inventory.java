@@ -4,21 +4,11 @@ import java.util.ArrayList;
 
 public class Inventory {
 
-    private int limit;
+    private final int limit;
     ArrayList<Item> items = new ArrayList<>();
 
     public Inventory() {
         this.limit = 2;
-    }
-
-    public Inventory(int limit) {
-        this.limit = limit;
-    }
-
-
-
-    public ArrayList<Item> getInventory() {
-        return items;
     }
 
     public boolean addItem(Item item) {
@@ -30,9 +20,8 @@ public class Inventory {
         }
     }
 
-    public ArrayList<Item> removeAllFromInventory () {
-        ArrayList<Item> temp = new ArrayList<>();
-        temp.addAll(items);
+    public ArrayList<Item> removeAllFromInventory() {
+        ArrayList<Item> temp = new ArrayList<>(items);
         items.clear();
         return temp;
     }
@@ -47,8 +36,7 @@ public class Inventory {
     }
 
     public boolean isInventoryEmpty() {
-        if (items.isEmpty()) return true;
-        else return false;
+        return items.isEmpty();
     }
 
     public int getInventorySize() {
@@ -60,41 +48,24 @@ public class Inventory {
     }
 
 
-    public Item remove(String name) {
+    public void remove(String name) {
         for (int i = 0; i < items.size(); i++) {
             Item item = items.get(i);
             if (item.getName().equals(name)) {
-                return items.remove(i);
+                items.remove(i);
+                return;
             }
         }
-        return null;
     }
 
     @Override
     public String toString() {
-        String temp = "";
+        StringBuilder temp = new StringBuilder();
         for (Item item : items) {
-            temp += "- " + item.getName() + "\n";
+            temp.append("- ").append(item.getName()).append("\n");
         }
         return "Inventory: \n"
                 + temp;
-    }
-
-    // test
-    public static void main(String[] args) {
-        Inventory K = new Inventory(2);
-        Item item2 = new Plastic();
-        Item item3 = new Plastic();
-
-        K.addItem(item2);
-        K.addItem(item3);
-
-
-
-        System.out.println(K.removeAllFromInventory());
-        System.out.println();
-        System.out.println(K);
-
     }
 
 }

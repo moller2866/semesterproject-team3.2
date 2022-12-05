@@ -183,11 +183,7 @@ public class Game {
     }
 
     public boolean quit(Command command) {
-        if (command.hasCommandValue()) {
-            return false;
-        } else {
-            return true;
-        }
+        return !command.hasCommandValue();
     }
 
     public String getRoomDescriptionCLI() {
@@ -196,10 +192,6 @@ public class Game {
 
     public String getRoomDescriptionGUI() {
         return currentRoom.getShortDescription();
-    }
-
-    public CommandWords getCommands() {
-        return commands;
     }
 
     public List<String> getCommandDescriptions() {
@@ -212,27 +204,40 @@ public class Game {
 
     public String startTalk() {
         if (currentRoom.hasNPC()) {
-            String output = "";
+            StringBuilder output = new StringBuilder();
             for (int i = 0; i < currentRoom.getNPCAmount(); i++) {
                 if (currentRoom.getNPC(i).getJob().equals("Captain")) {
                     setTalkedToCaptain(true);
                 }
                 if (!hasTalkedToCaptain()) {
-                    return currentRoom.getNPC(i).getJob()+":"
-                            + "\n\nHello stranger!\n\n" +
-                            "Have you talked to the Captain yet?\n\n";
+                    return currentRoom.getNPC(i).getJob() + """
+                            :
+                                                       
+                            Hello stranger!
+                                                       
+                            Have you talked to the Captain yet?
+                                                       
+                            I'm sure he has something for you to do.
+                             
+                            """;
                 }
-                output += currentRoom.getNPC(i).startTalk();
+                output.append(currentRoom.getNPC(i).startTalk());
             }
-            return output;
+            return output.toString();
         } else if (currentRoom.getName().equals("ocean"))
-            return "Unfortunately, fish cannot speak." +
-                    "\n\nThey actually communicate by gesture and motion!" +
-                    "\n\nAlthough it would be cool if they could talk, right?";
+            return """
+                    Unfortunately, fish cannot speak.
+
+                    They actually communicate by gesture and motion!
+
+                    Although it would be cool if they could talk, right?""";
         else
-            return "You are talking with yourself." +
-                    "\n\nWe all do that sometimes, don't we?" +
-                    "\n\nMaybe you can find someone to talk to.";
+            return """
+                    You are talking with yourself.
+
+                    We all do that sometimes, don't we?
+
+                    Maybe you can find someone to talk to.""";
     }
 
     public boolean currentRoomHasNPC() {
@@ -244,8 +249,7 @@ public class Game {
             if (playerInventory.hasBucket()) {
                 return playerInventory.toString() + playerBucket.getContent();
             }
-        } catch (NullPointerException e) {
-        }
+        } catch (NullPointerException ignored) {}
         return playerInventory.toString();
     }
 
@@ -265,19 +269,9 @@ public class Game {
         return false;
     }
 
-    public boolean hasMinigame() {
-        if (currentRoom.getShortDescription().contains("ship 002")) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     public boolean isRoomFull() {
         if (currentRoom.isRoomContainer()) {
-            if (currentRoom.getItemAmount() >= 10) {
-                return true;
-            }
+            return currentRoom.getItemAmount() >= 10;
         }
         return false;
     }
