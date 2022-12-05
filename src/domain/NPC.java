@@ -7,11 +7,11 @@ public abstract class NPC {
     protected String name;
     protected String job;
     protected ArrayList<String> talkText = new ArrayList<>();
-    private double x;
+    private final double x;
 
-    private double y;
+    private final double y;
 
-    public NPC (String name, String job,double x, double y) {
+    public NPC(String name, String job, double x, double y) {
         this.name = name;
         this.job = job;
         this.x = x;
@@ -30,11 +30,11 @@ public abstract class NPC {
     public abstract void setTalk(String talk);
 
     public String startTalk() {
-        String output = "";
+        StringBuilder output = new StringBuilder();
         for (String s : talkText) {
-            output += s +"\n";
+            output.append(s).append("\n");
         }
-        return output;
+        return output.toString();
     }
 
     public double getX() {

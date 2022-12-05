@@ -1,7 +1,6 @@
 package oceanCleanup.src.domain;
 
-public enum Commands
-{
+public enum Commands {
     GO("go"),
     QUIT("quit"),
     HELP("help"),
@@ -13,16 +12,14 @@ public enum Commands
     EMPTY("empty"),
     MINIGAME("minigame");
 
-    
+
     private String commandName;
-    
-    Commands(String commandString)
-    {
+
+    Commands(String commandString) {
         this.commandName = commandString;
     }
-    
-    public String toString()
-    {
+
+    public String toString() {
         return commandName;
     }
 }

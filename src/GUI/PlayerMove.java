@@ -10,7 +10,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 
 import java.util.ArrayList;
 
@@ -27,8 +26,6 @@ public class PlayerMove {
     private double playerHeight;
     private double playerWidth;
 
-    private double handOffsetX;
-    private double handOffsetY;
     private AnchorPane scene;
 
     private boolean collision;
@@ -46,8 +43,6 @@ public class PlayerMove {
         this.playerHeight = playerPane.getBoundsInParent().getHeight();
         this.playerWidth = playerPane.getBoundsInParent().getWidth();
         this.colliders = new ArrayList<>();
-        this.handOffsetX = playerWidth / 2 - 15;
-        this.handOffsetY = playerHeight / 2 + 8;
         this.scene = scene;
 
         for (Node image : playerPane.getChildren()) {
@@ -65,10 +60,10 @@ public class PlayerMove {
         }));
     }
 
-    private int movementVariable = 2;
     AnimationTimer timer = new AnimationTimer() {
         @Override
         public void handle(long timestamp) {
+            final int movementVariable = 2;
             if (wPressed.get()) playerStack.setLayoutY(playerStack.getLayoutY() - movementVariable);
             if (aPressed.get()) playerStack.setLayoutX(playerStack.getLayoutX() - movementVariable);
             if (sPressed.get()) playerStack.setLayoutY(playerStack.getLayoutY() + movementVariable);

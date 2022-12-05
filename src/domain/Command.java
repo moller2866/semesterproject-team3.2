@@ -10,5 +10,5 @@ public interface Command {
     boolean hasCommandValue();
 
     boolean isUnknown();
-    
+
 }

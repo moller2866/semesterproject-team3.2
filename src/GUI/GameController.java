@@ -38,7 +38,7 @@ public class GameController implements Initializable {
             shipToWheelhouse, shipToDock,
             wheelhouseToShip;
     @FXML
-    private ImageView background, playerImage, bucket, ship, radar;
+    private ImageView background, bucket, ship, radar;
     @FXML
     private TextArea textBox;
 
@@ -49,7 +49,7 @@ public class GameController implements Initializable {
 
     ArrayList<ImageView> items = new ArrayList<>();
     ArrayList<ImageView> nonInteractableItems = new ArrayList<>();
-    private double gameScale = 1.5;
+    private final double gameScale = 1.5;
     private ArrayList<ImageView> keyCaps;
 
     @FXML
@@ -201,15 +201,10 @@ public class GameController implements Initializable {
             }
             case Q -> dropBucket();
             case E -> emptyBucket();
-            case H -> {
-                textBox.setText(game.getRoomDescriptionGUI());
-            }
-            case I -> {
-                textBox.setText(game.seeInventory());
-            }
+            case H -> textBox.setText(game.getRoomDescriptionGUI());
+            case I -> textBox.setText(game.seeInventory());
             case T -> {
                 if (game.currentRoomHasNPC()) {
-                    startMiniGame();
                     popUpBox.setText(game.startTalk() + "\n                                     ... PRESS {ENTER} TO CONTINUE ...");
                     popUpBox.setVisible(true);
                     popUpBox.toFront();
@@ -282,7 +277,7 @@ public class GameController implements Initializable {
         if (playerMove.hasBucket()) {
             ImageView droppedBucket = playerMove.dropBucket();
             double x = playerPane.getLayoutX() + droppedBucket.getTranslateX();
-            double y = playerPane.getLayoutY()+ droppedBucket.getTranslateY();
+            double y = playerPane.getLayoutY() + droppedBucket.getTranslateY();
             game.getPlayerBucket().setX(x);
             game.getPlayerBucket().setY(y);
             droppedBucket.setLayoutX(x);
@@ -296,17 +291,11 @@ public class GameController implements Initializable {
     @FXML
     public void onKeyReleased(KeyEvent event) {
         switch (event.getCode()) {
-            case W, D, A, S -> {
-                playerMove.onKeyReleasedMovement(event.getCode());
-            }
+            case W, D, A, S -> playerMove.onKeyReleasedMovement(event.getCode());
         }
         nonPressed(event.getCode().getName());
     }
 
-    private void startMiniGame() {
-        if (game.startTalk().contains("Jack")) {
-        }
-    }
 
     private void emptyBucket() {
         if (playerMove.hasBucket()) {
@@ -316,11 +305,18 @@ public class GameController implements Initializable {
                     bucket.setImage(new Image(getClass().getResource("items/bucket.png").toExternalForm()));
                     addRoomContent();
                     if (game.isRoomFull()) {
-                        popUpBox.setText("\n\n\n\n" +
-                                "                               >> You have completed your task <<\n\n" +
-                                "                                          Thank you for helping us!\n\n" +
-                                "        The game is now over, but you can still walk around and explore!\n\n" +
-                                "                                     ... PRESS {ENTER} TO CONTINUE ...");
+                        popUpBox.setText("""
+
+
+
+
+                                                       >> You have completed your task <<
+
+                                                                  Thank you for helping us!
+
+                                The game is now over, but you can still walk around and explore!
+
+                                                             ... PRESS {ENTER} TO CONTINUE ...""".indent(8));
                         popUpBox.setVisible(true);
                         popUpBox.toFront();
                     }
@@ -406,39 +402,45 @@ public class GameController implements Initializable {
 
         // adds non-interactive items to the scene
         switch (this.game.getCurrentRoom().getName()) {
-            case "dock":
+            case "dock" -> {
                 scene.getChildren().add(ship);
                 nonInteractableItems.add(ship);
-                break;
-            case "wheelhouse":
+            }
+            case "wheelhouse" -> {
                 scene.getChildren().add(radar);
                 nonInteractableItems.add(radar);
-                break;
+            }
         }
     }
 
     private void changeSceneImage() {
         playerMove.clearColliders();
-        if (game.getCurrentRoom().getName().equals("dock")) {
-            this.background.setImage(new Image(getClass().getResource("graphics/dock.png").toExternalForm()));
-            playerMove.addCollider(dockToShip);
-            playerMove.addCollider(dockToRecyclingCenter);
-        } else if (game.getCurrentRoom().getName().equals("ship")) {
-            this.background.setImage(new Image(getClass().getResource("graphics/ship.png").toExternalForm()));
-            playerMove.addCollider(shipToDock);
-            playerMove.addCollider(shipToWheelhouse);
-        } else if (game.getCurrentRoom().getName().equals("wheelhouse")) {
-            this.background.setImage(new Image(getClass().getResource("graphics/wheelhouse.png").toExternalForm()));
-            playerMove.addCollider(wheelhouseToShip);
-        } else if (game.getCurrentRoom().getName().equals("ocean")) {
-            this.background.setImage(new Image(getClass().getResource("graphics/ocean.png").toExternalForm()));
-        } else if (game.getCurrentRoom().getName().equals("recyclingcenter")) {
-            this.background.setImage(new Image(getClass().getResource("graphics/recyclingcenter.png").toExternalForm()));
-            playerMove.addCollider(recyclingCenterToDock);
-            playerMove.addCollider(recyclingCenterToContainer);
-        } else if (game.getCurrentRoom().getName().equals("container")) {
-            this.background.setImage(new Image(getClass().getResource("graphics/container.png").toExternalForm()));
-            playerMove.addCollider(containerToRecyclingCenter);
+        switch (game.getCurrentRoom().getName()) {
+            case "dock" -> {
+                this.background.setImage(new Image(getClass().getResource("graphics/dock.png").toExternalForm()));
+                playerMove.addCollider(dockToShip);
+                playerMove.addCollider(dockToRecyclingCenter);
+            }
+            case "ship" -> {
+                this.background.setImage(new Image(getClass().getResource("graphics/ship.png").toExternalForm()));
+                playerMove.addCollider(shipToDock);
+                playerMove.addCollider(shipToWheelhouse);
+            }
+            case "wheelhouse" -> {
+                this.background.setImage(new Image(getClass().getResource("graphics/wheelhouse.png").toExternalForm()));
+                playerMove.addCollider(wheelhouseToShip);
+            }
+            case "ocean" ->
+                    this.background.setImage(new Image(getClass().getResource("graphics/ocean.png").toExternalForm()));
+            case "recyclingcenter" -> {
+                this.background.setImage(new Image(getClass().getResource("graphics/recyclingcenter.png").toExternalForm()));
+                playerMove.addCollider(recyclingCenterToDock);
+                playerMove.addCollider(recyclingCenterToContainer);
+            }
+            case "container" -> {
+                this.background.setImage(new Image(getClass().getResource("graphics/container.png").toExternalForm()));
+                playerMove.addCollider(containerToRecyclingCenter);
+            }
         }
         textBox.setText(game.getRoomDescriptionGUI());
         this.background.setFitHeight(820);

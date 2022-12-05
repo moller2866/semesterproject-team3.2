@@ -1,17 +1,17 @@
 package oceanCleanup.src.domain;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
-public class CommandWordsImplementation implements CommandWords
-{
+public class CommandWordsImplementation implements CommandWords {
     private HashMap<String, Commands> validCommands;
 
-    public CommandWordsImplementation()
-    {
+    public CommandWordsImplementation() {
         validCommands = new HashMap<String, Commands>();
-        for(Commands command : Commands.values()) {
-            if(command != Commands.UNKNOWN) {
+        for (Commands command : Commands.values()) {
+            if (command != Commands.UNKNOWN) {
                 validCommands.put(command.toString(), command);
             }
         }
@@ -19,30 +19,18 @@ public class CommandWordsImplementation implements CommandWords
 
     //Text-based lookup for specific command.
     @Override
-    public Commands getCommand(String commandWord)
-    {
+    public Commands getCommand(String commandWord) {
         Commands command = validCommands.get(commandWord);
-        if(command != null) {
-            return command;
-        }
-        else {
-            return Commands.UNKNOWN;
-        }
+        return Objects.requireNonNullElse(command, Commands.UNKNOWN);
     }
-    
+
     @Override
-    public boolean isCommand(String aString)
-    {
+    public boolean isCommand(String aString) {
         return validCommands.containsKey(aString);
     }
 
     @Override
-    public List<String> getCommandWords() 
-    {
-        List<String> commandWords = new ArrayList<>();
-        for(String commandWord : validCommands.keySet()) {
-            commandWords.add(commandWord);
-        }
-        return commandWords;
+    public List<String> getCommandWords() {
+        return new ArrayList<>(validCommands.keySet());
     }
 }
