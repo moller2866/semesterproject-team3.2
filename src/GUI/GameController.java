@@ -208,7 +208,7 @@ public class GameController implements Initializable {
             case T -> {
                 if (game.currentRoomHasNPC()) {
                     startMiniGame();
-                    popUpBox.setText(game.startTalk());
+                    popUpBox.setText(game.startTalk() + "\n                                     ... PRESS {ENTER} TO CONTINUE ...");
                     popUpBox.setVisible(true);
                     popUpBox.toFront();
                 } else {
