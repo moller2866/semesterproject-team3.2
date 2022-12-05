@@ -1,5 +1,6 @@
 {
   "description": "in the ship's wheelhouse.\n\nThe captain is here.\n\nHe greets you with a 'g'day mate!'.",
+  "background": "wheelhouse.png",
   "NPCs": [
     {
       "type": "Captain",
@@ -8,5 +9,13 @@
       "y":114.0
     }
   ],
-  "items": []
+  "items": [],
+  "borders": [
+    [0.0, 0.0, 297.0, 825.0],
+    [294.0, 590.0, 645.0, 231.0],
+    [943.0, 0.0, 313.0, 829.0]
+  ],
+  "exits": {
+    "toship": [515.0,552.0,169.0,27.0]
+  }
 }

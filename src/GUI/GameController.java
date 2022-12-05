@@ -20,6 +20,7 @@ import oceanCleanup.src.domain.NPC;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class GameController implements Initializable {
@@ -31,12 +32,6 @@ public class GameController implements Initializable {
     @FXML
     private AnchorPane scene;
 
-    @FXML
-    private Pane dockToShip, dockToRecyclingCenter,
-            recyclingCenterToContainer, recyclingCenterToDock,
-            containerToRecyclingCenter,
-            shipToWheelhouse, shipToDock,
-            wheelhouseToShip;
     @FXML
     private ImageView background, bucket, ship, radar;
     @FXML
@@ -54,6 +49,7 @@ public class GameController implements Initializable {
 
     @FXML
     private Pane playerPane;
+    private ArrayList<Pane> borders = new ArrayList<>();
 
     @FXML
     @Override
@@ -64,7 +60,6 @@ public class GameController implements Initializable {
         textBox.setFont(Font.font("Verdana", FontWeight.BOLD, 13));
         createShip();
         createRadar();
-        createColliders();
         keyCaps = new ArrayList<>() {{
             add(wKey);
             add(aKey);
@@ -77,64 +72,6 @@ public class GameController implements Initializable {
             add(eKey);
             add(spaceKey);
         }};
-    }
-
-    private void createColliders() {
-        dockToShip = new Pane();
-        dockToShip.setPrefSize(34, 162);
-        dockToShip.setLayoutX(538);
-        dockToShip.setLayoutY(312);
-        dockToShip.setVisible(false);
-        dockToShip.setId("dockToShip");
-
-        dockToRecyclingCenter = new Pane();
-        dockToRecyclingCenter.setPrefSize(34, 162);
-        dockToRecyclingCenter.setLayoutX(1165);
-        dockToRecyclingCenter.setLayoutY(319);
-        dockToRecyclingCenter.setVisible(false);
-        dockToRecyclingCenter.setId("dockToRecyclingCenter");
-
-        recyclingCenterToContainer = new Pane();
-        recyclingCenterToContainer.setPrefSize(80, 16);
-        recyclingCenterToContainer.setLayoutX(984);
-        recyclingCenterToContainer.setLayoutY(565);
-        recyclingCenterToContainer.setVisible(false);
-        recyclingCenterToContainer.setId("recyclingCenterToContainer");
-
-        recyclingCenterToDock = new Pane();
-        recyclingCenterToDock.setPrefSize(34, 162);
-        recyclingCenterToDock.setLayoutX(104);
-        recyclingCenterToDock.setLayoutY(319);
-        recyclingCenterToDock.setVisible(false);
-        recyclingCenterToDock.setId("recyclingCenterToDock");
-
-        containerToRecyclingCenter = new Pane();
-        containerToRecyclingCenter.setPrefSize(34, 162);
-        containerToRecyclingCenter.setLayoutX(264);
-        containerToRecyclingCenter.setLayoutY(312);
-        containerToRecyclingCenter.setVisible(false);
-        containerToRecyclingCenter.setId("containerToRecyclingCenter");
-
-        shipToWheelhouse = new Pane();
-        shipToWheelhouse.setPrefSize(34, 162);
-        shipToWheelhouse.setLayoutX(1);
-        shipToWheelhouse.setLayoutY(353);
-        shipToWheelhouse.setVisible(false);
-        shipToWheelhouse.setId("shipToWheelhouse");
-
-        shipToDock = new Pane();
-        shipToDock.setPrefSize(169, 27);
-        shipToDock.setLayoutX(473);
-        shipToDock.setLayoutY(759);
-        shipToDock.setVisible(false);
-        shipToDock.setId("shipToDock");
-
-        wheelhouseToShip = new Pane();
-        wheelhouseToShip.setPrefSize(169, 27);
-        wheelhouseToShip.setLayoutX(515);
-        wheelhouseToShip.setLayoutY(552);
-        wheelhouseToShip.setVisible(false);
-        wheelhouseToShip.setId("wheelhouseToShip");
     }
 
     private void createShip() {
@@ -219,56 +156,11 @@ public class GameController implements Initializable {
 
     private void goNextRoom() {
         if (playerMove.isColliding()) {
-            switch (playerMove.getCollision()) {
-                case "dockToShip" -> {
-                    game.goRoomDirection("north");
-                    double x = shipToDock.getLayoutX();
-                    double y = shipToDock.getLayoutY();
-                    playerMove.setPlayerPosition(x + 60, y - 60);
-                }
-                case "dockToRecyclingCenter" -> {
-                    game.goRoomDirection("east");
-                    double x = recyclingCenterToDock.getLayoutX();
-                    double y = recyclingCenterToDock.getLayoutY();
-                    playerMove.setPlayerPosition(x + 60, y + 60);
-                }
-                case "recyclingCenterToDock" -> {
-                    game.goRoomDirection("west");
-                    double x = dockToRecyclingCenter.getLayoutX();
-                    double y = dockToRecyclingCenter.getLayoutY();
-                    playerMove.setPlayerPosition(x - 60, y + 60);
-                }
-                case "recyclingCenterToContainer" -> {
-                    game.goRoomDirection("east");
-                    double x = containerToRecyclingCenter.getLayoutX();
-                    double y = containerToRecyclingCenter.getLayoutY();
-                    playerMove.setPlayerPosition(x + 60, y + 60);
-                }
-                case "containerToRecyclingCenter" -> {
-                    game.goRoomDirection("west");
-                    double x = recyclingCenterToContainer.getLayoutX();
-                    double y = recyclingCenterToContainer.getLayoutY();
-                    playerMove.setPlayerPosition(x + 60, y + 50);
-                }
-                case "shipToWheelhouse" -> {
-                    game.goRoomDirection("west");
-                    double x = wheelhouseToShip.getLayoutX();
-                    double y = wheelhouseToShip.getLayoutY();
-                    playerMove.setPlayerPosition(x + 60, y - 60);
-                }
-                case "wheelhouseToShip" -> {
-                    game.goRoomDirection("east");
-                    double x = shipToWheelhouse.getLayoutX();
-                    double y = shipToWheelhouse.getLayoutY();
-                    playerMove.setPlayerPosition(x + 60, y + 60);
-                }
-                case "shipToDock" -> {
-                    game.goRoomDirection("south");
-                    double x = dockToShip.getLayoutX();
-                    double y = dockToShip.getLayoutY();
-                    playerMove.setPlayerPosition(x + 60, y + 60);
-                }
-            }
+            String prevRoom = game.getCurrentRoom().getName();
+            game.goRoomDirection(playerMove.getCollision());
+            double x = game.getCurrentRoom().getColliders().get("to" + prevRoom.toLowerCase()).get(0);
+            double y = game.getCurrentRoom().getColliders().get("to" + prevRoom.toLowerCase()).get(1);
+            playerMove.setPlayerPosition(x, y);
             changeRoom();
         }
     }
@@ -276,8 +168,8 @@ public class GameController implements Initializable {
     private void dropBucket() {
         if (playerMove.hasBucket()) {
             ImageView droppedBucket = playerMove.dropBucket();
-            double x = playerPane.getLayoutX() + droppedBucket.getTranslateX();
-            double y = playerPane.getLayoutY() + droppedBucket.getTranslateY();
+            double x = playerPane.getLayoutX() + droppedBucket.getLayoutX();
+            double y = playerPane.getLayoutY() + droppedBucket.getLayoutY();
             game.getPlayerBucket().setX(x);
             game.getPlayerBucket().setY(y);
             droppedBucket.setLayoutX(x);
@@ -291,6 +183,7 @@ public class GameController implements Initializable {
     @FXML
     public void onKeyReleased(KeyEvent event) {
         playerMove.onKeyReleasedMovement(event.getCode());
+        playerMove.stopPlayerAnimation();
         nonPressed(event.getCode().getName());
     }
 
@@ -367,6 +260,8 @@ public class GameController implements Initializable {
         nonInteractableItems.clear();
         addRoomContent();
         changeSceneImage();
+        addRoomBorders();
+        createColliders();
         setScale();
     }
 
@@ -411,38 +306,45 @@ public class GameController implements Initializable {
         }
     }
 
-    private void changeSceneImage() {
-        playerMove.clearColliders();
-        switch (game.getCurrentRoom().getName()) {
-            case "dock" -> {
-                this.background.setImage(new Image(getClass().getResource("graphics/dock.png").toExternalForm()));
-                playerMove.addCollider(dockToShip);
-                playerMove.addCollider(dockToRecyclingCenter);
-            }
-            case "ship" -> {
-                this.background.setImage(new Image(getClass().getResource("graphics/ship.png").toExternalForm()));
-                playerMove.addCollider(shipToDock);
-                playerMove.addCollider(shipToWheelhouse);
-            }
-            case "wheelhouse" -> {
-                this.background.setImage(new Image(getClass().getResource("graphics/wheelhouse.png").toExternalForm()));
-                playerMove.addCollider(wheelhouseToShip);
-            }
-            case "ocean" ->
-                    this.background.setImage(new Image(getClass().getResource("graphics/ocean.png").toExternalForm()));
-            case "recyclingcenter" -> {
-                this.background.setImage(new Image(getClass().getResource("graphics/recyclingcenter.png").toExternalForm()));
-                playerMove.addCollider(recyclingCenterToDock);
-                playerMove.addCollider(recyclingCenterToContainer);
-            }
-            case "container" -> {
-                this.background.setImage(new Image(getClass().getResource("graphics/container.png").toExternalForm()));
-                playerMove.addCollider(containerToRecyclingCenter);
-            }
+    private void addRoomBorders() {
+        scene.getChildren().removeAll(borders);
+        borders.clear();
+        for (ArrayList<Double> boundary : game.getCurrentRoom().getBorders()) {
+            Pane temp = new Pane();
+            temp.setPrefSize(boundary.get(2), boundary.get(3));
+            temp.setLayoutX(boundary.get(0));
+            temp.setLayoutY(boundary.get(1));
+            temp.setId("border");
+            //temp.setStyle("-fx-background-color: Blue;");
+            //playerPane.setStyle("-fx-background-color: Red;");
+            temp.setVisible(false);
+            scene.getChildren().add(temp);
+            borders.add(temp);
         }
+    }
+
+    private void changeSceneImage() {
+        this.background.setImage(new Image(game.getCurrentRoom().getBackground()));
         textBox.setText(game.getRoomDescriptionGUI());
         this.background.setFitHeight(820);
         this.background.setFitWidth(1250);
+    }
+
+    private void createColliders() {
+        playerMove.clearColliders();
+        // for each key value pair
+        for (Map.Entry<String, ArrayList<Double>> entry : game.getCurrentRoom().getColliders().entrySet()) {
+            String key = entry.getKey();
+            ArrayList<Double> value = entry.getValue();
+            Pane temp = new Pane();
+            temp.setPrefSize(value.get(2), value.get(3));
+            temp.setLayoutX(value.get(0));
+            temp.setLayoutY(value.get(1));
+            temp.setId(key);
+            //temp.setStyle("-fx-background-color: Green;");
+            temp.setVisible(false);
+            playerMove.addCollider(temp);
+        }
     }
 
     //set Scale for all images

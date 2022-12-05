@@ -1,5 +1,15 @@
 {
   "description": "in the container for plastic waste.\n\nPlastic should be dropped in this container.",
+  "background": "container.png",
   "NPCs": [],
-  "items": []
+  "items": [],
+  "borders": [
+    [0.0, 0.0, 1253.0, 243.0],
+    [0.0, 574.0, 1253.0, 243.0],
+    [0.0, 241.0, 282.0, 579.0],
+    [970.0, 241.0, 282.0, 579.0]
+    ],
+  "exits": {
+    "torecyclingcenter": [264.0, 312.0, 34.0, 162.0]
+  }
 }

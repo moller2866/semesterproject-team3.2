@@ -66,18 +66,31 @@ public class RoomDataParser {
         return (ArrayList<HashMap<String, ?>>) getJsonContent().get("items");
     }
 
+    public ArrayList<ArrayList<Double>> getBorders() {
+        return (ArrayList<ArrayList<Double>>) getJsonContent().get("borders");
+    }
+
+    public HashMap<String, ArrayList<Double>> getExits() {
+        return (HashMap<String, ArrayList<Double>>) getJsonContent().get("exits");
+    }
+
+    public String getBackground() {
+        return getClass().getResource("roombackgrounds/" + getJsonContent().get("background")).toExternalForm();
+    }
+
     public String getDescription() {
         return (String) getJsonContent().get("description");
     }
 
     public static void main(String[] args) {
-        RoomDataParser parser = new RoomDataParser("roomdescriptions/dock.json");
+        RoomDataParser parser = new RoomDataParser( "src/data/roomdescriptions/dock.json");
 
         System.out.println(parser.getDescription());
         System.out.println();
         System.out.println(parser.getNPCs());
         System.out.println();
         System.out.println(parser.getItems());
+        System.out.println(parser.getBorders());
 
     }
 }
