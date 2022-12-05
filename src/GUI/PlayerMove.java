@@ -176,7 +176,7 @@ public class PlayerMove {
         borderTop = false;
         borderBottom = false;
 
-   /*     for (Node node : scene.getChildren()) {
+        for (Node node : scene.getChildren()) {
             if (node.getId() != null && node.getId().equalsIgnoreCase("border")) {
                 if (node.getBoundsInParent().intersects(playerPane.getBoundsInParent())) {
 
@@ -198,7 +198,7 @@ public class PlayerMove {
                     }
                 }
             }
-        }*/
+        }
         if (playerPane.getLayoutX() < leftBorder) playerPane.setLayoutX(leftBorder);
         if (playerPane.getLayoutX() > rightBorder) playerPane.setLayoutX(rightBorder);
         if (playerPane.getLayoutY() < topBorder) playerPane.setLayoutY(topBorder);
