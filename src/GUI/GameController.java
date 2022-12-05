@@ -22,7 +22,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.Set;
 
 public class GameController implements Initializable {
 
@@ -33,12 +32,6 @@ public class GameController implements Initializable {
     @FXML
     private AnchorPane scene;
 
-    @FXML
-    private Pane dockToShip, dockToRecyclingCenter,
-            recyclingCenterToContainer, recyclingCenterToDock,
-            containerToRecyclingCenter,
-            shipToWheelhouse, shipToDock,
-            wheelhouseToShip;
     @FXML
     private ImageView background, bucket, ship, radar;
     @FXML
@@ -67,7 +60,6 @@ public class GameController implements Initializable {
         textBox.setFont(Font.font("Verdana", FontWeight.BOLD, 13));
         createShip();
         createRadar();
-        //createCollidersOld();
         keyCaps = new ArrayList<>() {{
             add(wKey);
             add(aKey);
@@ -80,64 +72,6 @@ public class GameController implements Initializable {
             add(eKey);
             add(spaceKey);
         }};
-    }
-
-    private void createCollidersOld() {
-        dockToShip = new Pane();
-        dockToShip.setPrefSize(34, 162);
-        dockToShip.setLayoutX(538);
-        dockToShip.setLayoutY(312);
-        dockToShip.setVisible(false);
-        dockToShip.setId("dockToShip");
-
-        dockToRecyclingCenter = new Pane();
-        dockToRecyclingCenter.setPrefSize(34, 162);
-        dockToRecyclingCenter.setLayoutX(1165);
-        dockToRecyclingCenter.setLayoutY(319);
-        dockToRecyclingCenter.setVisible(false);
-        dockToRecyclingCenter.setId("dockToRecyclingCenter");
-
-        recyclingCenterToContainer = new Pane();
-        recyclingCenterToContainer.setPrefSize(80, 16);
-        recyclingCenterToContainer.setLayoutX(984);
-        recyclingCenterToContainer.setLayoutY(565);
-        recyclingCenterToContainer.setVisible(false);
-        recyclingCenterToContainer.setId("recyclingCenterToContainer");
-
-        recyclingCenterToDock = new Pane();
-        recyclingCenterToDock.setPrefSize(34, 162);
-        recyclingCenterToDock.setLayoutX(104);
-        recyclingCenterToDock.setLayoutY(319);
-        recyclingCenterToDock.setVisible(false);
-        recyclingCenterToDock.setId("recyclingCenterToDock");
-
-        containerToRecyclingCenter = new Pane();
-        containerToRecyclingCenter.setPrefSize(34, 162);
-        containerToRecyclingCenter.setLayoutX(264);
-        containerToRecyclingCenter.setLayoutY(312);
-        containerToRecyclingCenter.setVisible(false);
-        containerToRecyclingCenter.setId("containerToRecyclingCenter");
-
-        shipToWheelhouse = new Pane();
-        shipToWheelhouse.setPrefSize(34, 162);
-        shipToWheelhouse.setLayoutX(1);
-        shipToWheelhouse.setLayoutY(353);
-        shipToWheelhouse.setVisible(false);
-        shipToWheelhouse.setId("shipToWheelhouse");
-
-        shipToDock = new Pane();
-        shipToDock.setPrefSize(169, 27);
-        shipToDock.setLayoutX(473);
-        shipToDock.setLayoutY(759);
-        shipToDock.setVisible(false);
-        shipToDock.setId("shipToDock");
-
-        wheelhouseToShip = new Pane();
-        wheelhouseToShip.setPrefSize(169, 27);
-        wheelhouseToShip.setLayoutX(515);
-        wheelhouseToShip.setLayoutY(552);
-        wheelhouseToShip.setVisible(false);
-        wheelhouseToShip.setId("wheelhouseToShip");
     }
 
     private void createShip() {
