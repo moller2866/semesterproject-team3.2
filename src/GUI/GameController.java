@@ -277,8 +277,8 @@ public class GameController implements Initializable {
     private void dropBucket() {
         if (playerMove.hasBucket()) {
             ImageView droppedBucket = playerMove.dropBucket();
-            double x = playerPane.getLayoutX() + droppedBucket.getTranslateX();
-            double y = playerPane.getLayoutY() + droppedBucket.getTranslateY();
+            double x = playerPane.getLayoutX() + droppedBucket.getLayoutX();
+            double y = playerPane.getLayoutY() + droppedBucket.getLayoutY();
             game.getPlayerBucket().setX(x);
             game.getPlayerBucket().setY(y);
             droppedBucket.setLayoutX(x);
