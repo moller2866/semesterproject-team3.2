@@ -309,10 +309,11 @@ public class GameController implements Initializable {
                     bucket.setImage(new Image(getClass().getResource("items/bucket.png").toExternalForm()));
                     addRoomContent();
                     if (game.isRoomFull()) {
-                        popUpBox.setText("You filled the container and helped the project Ocean Cleanup!\n" +
-                                "Thank you for helping us!\n\n" +
-                                "The game is now over, but you can still walk and talk to the Employees\n\n" +
-                                "... PRESS {ENTER} TO CONTINUE ...");
+                        popUpBox.setText("\n\n\n\n" +
+                                "                               >> You have completed your task <<\n\n" +
+                                "                                          Thank you for helping us!\n\n" +
+                                "        The game is now over, but you can still walk around and explore!\n\n" +
+                                "                                     ... PRESS {ENTER} TO CONTINUE ...");
                         popUpBox.setVisible(true);
                         popUpBox.toFront();
                     }
