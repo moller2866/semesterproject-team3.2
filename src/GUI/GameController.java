@@ -208,9 +208,12 @@ public class GameController implements Initializable {
             case T -> {
                 if (game.currentRoomHasNPC()) {
                     startMiniGame();
+                    popUpBox.setText(game.startTalk());
+                    popUpBox.setVisible(true);
+                    popUpBox.toFront();
                 } else {
+                    textBox.setText(game.startTalk());
                 }
-                textBox.setText(game.startTalk());
             }
         }
         pressedAction(event.getCode().getName());
@@ -285,9 +288,6 @@ public class GameController implements Initializable {
 
     @FXML
     public void onKeyReleased(KeyEvent event) {
-        if (popUpBox.isVisible()) {
-            return;
-        }
         switch (event.getCode()) {
             case W, D, A, S -> {
                 playerMove.onKeyReleasedMovement(event.getCode());
