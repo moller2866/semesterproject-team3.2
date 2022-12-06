@@ -3,6 +3,10 @@ package oceanCleanup.src.domain;
 
 import java.util.List;
 
+/**
+ *
+ * @author Kasper, Jonas
+ */
 public class Game {
 
     protected Room currentRoom;
@@ -33,29 +37,32 @@ public class Game {
 
         dock.setExit("east", recyclingCenter);
         dock.setExit("north", ship);
+        // for GUI
         dock.setExit("torecyclingcenter", recyclingCenter);
         dock.setExit("toship", ship);
 
         recyclingCenter.setExit("west", dock);
         recyclingCenter.setExit("east", container);
+        // for GUI
         recyclingCenter.setExit("todock", dock);
         recyclingCenter.setExit("tocontainer", container);
 
         container.setExit("west", recyclingCenter);
+        // for GUI
         container.setExit("torecyclingcenter", recyclingCenter);
 
         ship.setExit("south", dock);
         ship.setExit("west", wheelhouse);
+        ship.setExit("east", ocean);
         ship.setExit("todock", dock);
         ship.setExit("towheelhouse", wheelhouse);
+        ship.setExit("toocean", ocean);
 
         wheelhouse.setExit("east", ship);
-        wheelhouse.setExit("north", ocean);
         wheelhouse.setExit("toship", ship);
-        wheelhouse.setExit("toocean", ocean);
 
-        ocean.setExit("south", wheelhouse);
-        ocean.setExit("towheelhouse", wheelhouse);
+        ocean.setExit("west", ship);
+        ocean.setExit("toship", ship);
 
 
         currentRoom = dock;
@@ -254,7 +261,7 @@ public class Game {
         return currentRoom.hasNPC();
     }
 
-    public String seeInventory() {
+    public String seeInventoryCLI() {
         try {
             if (playerInventory.hasBucket()) {
                 return playerInventory.toString() + playerBucket.getContent();
@@ -262,6 +269,16 @@ public class Game {
         } catch (NullPointerException ignored) {
         }
         return playerInventory.toString();
+    }
+
+    public String seeInventoryGUI() {
+        try {
+            if (playerInventory.hasBucket()) {
+                return playerBucket.getContent();
+            }
+        } catch (NullPointerException ignored) {
+        }
+        return "You are not carrying anything.";
     }
 
     public boolean dropAllItems() {

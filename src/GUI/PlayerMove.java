@@ -13,6 +13,10 @@ import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 
+/**
+ *
+ * @author Kasper, Jonas
+ */
 public class PlayerMove {
 
     private BooleanProperty wPressed = new SimpleBooleanProperty();

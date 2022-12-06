@@ -1,5 +1,8 @@
 package oceanCleanup.src.GUI;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,6 +13,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.util.Duration;
@@ -23,6 +29,10 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+/**
+ *
+ * @author Kasper, Jonas
+ */
 public class GameController implements Initializable {
 
     Game game;
@@ -36,12 +46,10 @@ public class GameController implements Initializable {
     private ImageView background, bucket, ship, radar;
     @FXML
     private TextArea textBox;
-
     @FXML
     private TextArea popUpBox;
     @FXML
     private ImageView wKey, aKey, sKey, dKey, hKey, iKey, tKey, qKey, eKey, spaceKey;
-
     ArrayList<ImageView> items = new ArrayList<>();
     ArrayList<ImageView> nonInteractableItems = new ArrayList<>();
     private final double gameScale = 1.5;
@@ -130,16 +138,31 @@ public class GameController implements Initializable {
                 return;
             }
         }
+
         switch (event.getCode()) {
             case W, A, S, D -> playerMove.onKeyPressedMovement(event.getCode());
             case SPACE -> {
                 goNextRoom();
-                picupItem();
+                pickupItem();
             }
             case Q -> dropBucket();
             case E -> emptyBucket();
             case H -> textBox.setText(game.getRoomDescriptionGUI());
-            case I -> textBox.setText(game.seeInventory());
+            case I -> textBox.setText(game.seeInventoryGUI());
+            case V -> {
+                if (game.isRoomFull()) {
+                    Media media = new Media(getClass().getResource("media/oceancleanup.mp4").toExternalForm());
+                    MediaPlayer videoPlayer = new MediaPlayer(media);
+                    MediaView video = new MediaView(videoPlayer);
+                    video.setSmooth(true);
+                    video.setVisible(true);
+                    videoPlayer.setAutoPlay(true);
+                    scene.getChildren().add(video);
+                    Timeline tm = new Timeline(new KeyFrame(Duration.millis(2000), new KeyValue(video.opacityProperty(), 0)));
+                    tm.setDelay(Duration.seconds(23));
+                    tm.play();
+                }
+            }
             case T -> {
                 if (game.currentRoomHasNPC()) {
                     popUpBox.setText(game.startTalk() + "\n                                     ... PRESS {ENTER} TO CONTINUE ...");
@@ -201,13 +224,14 @@ public class GameController implements Initializable {
 
 
 
-                                                       >> You have completed your task <<
+                                                                            >> You have completed your task <<
 
-                                                                  Thank you for helping us!
+                                                                                      Thank you for helping us!
 
-                                The game is now over, but you can still walk around and explore!
-
-                                                             ... PRESS {ENTER} TO CONTINUE ...""".indent(8));
+                                                                    We have prepared a small video for you to watch.
+                                                       When you have closed this window, you can press {V} to watch it.
+                                              
+                                                                               ... PRESS {ENTER} TO CONTINUE ...""".indent(8));
                         popUpBox.setVisible(true);
                         popUpBox.toFront();
                     }
@@ -222,7 +246,7 @@ public class GameController implements Initializable {
         }
     }
 
-    private void picupItem() {
+    private void pickupItem() {
         for (ImageView item : items) {
             if (item.getBoundsInParent().intersects(playerPane.getBoundsInParent())) {
                 String fileName = item.getImage().getUrl();
@@ -315,12 +339,24 @@ public class GameController implements Initializable {
             temp.setLayoutX(boundary.get(0));
             temp.setLayoutY(boundary.get(1));
             temp.setId("border");
-            //temp.setStyle("-fx-background-color: Blue;");
-            //playerPane.setStyle("-fx-background-color: Red;");
-            temp.setVisible(false);
+            temp.setStyle("-fx-background-color: Blue;");
+            playerPane.setStyle("-fx-background-color: Red;");
+            temp.setVisible(true);
+            DEBUGGINGMoveItemsAround(temp);
             scene.getChildren().add(temp);
             borders.add(temp);
         }
+    }
+
+    private static void DEBUGGINGMoveItemsAround(Pane temp) {
+        temp.setOnMouseDragged(event -> {
+            temp.setLayoutX(event.getSceneX());
+            temp.setLayoutY(event.getSceneY());
+        });
+        temp.setOnMouseReleased(event -> {
+            String outString = "{\""+temp.getId()+"\": [" + temp.getLayoutX()+", " + temp.getLayoutY() + ", " + temp.getPrefWidth() + ", " + temp.getPrefHeight() + "],\n";
+            System.out.println(outString);
+        });
     }
 
     private void changeSceneImage() {
@@ -341,8 +377,9 @@ public class GameController implements Initializable {
             temp.setLayoutX(value.get(0));
             temp.setLayoutY(value.get(1));
             temp.setId(key);
-            //temp.setStyle("-fx-background-color: Green;");
-            temp.setVisible(false);
+            temp.setStyle("-fx-background-color: Green;");
+            temp.setVisible(true);
+            DEBUGGINGMoveItemsAround(temp);
             playerMove.addCollider(temp);
         }
     }

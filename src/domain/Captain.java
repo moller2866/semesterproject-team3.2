@@ -1,5 +1,9 @@
 package oceanCleanup.src.domain;
 
+/**
+ *
+ * @author Kasper, Jonas, Duncan
+ */
 public class Captain extends NPC {
 
     Captain(String name, double x, double y) {
