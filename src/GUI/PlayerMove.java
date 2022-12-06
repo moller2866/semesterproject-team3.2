@@ -14,6 +14,8 @@ import javafx.scene.layout.Pane;
 import java.util.ArrayList;
 
 /**
+ * This class controls the movement of the player. And restricts the player from walking through objects.
+ * This class also allows objects to follow the player. e.g. the Bucket.
  * @author Kasper, Jonas
  */
 public class PlayerMove {

@@ -7,7 +7,8 @@ import java.util.Set;
 import java.util.HashMap;
 
 /**
- *
+ * This is the Room class, it creates room objects and can contain items and NPCs.
+ * It also contains a HashMap of exits to other rooms.
  * @author Kasper, Jonas
  */
 public class Room {

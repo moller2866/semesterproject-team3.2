@@ -30,7 +30,8 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 /**
- *
+ * This controller class is used to control the GUI, e.g. all JavaFX objects.
+ * It also controls the game logic.
  * @author Kasper, Jonas
  */
 public class GameController implements Initializable {

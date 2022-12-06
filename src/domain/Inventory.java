@@ -3,7 +3,7 @@ package oceanCleanup.src.domain;
 import java.util.ArrayList;
 
 /**
- *
+ * This class is used to create an inventory object, which is used to store plastic or the bucket.
  * @author Kasper, Jonas
  */
 public class Inventory {

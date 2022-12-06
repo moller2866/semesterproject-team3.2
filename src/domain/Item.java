@@ -1,7 +1,7 @@
 package oceanCleanup.src.domain;
 
 /**
- *
+ * This is the interface for the Item classes, e.g. Plastic or Tool (Bucket).
  * @author Kasper, Jonas
  */
 public abstract class Item {

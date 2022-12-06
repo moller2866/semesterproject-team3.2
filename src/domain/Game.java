@@ -4,7 +4,7 @@ package oceanCleanup.src.domain;
 import java.util.List;
 
 /**
- *
+ * This is the foundation of the game. It contains most of the logic for the game.
  * @author Kasper, Jonas
  */
 public class Game {

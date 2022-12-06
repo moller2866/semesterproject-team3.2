@@ -1,8 +1,8 @@
 package oceanCleanup.src.domain;
 
 /**
- *
- * @author Kasper, Jonas, Duncan
+ * This class is used to create a captain NPC, which is used to interact with the player.
+ *  @author Kasper, Jonas, Duncan
  */
 public class Captain extends NPC {
 

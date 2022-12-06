@@ -3,7 +3,7 @@ package oceanCleanup.src.domain;
 import java.util.ArrayList;
 
 /**
- *
+ * This class is used to create a bucket object, which is used to collect plastic.
  * @author Kasper, Jonas
  */
 public class Bucket extends Tool {
