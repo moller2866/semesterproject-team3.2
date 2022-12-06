@@ -14,7 +14,6 @@ import javafx.scene.layout.Pane;
 import java.util.ArrayList;
 
 /**
- *
  * @author Kasper, Jonas
  */
 public class PlayerMove {
@@ -185,18 +184,18 @@ public class PlayerMove {
                 if (node.getBoundsInParent().intersects(playerPane.getBoundsInParent())) {
 
                     if ((playerPane.getLayoutX() > node.getLayoutX())
-                            && (playerPane.getLayoutX() >= node.getLayoutX() + node.getBoundsInParent().getWidth() - 5)) {
+                            && (playerPane.getLayoutX() > node.getLayoutX() + node.getBoundsInParent().getWidth() - 5)) {
                         borderLeft = true;
                     }
-                    if ((playerPane.getLayoutX() + playerWidth <= node.getLayoutX())
+                    if ((playerPane.getLayoutX() + playerWidth < node.getLayoutX() + 5)
                             && (playerPane.getLayoutX() + playerWidth < node.getLayoutX() + node.getBoundsInParent().getWidth())) {
                         borderRight = true;
                     }
                     if ((playerPane.getLayoutY() > node.getLayoutY())
-                            && (playerPane.getLayoutY() >= node.getLayoutY() + node.getBoundsInParent().getHeight() - 5)) {
+                            && (playerPane.getLayoutY() > node.getLayoutY() + node.getBoundsInParent().getHeight() - 5)) {
                         borderTop = true;
                     }
-                    if ((playerPane.getLayoutY() + playerHeight <= node.getLayoutY())
+                    if ((playerPane.getLayoutY() + playerHeight <= node.getLayoutY() + 5)
                             && (playerPane.getLayoutY() + playerHeight < node.getLayoutY() + node.getBoundsInParent().getHeight())) {
                         borderBottom = true;
                     }
