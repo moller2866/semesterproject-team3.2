@@ -223,15 +223,14 @@ public class GameController implements Initializable {
 
 
 
-                                                       >> You have completed your task <<
+                                                                            >> You have completed your task <<
 
-                                                                  Thank you for helping us!
+                                                                                      Thank you for helping us!
 
-                                The game is now over, and we have prepared a small video for you to watch.
-                                
-                                When you have closed this window, you can press the {V} key to watch the video.
-
-                                                             ... PRESS {ENTER} TO CONTINUE ...""".indent(8));
+                                                                    We have prepared a small video for you to watch.
+                                                       When you have closed this window, you can press {V} to watch it.
+                                              
+                                                                               ... PRESS {ENTER} TO CONTINUE ...""".indent(8));
                         popUpBox.setVisible(true);
                         popUpBox.toFront();
                     }
