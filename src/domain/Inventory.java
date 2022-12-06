@@ -2,6 +2,10 @@ package oceanCleanup.src.domain;
 
 import java.util.ArrayList;
 
+/**
+ *
+ * @author Kasper, Jonas
+ */
 public class Inventory {
 
     private final int limit;

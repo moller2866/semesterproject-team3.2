@@ -2,6 +2,10 @@ package oceanCleanup.src.domain;
 
 import java.util.ArrayList;
 
+/**
+ *
+ * @author Kasper, Jonas
+ */
 public class Bucket extends Tool {
 
     ArrayList<Plastic> content = new ArrayList<>();

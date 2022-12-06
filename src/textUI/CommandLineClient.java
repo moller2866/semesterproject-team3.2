@@ -12,6 +12,10 @@ import oceanCleanup.src.domain.Game;
 /**
  * @author ancla
  */
+/**
+ *
+ * @author Kasper, Jonas, Duncan, Zubeyr
+ */
 public class CommandLineClient {
 
     private Parser parser;

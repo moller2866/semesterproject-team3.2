@@ -1,5 +1,9 @@
 package oceanCleanup.src.domain;
 
+/**
+ *
+ * @author Kasper, Jonas
+ */
 public abstract class Item {
     private double y;
     private double x;

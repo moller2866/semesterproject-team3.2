@@ -1,5 +1,9 @@
 package oceanCleanup.src.domain;
 
+/**
+ *
+ * @author Kasper, Jonas
+ */
 public class ItemFactory {
 
     public static Item create(String type, double x, double y) throws IllegalStateException {

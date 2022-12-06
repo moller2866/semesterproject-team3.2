@@ -1,5 +1,9 @@
 package oceanCleanup.src.domain;
 
+/**
+ *
+ * @author Kasper, Jonas
+ */
 public class NPCFactory {
 
     public static NPC create(String type, String name, double x, double y) throws IllegalStateException {

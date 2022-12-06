@@ -10,8 +10,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author Kasper Møller
- **/
+ *
+ * @author Kasper
+ *
+ * This class is responsible for parsing the JSON files and creating the objects
+ * to be used in Room.java
+ */
 public class RoomDataParser {
     String filename;
     Map<String, ?> jsonContent;
@@ -82,15 +86,4 @@ public class RoomDataParser {
         return (String) getJsonContent().get("description");
     }
 
-    public static void main(String[] args) {
-        RoomDataParser parser = new RoomDataParser( "src/data/roomdescriptions/dock.json");
-
-        System.out.println(parser.getDescription());
-        System.out.println();
-        System.out.println(parser.getNPCs());
-        System.out.println();
-        System.out.println(parser.getItems());
-        System.out.println(parser.getBorders());
-
-    }
 }
