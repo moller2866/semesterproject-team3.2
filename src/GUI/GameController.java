@@ -46,9 +46,6 @@ public class GameController implements Initializable {
     private TextArea popUpBox;
     @FXML
     private ImageView wKey, aKey, sKey, dKey, hKey, iKey, tKey, qKey, eKey, spaceKey;
-    @FXML
-    private MediaView video;
-    private MediaPlayer videoPlayer;
     ArrayList<ImageView> items = new ArrayList<>();
     ArrayList<ImageView> nonInteractableItems = new ArrayList<>();
     private final double gameScale = 1.5;
@@ -151,7 +148,7 @@ public class GameController implements Initializable {
             case V -> {
                 if (game.isRoomFull()) {
                     Media media = new Media(getClass().getResource("media/oceancleanup.mp4").toExternalForm());
-                    videoPlayer = new MediaPlayer(media);
+                    MediaPlayer videoPlayer = new MediaPlayer(media);
                     MediaView video = new MediaView(videoPlayer);
                     video.setSmooth(true);
                     video.setVisible(true);
