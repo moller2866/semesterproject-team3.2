@@ -154,8 +154,8 @@ public class GameController implements Initializable {
                     video.setVisible(true);
                     videoPlayer.setAutoPlay(true);
                     scene.getChildren().add(video);
-                    Timeline tm = new Timeline(new KeyFrame(Duration.millis(3000), new KeyValue(video.opacityProperty(), 0)));
-                    tm.setDelay(Duration.seconds(25));
+                    Timeline tm = new Timeline(new KeyFrame(Duration.millis(2000), new KeyValue(video.opacityProperty(), 0)));
+                    tm.setDelay(Duration.seconds(23));
                     tm.play();
                 }
             }
