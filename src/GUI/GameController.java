@@ -1,5 +1,8 @@
 package oceanCleanup.src.GUI;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,6 +13,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.util.Duration;
@@ -40,12 +46,10 @@ public class GameController implements Initializable {
     private ImageView background, bucket, ship, radar;
     @FXML
     private TextArea textBox;
-
     @FXML
     private TextArea popUpBox;
     @FXML
     private ImageView wKey, aKey, sKey, dKey, hKey, iKey, tKey, qKey, eKey, spaceKey;
-
     ArrayList<ImageView> items = new ArrayList<>();
     ArrayList<ImageView> nonInteractableItems = new ArrayList<>();
     private final double gameScale = 1.5;
@@ -134,6 +138,7 @@ public class GameController implements Initializable {
                 return;
             }
         }
+
         switch (event.getCode()) {
             case W, A, S, D -> playerMove.onKeyPressedMovement(event.getCode());
             case SPACE -> {
@@ -143,7 +148,21 @@ public class GameController implements Initializable {
             case Q -> dropBucket();
             case E -> emptyBucket();
             case H -> textBox.setText(game.getRoomDescriptionGUI());
-            case I -> textBox.setText(game.seeInventory());
+            case I -> textBox.setText(game.seeInventoryGUI());
+            case V -> {
+                if (game.isRoomFull()) {
+                    Media media = new Media(getClass().getResource("media/oceancleanup.mp4").toExternalForm());
+                    MediaPlayer videoPlayer = new MediaPlayer(media);
+                    MediaView video = new MediaView(videoPlayer);
+                    video.setSmooth(true);
+                    video.setVisible(true);
+                    videoPlayer.setAutoPlay(true);
+                    scene.getChildren().add(video);
+                    Timeline tm = new Timeline(new KeyFrame(Duration.millis(2000), new KeyValue(video.opacityProperty(), 0)));
+                    tm.setDelay(Duration.seconds(23));
+                    tm.play();
+                }
+            }
             case T -> {
                 if (game.currentRoomHasNPC()) {
                     popUpBox.setText(game.startTalk() + "\n                                     ... PRESS {ENTER} TO CONTINUE ...");
@@ -205,13 +224,14 @@ public class GameController implements Initializable {
 
 
 
-                                                       >> You have completed your task <<
+                                                                            >> You have completed your task <<
 
-                                                                  Thank you for helping us!
+                                                                                      Thank you for helping us!
 
-                                The game is now over, but you can still walk around and explore!
-
-                                                             ... PRESS {ENTER} TO CONTINUE ...""".indent(8));
+                                                                    We have prepared a small video for you to watch.
+                                                       When you have closed this window, you can press {V} to watch it.
+                                              
+                                                                               ... PRESS {ENTER} TO CONTINUE ...""".indent(8));
                         popUpBox.setVisible(true);
                         popUpBox.toFront();
                     }

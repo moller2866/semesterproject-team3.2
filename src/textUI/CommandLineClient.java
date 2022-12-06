@@ -117,7 +117,7 @@ public class CommandLineClient {
                 }
                 break;
             case INVENTORY:
-                System.out.println(game.seeInventory());
+                System.out.println(game.seeInventoryCLI());
                 break;
             case EMPTY:
                 if (game.emptyBucketInRoom()) {

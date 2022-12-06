@@ -261,7 +261,7 @@ public class Game {
         return currentRoom.hasNPC();
     }
 
-    public String seeInventory() {
+    public String seeInventoryCLI() {
         try {
             if (playerInventory.hasBucket()) {
                 return playerInventory.toString() + playerBucket.getContent();
@@ -269,6 +269,16 @@ public class Game {
         } catch (NullPointerException ignored) {
         }
         return playerInventory.toString();
+    }
+
+    public String seeInventoryGUI() {
+        try {
+            if (playerInventory.hasBucket()) {
+                return playerBucket.getContent();
+            }
+        } catch (NullPointerException ignored) {
+        }
+        return "You are not carrying anything.";
     }
 
     public boolean dropAllItems() {
