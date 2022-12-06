@@ -144,7 +144,7 @@ public class GameController implements Initializable {
             case Q -> dropBucket();
             case E -> emptyBucket();
             case H -> textBox.setText(game.getRoomDescriptionGUI());
-            case I -> textBox.setText(game.seeInventory());
+            case I -> textBox.setText(game.seeInventoryGUI());
             case V -> {
                 if (game.isRoomFull()) {
                     Media media = new Media(getClass().getResource("media/oceancleanup.mp4").toExternalForm());
