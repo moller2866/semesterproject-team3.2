@@ -339,24 +339,12 @@ public class GameController implements Initializable {
             temp.setLayoutX(boundary.get(0));
             temp.setLayoutY(boundary.get(1));
             temp.setId("border");
-            temp.setStyle("-fx-background-color: Blue;");
-            playerPane.setStyle("-fx-background-color: Red;");
-            temp.setVisible(true);
-            DEBUGGINGMoveItemsAround(temp);
+            //temp.setStyle("-fx-background-color: Blue;");
+            //playerPane.setStyle("-fx-background-color: Red;");
+            temp.setVisible(false);
             scene.getChildren().add(temp);
             borders.add(temp);
         }
-    }
-
-    private static void DEBUGGINGMoveItemsAround(Pane temp) {
-        temp.setOnMouseDragged(event -> {
-            temp.setLayoutX(event.getSceneX());
-            temp.setLayoutY(event.getSceneY());
-        });
-        temp.setOnMouseReleased(event -> {
-            String outString = "{\""+temp.getId()+"\": [" + temp.getLayoutX()+", " + temp.getLayoutY() + ", " + temp.getPrefWidth() + ", " + temp.getPrefHeight() + "],\n";
-            System.out.println(outString);
-        });
     }
 
     private void changeSceneImage() {
@@ -377,9 +365,8 @@ public class GameController implements Initializable {
             temp.setLayoutX(value.get(0));
             temp.setLayoutY(value.get(1));
             temp.setId(key);
-            temp.setStyle("-fx-background-color: Green;");
-            temp.setVisible(true);
-            DEBUGGINGMoveItemsAround(temp);
+            //temp.setStyle("-fx-background-color: Green;");
+            temp.setVisible(false);
             playerMove.addCollider(temp);
         }
     }
