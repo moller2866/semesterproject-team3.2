@@ -3,7 +3,7 @@ package oceanCleanup.src.domain;
 import java.util.ArrayList;
 
 /**
- *
+ * This is the interface for NPCs, e.g. the Captain and the Worker.
  * @author Kasper, Jonas
  */
 public abstract class NPC {

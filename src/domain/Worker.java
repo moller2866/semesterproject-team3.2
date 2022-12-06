@@ -1,7 +1,7 @@
 package oceanCleanup.src.domain;
 
 /**
- *
+ * This class is used to create a worker NPC, which is used to interact with the player.
  * @author Kasper, Jonas, Duncan
  */
 public class Worker extends NPC {

@@ -10,11 +10,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
+ *This class is responsible for parsing the JSON files and creating the objects
+ *to be used in Room.java
  * @author Kasper
- *
- * This class is responsible for parsing the JSON files and creating the objects
- * to be used in Room.java
  */
 public class RoomDataParser {
     String filename;

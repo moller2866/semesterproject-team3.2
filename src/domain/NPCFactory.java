@@ -1,7 +1,7 @@
 package oceanCleanup.src.domain;
 
 /**
- *
+ * This abstract factory creates NPC objects from JSON data.
  * @author Kasper, Jonas
  */
 public class NPCFactory {

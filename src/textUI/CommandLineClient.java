@@ -10,10 +10,7 @@ import oceanCleanup.src.domain.Commands;
 import oceanCleanup.src.domain.Game;
 
 /**
- * @author ancla
- */
-/**
- *
+ * This class is responsible for parsing the user input and creating a Command.
  * @author Kasper, Jonas, Duncan, Zubeyr
  */
 public class CommandLineClient {

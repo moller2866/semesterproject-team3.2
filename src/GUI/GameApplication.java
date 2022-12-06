@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 import oceanCleanup.src.domain.Game;
 
 /**
- *
+ * This is the main class for the GUI.
  * @author Kasper, Jonas
  */
 public class GameApplication extends Application {

@@ -1,7 +1,7 @@
 package oceanCleanup.src.domain;
 
 /**
- *
+ * This is the plastic class, which is a subclass of Item.
  * @author Kasper, Jonas
  */
 public class Plastic extends Item {
