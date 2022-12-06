@@ -288,6 +288,7 @@ public class GameController implements Initializable {
         addRoomBorders();
         createColliders();
         setScale();
+        playerPane.toFront();
     }
 
     private void addRoomContent() {
@@ -318,7 +319,6 @@ public class GameController implements Initializable {
             items.add(temp);
         }
 
-        // adds non-interactive items to the scene
         switch (this.game.getCurrentRoom().getName()) {
             case "dock" -> {
                 scene.getChildren().add(ship);
@@ -340,8 +340,6 @@ public class GameController implements Initializable {
             temp.setLayoutX(boundary.get(0));
             temp.setLayoutY(boundary.get(1));
             temp.setId("border");
-            //temp.setStyle("-fx-background-color: Blue;");
-            //playerPane.setStyle("-fx-background-color: Red;");
             temp.setVisible(false);
             scene.getChildren().add(temp);
             borders.add(temp);
@@ -357,7 +355,6 @@ public class GameController implements Initializable {
 
     private void createColliders() {
         playerMove.clearColliders();
-        // for each key value pair
         for (Map.Entry<String, ArrayList<Double>> entry : game.getCurrentRoom().getColliders().entrySet()) {
             String key = entry.getKey();
             ArrayList<Double> value = entry.getValue();
@@ -366,13 +363,11 @@ public class GameController implements Initializable {
             temp.setLayoutX(value.get(0));
             temp.setLayoutY(value.get(1));
             temp.setId(key);
-            //temp.setStyle("-fx-background-color: Green;");
             temp.setVisible(false);
             playerMove.addCollider(temp);
         }
     }
 
-    //set Scale for all images
     public void setScale() {
         for (ImageView item : items) {
             item.setScaleX(gameScale);
