@@ -7,6 +7,10 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import oceanCleanup.src.domain.Game;
 
+/**
+ *
+ * @author Kasper, Jonas
+ */
 public class GameApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {

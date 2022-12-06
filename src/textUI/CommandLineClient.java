@@ -8,10 +8,13 @@ package oceanCleanup.src.textUI;
 import oceanCleanup.src.domain.Command;
 import oceanCleanup.src.domain.Commands;
 import oceanCleanup.src.domain.Game;
-import oceanCleanup.src.domain.Minigame;
 
 /**
  * @author ancla
+ */
+/**
+ *
+ * @author Kasper, Jonas, Duncan, Zubeyr
  */
 public class CommandLineClient {
 

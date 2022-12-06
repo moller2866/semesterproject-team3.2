@@ -1,5 +1,9 @@
 package oceanCleanup.src.domain;
 
+/**
+ *
+ * @author Kasper, Jonas, Duncan
+ */
 public class Worker extends NPC {
 
     Worker(String name, double x, double y) {

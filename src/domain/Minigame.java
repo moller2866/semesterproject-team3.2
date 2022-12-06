@@ -2,6 +2,10 @@ package oceanCleanup.src.domain;
 
 import java.util.Date;
 
+/**
+ *
+ * @author Kasper, Jonas
+ */
 public class Minigame extends Game {
 
     boolean isStarted = false;

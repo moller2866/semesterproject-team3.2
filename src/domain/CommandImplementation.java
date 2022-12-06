@@ -19,6 +19,10 @@
 
 package oceanCleanup.src.domain;
 
+/**
+ *
+ * @author Kasper, Jonas
+ */
 public class CommandImplementation implements Command {
     private final Commands commandName;
     private final String commandValue;
