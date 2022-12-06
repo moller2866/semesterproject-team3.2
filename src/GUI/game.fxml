@@ -40,6 +40,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.media.MediaView?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -189,5 +190,6 @@
             <Font name="Verdana Bold" size="15.0" />
          </font>
       </TextArea>
+      <MediaView fx:id="video" fitHeight="200.0" fitWidth="200.0" layoutX="500.0" layoutY="300.0" />
    </children>
 </AnchorPane>
